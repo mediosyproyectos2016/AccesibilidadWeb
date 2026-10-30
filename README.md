@@ -45,7 +45,7 @@ ejemplos/                          informe de ejemplo
 
 ## Instalación
 
-Necesitas **Node.js 18 o superior** para el script de auditoría.
+Necesitas **Node.js 20 o superior** para el script de auditoría.
 
 ### Claude Code (plugin)
 

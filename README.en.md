@@ -21,7 +21,7 @@ The skill and its references are written in **Spanish** (its primary audience is
 
 ## Install
 
-You need **Node.js 18+** for the audit script.
+You need **Node.js 20+** for the audit script.
 
 **Claude Code (plugin)**
 

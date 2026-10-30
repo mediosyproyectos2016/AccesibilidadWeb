@@ -18,7 +18,7 @@ Carga cada referencia solo cuando llegues a ese paso. No propongas overlays; no 
 ## Si trabajas en este repositorio (contribuir)
 
 - Idioma principal: español (README también en inglés).
-- Scripts en `skills/accesibilidad-web/scripts/` (Node ≥ 18, ESM, sin dependencias fuera de Playwright y axe-core). Tests: `npm test` en esa carpeta.
+- Scripts en `skills/accesibilidad-web/scripts/` (Node ≥ 20, ESM, sin dependencias fuera de Playwright y axe-core). Tests: `npm test` en esa carpeta.
 - Una regla nueva de axe o comprobación propia → añade su arreglo en `scripts/lib/wcag.mjs` (`ARREGLOS`) y, si hace falta, una receta en `references/recetas/`.
 - Mantén `AGENTS.md`, `GEMINI.md`, `.cursor/rules/` y `.github/copilot-instructions.md` breves: apuntan a la skill, no duplican su contenido.
 - Lee [CONTRIBUTING.md](CONTRIBUTING.md).

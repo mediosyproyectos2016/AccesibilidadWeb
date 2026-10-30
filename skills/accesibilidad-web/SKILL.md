@@ -19,7 +19,7 @@ Sigue los pasos en orden. Lee cada referencia **solo cuando llegues a ese paso**
 - Pregunta (o deduce) qué URLs son representativas: portada, listado, ficha, formulario, carrito/pago, contacto, legal. Si la web es privada (sector servicios a consumidores, art. 2.2 Ley 11/2023) o pública (RD 1112/2018), consulta [docs/normativa-es.md](../../docs/normativa-es.md) para saber qué obligaciones aplican.
 
 ### 2. Auditoría automática
-Ejecuta el script (Node ≥ 18). La primera vez instala dependencias:
+Ejecuta el script (Node ≥ 20). La primera vez instala dependencias:
 
 ```bash
 cd skills/accesibilidad-web/scripts   # o ${CLAUDE_PLUGIN_ROOT}/skills/accesibilidad-web/scripts

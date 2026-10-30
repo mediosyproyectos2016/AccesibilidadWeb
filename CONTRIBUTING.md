@@ -30,7 +30,7 @@ Issues y PR en español o en inglés.
 
 - Español claro, frases cortas, segunda persona («añade», «comprueba»). Términos en inglés solo si son el nombre técnico (`aria-label`, *focus trap*) y, la primera vez, con su traducción.
 - Markdown: encabezados `##`, bloques de código con lenguaje (`html`, `jsx`, `vue`, `liquid`, `php`), tablas solo cuando comparan.
-- JavaScript: Node ≥ 18, ESM (`.mjs`), sin dependencias nuevas salvo que se justifique (hoy solo `playwright`, `axe-core` y `@axe-core/playwright`). Nombres en español, como el resto del código.
+- JavaScript: Node ≥ 20, ESM (`.mjs`), sin dependencias nuevas salvo que se justifique (hoy solo `playwright`, `axe-core` y `@axe-core/playwright`). Nombres en español, como el resto del código.
 
 ## Desarrollo y tests
 
