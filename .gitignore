@@ -1,0 +1,8 @@
+node_modules/
+informe-accesibilidad/
+*.log
+.DS_Store
+Thumbs.db
+bash.exe.stackdump
+.env
+.env.*

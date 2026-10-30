@@ -1,0 +1,5088 @@
+{
+  "herramienta": "AccesibilidadWeb",
+  "version": "0.1.0",
+  "axeVersion": "4.14.0",
+  "fecha": "2026-10-30T14:16:28.725Z",
+  "configuracion": {
+    "anchos": [
+      1280,
+      390
+    ],
+    "esquemas": [
+      "claro",
+      "oscuro"
+    ],
+    "etiquetas": [
+      "wcag2a",
+      "wcag2aa",
+      "wcag21a",
+      "wcag21aa",
+      "wcag22aa"
+    ],
+    "umbral": "serious",
+    "teclado": true,
+    "reflow": true,
+    "excluir": [],
+    "clic": []
+  },
+  "paginas": [
+    {
+      "url": "https://shop.myp.com.es/",
+      "titulo": "Comparador de precios: bajadas reales frente al mínimo de 30 días · Escaparate de precios",
+      "error": null,
+      "avisos": [
+        "Había un diálogo modal abierto al cargar; se cerró con Esc antes del recorrido."
+      ]
+    },
+    {
+      "url": "https://shop.myp.com.es/cupones",
+      "titulo": "Cupones de descuento de las tiendas · Escaparate de precios",
+      "error": null
+    },
+    {
+      "url": "https://shop.myp.com.es/ofertas",
+      "titulo": "Ofertas de las tiendas: lo que anuncian rebajado hoy · Escaparate de precios",
+      "error": null
+    },
+    {
+      "url": "https://shop.myp.com.es/producto/ub8ecfd7ebe8bb9c5-the-colossal-mascara-volum-express",
+      "titulo": "Precio The Colossal Máscara Volum Express: 5,98 € hoy",
+      "error": null
+    },
+    {
+      "url": "https://shop.myp.com.es/como-calculamos",
+      "titulo": "Cómo calculamos las bajadas de precio · Escaparate de precios",
+      "error": null
+    }
+  ],
+  "resumen": {
+    "problemas": 0,
+    "reglas": 0,
+    "porImpacto": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "porCriterio": {},
+    "porPagina": {},
+    "porRegla": {}
+  },
+  "problemas": [],
+  "revisar": [
+    {
+      "regla": "color-contrast",
+      "descripcion": "Los elementos deben tener un contraste de colores suficiente",
+      "criterios": [
+        "1.4.3"
+      ],
+      "pagina": "https://shop.myp.com.es/",
+      "elementos": 3
+    },
+    {
+      "regla": "label-content-name-mismatch",
+      "descripcion": "Los elementos deben tener su texto visible como parte de su nombre accesible",
+      "criterios": [
+        "2.5.3"
+      ],
+      "pagina": "https://shop.myp.com.es/",
+      "elementos": 1
+    },
+    {
+      "regla": "color-contrast",
+      "descripcion": "Los elementos deben tener un contraste de colores suficiente",
+      "criterios": [
+        "1.4.3"
+      ],
+      "pagina": "https://shop.myp.com.es/ofertas",
+      "elementos": 6
+    },
+    {
+      "regla": "color-contrast",
+      "descripcion": "Los elementos deben tener un contraste de colores suficiente",
+      "criterios": [
+        "1.4.3"
+      ],
+      "pagina": "https://shop.myp.com.es/producto/ub8ecfd7ebe8bb9c5-the-colossal-mascara-volum-express",
+      "elementos": 6
+    }
+  ],
+  "teclado": {
+    "https://shop.myp.com.es/": [
+      {
+        "orden": 1,
+        "zona": {
+          "l": 16,
+          "t": 16,
+          "r": 171.765625,
+          "b": 56
+        },
+        "selector": "a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Saltar al contenido",
+        "href": "#contenido",
+        "rect": {
+          "x": 16,
+          "y": 16,
+          "ancho": 155.765625,
+          "alto": 40,
+          "top": 16
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 2,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "shop.myp Escaparate de precios",
+        "href": "/",
+        "rect": {
+          "x": 16,
+          "y": 14,
+          "ancho": 161.265625,
+          "alto": 36,
+          "top": 14
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 3,
+        "zona": {
+          "l": 197.265625,
+          "t": 12,
+          "r": 744.40625,
+          "b": 52
+        },
+        "selector": "#q-cabecera",
+        "etiqueta": "input",
+        "rol": "combobox",
+        "texto": "",
+        "href": "",
+        "rect": {
+          "x": 197.265625,
+          "y": 12,
+          "ancho": 547.140625,
+          "alto": 40,
+          "top": 12
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 4,
+        "zona": {
+          "l": 197.265625,
+          "t": 12,
+          "r": 744.40625,
+          "b": 52
+        },
+        "selector": "div > div > div > form > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Buscar",
+        "href": "",
+        "rect": {
+          "x": 678.625,
+          "y": 18,
+          "ancho": 59.78125,
+          "alto": 28,
+          "top": 18
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 5,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(1)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Rebajas",
+        "href": "/bajadas",
+        "rect": {
+          "x": 764.40625,
+          "y": 12.75,
+          "ancho": 97.828125,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 6,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(2)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ofertas",
+        "href": "/ofertas",
+        "rect": {
+          "x": 864.234375,
+          "y": 12.75,
+          "ancho": 96.1875,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 7,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(3)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cupones",
+        "href": "/cupones",
+        "rect": {
+          "x": 962.421875,
+          "y": 12.75,
+          "ancho": 105.265625,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 8,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 64
+        },
+        "selector": "header > div > nav > div > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Secciones",
+        "href": "",
+        "rect": {
+          "x": 1069.6875,
+          "y": 12.75,
+          "ancho": 106.3125,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 9,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Tema del sistema. Pulsa para cambiar",
+        "href": "",
+        "rect": {
+          "x": 1178,
+          "y": 12,
+          "ancho": 40,
+          "alto": 40,
+          "top": 12
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 10,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 64
+        },
+        "selector": "header > div > nav > details > summary",
+        "etiqueta": "summary",
+        "rol": "",
+        "texto": "Menú",
+        "href": "",
+        "rect": {
+          "x": 1220,
+          "y": 10,
+          "ancho": 44,
+          "alto": 44,
+          "top": 10
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 11,
+        "zona": {
+          "l": 0,
+          "t": 65,
+          "r": 1280,
+          "b": 97
+        },
+        "selector": "div:nth-of-type(2) > p > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cómo funciona",
+        "href": "/como-calculamos",
+        "rect": {
+          "x": 1167.09375,
+          "y": 71,
+          "ancho": 96.90625,
+          "alto": 20,
+          "top": 71
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 12,
+        "zona": {
+          "l": 16,
+          "t": 407.453125,
+          "r": 496,
+          "b": 463.453125
+        },
+        "selector": "#q-portada",
+        "etiqueta": "input",
+        "rol": "combobox",
+        "texto": "",
+        "href": "",
+        "rect": {
+          "x": 16,
+          "y": 407.453125,
+          "ancho": 480,
+          "alto": 56,
+          "top": 407.453125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 13,
+        "zona": {
+          "l": 16,
+          "t": 407.453125,
+          "r": 496,
+          "b": 463.453125
+        },
+        "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div > form > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Buscar",
+        "href": "",
+        "rect": {
+          "x": 408.265625,
+          "y": 413.453125,
+          "ancho": 81.734375,
+          "alto": 44,
+          "top": 413.453125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 14,
+        "zona": {
+          "l": 16,
+          "t": 483.453125,
+          "r": 496,
+          "b": 724.453125
+        },
+        "selector": "div:nth-of-type(1) > div:nth-of-type(2) > form > div:nth-of-type(1) > input",
+        "etiqueta": "input",
+        "rol": "",
+        "texto": "",
+        "href": "",
+        "rect": {
+          "x": 33,
+          "y": 551.703125,
+          "ancho": 312.515625,
+          "alto": 48,
+          "top": 551.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 15,
+        "zona": {
+          "l": 16,
+          "t": 483.453125,
+          "r": 496,
+          "b": 724.453125
+        },
+        "selector": "div:nth-of-type(1) > div:nth-of-type(2) > form > div:nth-of-type(1) > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Avisadme",
+        "href": "",
+        "rect": {
+          "x": 353.515625,
+          "y": 551.703125,
+          "ancho": 125.484375,
+          "alto": 48,
+          "top": 551.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 16,
+        "zona": {
+          "l": 16,
+          "t": 483.453125,
+          "r": 496,
+          "b": 724.453125
+        },
+        "selector": "div:nth-of-type(1) > div:nth-of-type(2) > form > label > input",
+        "etiqueta": "input",
+        "rol": "",
+        "texto": "on",
+        "href": "",
+        "rect": {
+          "x": 33,
+          "y": 613.703125,
+          "ancho": 20,
+          "alto": 20,
+          "top": 613.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 17,
+        "zona": {
+          "l": 33,
+          "t": 551.703125,
+          "r": 479,
+          "b": 707.453125
+        },
+        "selector": "div:nth-of-type(2) > form > label > span > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "política de privacidad",
+        "href": "/privacidad#ofertas",
+        "rect": {
+          "x": 63,
+          "y": 630.953125,
+          "ancho": 346.625,
+          "alto": 38.25,
+          "top": 630.953125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 18,
+        "zona": {
+          "l": 16,
+          "t": 483.453125,
+          "r": 496,
+          "b": 724.453125
+        },
+        "selector": "div:nth-of-type(1) > div:nth-of-type(2) > form > p > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Más opciones",
+        "href": "/recibe-ofertas",
+        "rect": {
+          "x": 356.265625,
+          "y": 691.453125,
+          "ancho": 74.71875,
+          "alto": 16,
+          "top": 691.453125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 19,
+        "zona": {
+          "l": 16,
+          "t": 125,
+          "r": 496,
+          "b": 822.453125
+        },
+        "selector": "div > div:nth-of-type(1) > ul > li:nth-of-type(4) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cómo calculamos las bajadas",
+        "href": "/como-calculamos",
+        "rect": {
+          "x": 294,
+          "y": 797.453125,
+          "ancho": 197.953125,
+          "alto": 22.5,
+          "top": 777.453125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 20,
+        "zona": {
+          "l": 540.1078491210938,
+          "t": 279.22076416015625,
+          "r": 897.8921508789062,
+          "b": 590.2323608398438
+        },
+        "selector": "div > figure > div:nth-of-type(1) > p > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Campana Grupo Filtrante AEG GDE682HM 120 cm Inox 750 m3/h Hob2Hood",
+        "href": "/producto/7333394121901-campana-grupo-filtrante-aeg-gde682hm-120-cm-inox-750-m3-h-hob2hood",
+        "rect": {
+          "x": 677.9459838867188,
+          "y": 372.32293701171875,
+          "ancho": 179.870361328125,
+          "alto": 65.70404052734375,
+          "top": 352.32293701171875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 21,
+        "zona": {
+          "l": 910.7481079101562,
+          "t": 279.96832275390625,
+          "r": 1267.251953125,
+          "b": 589.4848022460938
+        },
+        "selector": "li:nth-of-type(4) > figure > div:nth-of-type(1) > p > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Pack 2 Batidos de proteínas + colágeno de vainilla y caramelo salado s",
+        "href": "/producto/u6d06312573de3e50-pack-2-batidos-de-proteinas-colageno-de-vainilla-y-caramelo-salado-shake-400g-ca",
+        "rect": {
+          "x": 1050.38232421875,
+          "y": 354.9227600097656,
+          "ancho": 192.9061279296875,
+          "alto": 86.05523681640625,
+          "top": 334.9227600097656
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 22,
+        "zona": {
+          "l": 902,
+          "t": 267.75,
+          "r": 1276,
+          "b": 601.703125
+        },
+        "selector": "ul > li:nth-of-type(4) > figure > p:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "más ofertas",
+        "href": "/ofertas",
+        "rect": {
+          "x": 1039.2059326171875,
+          "y": 544.6473388671875,
+          "ancho": 74.3812255859375,
+          "alto": 20.60943603515625,
+          "top": 524.6473388671875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 23,
+        "zona": {
+          "l": 544,
+          "t": 283.75,
+          "r": 1264,
+          "b": 663.703125
+        },
+        "selector": "div > div:nth-of-type(2) > section > div > button:nth-of-type(1)",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Sección anterior",
+        "href": "",
+        "rect": {
+          "x": 945,
+          "y": 621.703125,
+          "ancho": 36,
+          "alto": 36,
+          "top": 601.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 24,
+        "zona": {
+          "l": 914,
+          "t": 601.703125,
+          "r": 1264,
+          "b": 637.703125
+        },
+        "selector": "section > div > ul > li:nth-of-type(1) > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Ver 1 de 7: Cosmética",
+        "href": "",
+        "rect": {
+          "x": 985,
+          "y": 627.703125,
+          "ancho": 24,
+          "alto": 24,
+          "top": 607.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 25,
+        "zona": {
+          "l": 914,
+          "t": 601.703125,
+          "r": 1264,
+          "b": 637.703125
+        },
+        "selector": "section > div > ul > li:nth-of-type(2) > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Ver 2 de 7: Electrodomésticos",
+        "href": "",
+        "rect": {
+          "x": 1009,
+          "y": 627.703125,
+          "ancho": 24,
+          "alto": 24,
+          "top": 607.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 26,
+        "zona": {
+          "l": 914,
+          "t": 601.703125,
+          "r": 1264,
+          "b": 637.703125
+        },
+        "selector": "section > div > ul > li:nth-of-type(3) > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Ver 3 de 7: Moda",
+        "href": "",
+        "rect": {
+          "x": 1033,
+          "y": 627.703125,
+          "ancho": 24,
+          "alto": 24,
+          "top": 607.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 27,
+        "zona": {
+          "l": 914,
+          "t": 601.703125,
+          "r": 1264,
+          "b": 637.703125
+        },
+        "selector": "section > div > ul > li:nth-of-type(4) > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Ver 4 de 7: Salud",
+        "href": "",
+        "rect": {
+          "x": 1057,
+          "y": 627.703125,
+          "ancho": 24,
+          "alto": 24,
+          "top": 607.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 28,
+        "zona": {
+          "l": 914,
+          "t": 601.703125,
+          "r": 1264,
+          "b": 637.703125
+        },
+        "selector": "section > div > ul > li:nth-of-type(5) > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Ver 5 de 7: Hogar y jardín",
+        "href": "",
+        "rect": {
+          "x": 1081,
+          "y": 627.703125,
+          "ancho": 24,
+          "alto": 24,
+          "top": 607.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 29,
+        "zona": {
+          "l": 914,
+          "t": 601.703125,
+          "r": 1264,
+          "b": 637.703125
+        },
+        "selector": "section > div > ul > li:nth-of-type(6) > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Ver 6 de 7: Tecnología",
+        "href": "",
+        "rect": {
+          "x": 1105,
+          "y": 627.703125,
+          "ancho": 24,
+          "alto": 24,
+          "top": 607.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 30,
+        "zona": {
+          "l": 914,
+          "t": 601.703125,
+          "r": 1264,
+          "b": 637.703125
+        },
+        "selector": "section > div > ul > li:nth-of-type(7) > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Ver 7 de 7: Deporte",
+        "href": "",
+        "rect": {
+          "x": 1129,
+          "y": 627.703125,
+          "ancho": 24,
+          "alto": 24,
+          "top": 607.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 31,
+        "zona": {
+          "l": 544,
+          "t": 283.75,
+          "r": 1264,
+          "b": 663.703125
+        },
+        "selector": "div > div:nth-of-type(2) > section > div > button:nth-of-type(2)",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Sección siguiente",
+        "href": "",
+        "rect": {
+          "x": 1157,
+          "y": 621.703125,
+          "ancho": 36,
+          "alto": 36,
+          "top": 601.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 32,
+        "zona": {
+          "l": 914,
+          "t": 283.75,
+          "r": 1264,
+          "b": 663.703125
+        },
+        "selector": "div:nth-of-type(2) > section > div > span > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Pausar el paso automático",
+        "href": "",
+        "rect": {
+          "x": 1197,
+          "y": 621.703125,
+          "ancho": 36,
+          "alto": 36,
+          "top": 601.703125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 33,
+        "zona": {
+          "l": 16,
+          "t": 338.453125,
+          "r": 1264,
+          "b": 461.453125
+        },
+        "selector": "#contenido > div > section:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Faltan 28 días · viernes, 27 de noviembre de 2026 Novedad: Black Frida",
+        "href": "/temporada/black-friday",
+        "rect": {
+          "x": 16,
+          "y": 939.453125,
+          "ancho": 1248,
+          "alto": 123,
+          "top": 338.453125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 34,
+        "zona": {
+          "l": 37,
+          "t": 574.453125,
+          "r": 1243,
+          "b": 694.953125
+        },
+        "selector": "section:nth-of-type(2) > ul > li:nth-of-type(1) > span > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cupones",
+        "href": "/cupones",
+        "rect": {
+          "x": 444.515625,
+          "y": 1198.953125,
+          "ancho": 59.265625,
+          "alto": 20,
+          "top": 597.953125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 35,
+        "zona": {
+          "l": 37,
+          "t": 574.453125,
+          "r": 1243,
+          "b": 694.953125
+        },
+        "selector": "section:nth-of-type(2) > ul > li:nth-of-type(3) > span > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "más opciones",
+        "href": "/recibe-ofertas",
+        "rect": {
+          "x": 349.75,
+          "y": 1274.453125,
+          "ancho": 92.828125,
+          "alto": 20,
+          "top": 673.453125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 36,
+        "zona": {
+          "l": 16,
+          "t": 380.484375,
+          "r": 1264,
+          "b": 424.484375
+        },
+        "selector": "section:nth-of-type(3) > nav > ul > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cosmética",
+        "href": "/cosmetica",
+        "rect": {
+          "x": 16,
+          "y": 1486.484375,
+          "ancho": 99.546875,
+          "alto": 40,
+          "top": 380.484375
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 37,
+        "zona": {
+          "l": 16,
+          "t": 380.484375,
+          "r": 1264,
+          "b": 424.484375
+        },
+        "selector": "section:nth-of-type(3) > nav > ul > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Electrodomésticos",
+        "href": "/electrodomesticos",
+        "rect": {
+          "x": 123.546875,
+          "y": 1486.484375,
+          "ancho": 149.78125,
+          "alto": 40,
+          "top": 380.484375
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 38,
+        "zona": {
+          "l": 16,
+          "t": 380.484375,
+          "r": 1264,
+          "b": 424.484375
+        },
+        "selector": "section:nth-of-type(3) > nav > ul > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Moda",
+        "href": "/moda",
+        "rect": {
+          "x": 281.328125,
+          "y": 1486.484375,
+          "ancho": 71.046875,
+          "alto": 40,
+          "top": 380.484375
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 39,
+        "zona": {
+          "l": 16,
+          "t": 380.484375,
+          "r": 1264,
+          "b": 424.484375
+        },
+        "selector": "section:nth-of-type(3) > nav > ul > li:nth-of-type(4) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Salud",
+        "href": "/salud",
+        "rect": {
+          "x": 360.375,
+          "y": 1486.484375,
+          "ancho": 69.203125,
+          "alto": 40,
+          "top": 380.484375
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 40,
+        "zona": {
+          "l": 16,
+          "t": 380.484375,
+          "r": 1264,
+          "b": 424.484375
+        },
+        "selector": "section:nth-of-type(3) > nav > ul > li:nth-of-type(5) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Hogar y jardín",
+        "href": "/hogar-y-jardin",
+        "rect": {
+          "x": 437.578125,
+          "y": 1486.484375,
+          "ancho": 124.6875,
+          "alto": 40,
+          "top": 380.484375
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      }
+    ],
+    "https://shop.myp.com.es/cupones": [
+      {
+        "orden": 1,
+        "zona": {
+          "l": 16,
+          "t": 16,
+          "r": 171.765625,
+          "b": 56
+        },
+        "selector": "a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Saltar al contenido",
+        "href": "#contenido",
+        "rect": {
+          "x": 16,
+          "y": 16,
+          "ancho": 155.765625,
+          "alto": 40,
+          "top": 16
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 2,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "shop.myp Escaparate de precios",
+        "href": "/",
+        "rect": {
+          "x": 16,
+          "y": 14,
+          "ancho": 161.265625,
+          "alto": 36,
+          "top": 14
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 3,
+        "zona": {
+          "l": 197.265625,
+          "t": 12,
+          "r": 744.40625,
+          "b": 52
+        },
+        "selector": "#q-cabecera",
+        "etiqueta": "input",
+        "rol": "combobox",
+        "texto": "",
+        "href": "",
+        "rect": {
+          "x": 197.265625,
+          "y": 12,
+          "ancho": 547.140625,
+          "alto": 40,
+          "top": 12
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 4,
+        "zona": {
+          "l": 197.265625,
+          "t": 12,
+          "r": 744.40625,
+          "b": 52
+        },
+        "selector": "div > div > div > form > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Buscar",
+        "href": "",
+        "rect": {
+          "x": 678.625,
+          "y": 18,
+          "ancho": 59.78125,
+          "alto": 28,
+          "top": 18
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 5,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(1)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Rebajas",
+        "href": "/bajadas",
+        "rect": {
+          "x": 764.40625,
+          "y": 12.75,
+          "ancho": 97.828125,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 6,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(2)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ofertas",
+        "href": "/ofertas",
+        "rect": {
+          "x": 864.234375,
+          "y": 12.75,
+          "ancho": 96.1875,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 7,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(3)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cupones",
+        "href": "/cupones",
+        "rect": {
+          "x": 962.421875,
+          "y": 12.75,
+          "ancho": 105.265625,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 8,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 64
+        },
+        "selector": "header > div > nav > div > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Secciones",
+        "href": "",
+        "rect": {
+          "x": 1069.6875,
+          "y": 12.75,
+          "ancho": 106.3125,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 9,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Tema del sistema. Pulsa para cambiar",
+        "href": "",
+        "rect": {
+          "x": 1178,
+          "y": 12,
+          "ancho": 40,
+          "alto": 40,
+          "top": 12
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 10,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 64
+        },
+        "selector": "header > div > nav > details > summary",
+        "etiqueta": "summary",
+        "rol": "",
+        "texto": "Menú",
+        "href": "",
+        "rect": {
+          "x": 1220,
+          "y": 10,
+          "ancho": 44,
+          "alto": 44,
+          "top": 10
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 11,
+        "zona": {
+          "l": 0,
+          "t": 65,
+          "r": 1280,
+          "b": 97
+        },
+        "selector": "div:nth-of-type(2) > p > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cómo funciona",
+        "href": "/como-calculamos",
+        "rect": {
+          "x": 1167.09375,
+          "y": 71,
+          "ancho": 96.90625,
+          "alto": 20,
+          "top": 71
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 12,
+        "zona": {
+          "l": 16,
+          "t": 121,
+          "r": 1264,
+          "b": 141
+        },
+        "selector": "div > nav:nth-of-type(1) > ol > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Inicio",
+        "href": "/",
+        "rect": {
+          "x": 16,
+          "y": 121,
+          "ancho": 33.109375,
+          "alto": 20,
+          "top": 121
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 13,
+        "zona": {
+          "l": 16,
+          "t": 153,
+          "r": 1264,
+          "b": 207.75
+        },
+        "selector": "div > nav:nth-of-type(2) > ul > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Rebajas Medidas por nosotros",
+        "href": "/bajadas",
+        "rect": {
+          "x": 16,
+          "y": 153,
+          "ancho": 170.4375,
+          "alto": 48.75,
+          "top": 153
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 14,
+        "zona": {
+          "l": 16,
+          "t": 153,
+          "r": 1264,
+          "b": 207.75
+        },
+        "selector": "div > nav:nth-of-type(2) > ul > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ofertas Las anuncia la tienda",
+        "href": "/ofertas",
+        "rect": {
+          "x": 194.4375,
+          "y": 153,
+          "ancho": 163.96875,
+          "alto": 48.75,
+          "top": 153
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 15,
+        "zona": {
+          "l": 16,
+          "t": 153,
+          "r": 1264,
+          "b": 207.75
+        },
+        "selector": "div > nav:nth-of-type(2) > ul > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cupones Códigos de las tiendas",
+        "href": "/cupones",
+        "rect": {
+          "x": 366.40625,
+          "y": 153,
+          "ancho": 175.234375,
+          "alto": 50.75,
+          "top": 153
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 16,
+        "zona": {
+          "l": 46,
+          "t": 249.75,
+          "r": 1234,
+          "b": 467.421875
+        },
+        "selector": "header > div > div > p:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cómo funcionan los cupones",
+        "href": "/como-calculamos#cupones",
+        "rect": {
+          "x": 540.515625,
+          "y": 445.921875,
+          "ancho": 197.171875,
+          "alto": 20,
+          "top": 445.921875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 17,
+        "zona": {
+          "l": 16,
+          "t": 521.421875,
+          "r": 1264,
+          "b": 659.421875
+        },
+        "selector": "#contenido > div > div > p:nth-of-type(2) > a:nth-of-type(1)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "rebajas",
+        "href": "/bajadas",
+        "rect": {
+          "x": 494.828125,
+          "y": 595.421875,
+          "ancho": 51.515625,
+          "alto": 21,
+          "top": 595.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 18,
+        "zona": {
+          "l": 16,
+          "t": 521.421875,
+          "r": 1264,
+          "b": 659.421875
+        },
+        "selector": "#contenido > div > div > p:nth-of-type(2) > a:nth-of-type(2)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "ofertas de las tiendas",
+        "href": "/ofertas",
+        "rect": {
+          "x": 687.0625,
+          "y": 595.421875,
+          "ancho": 154.171875,
+          "alto": 21,
+          "top": 595.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 19,
+        "zona": {
+          "l": 16,
+          "t": 763.421875,
+          "r": 304,
+          "b": 1075.421875
+        },
+        "selector": "footer > div:nth-of-type(1) > div > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "shop.myp Escaparate de precios",
+        "href": "/",
+        "rect": {
+          "x": 16,
+          "y": 763.421875,
+          "ancho": 288,
+          "alto": 36,
+          "top": 763.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 20,
+        "zona": {
+          "l": 336,
+          "t": 749.421875,
+          "r": 624,
+          "b": 1061.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(1) > ul > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Rebajas: todas las bajadas de precio",
+        "href": "/bajadas",
+        "rect": {
+          "x": 336,
+          "y": 795.421875,
+          "ancho": 221.234375,
+          "alto": 19,
+          "top": 781.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 21,
+        "zona": {
+          "l": 336,
+          "t": 368.421875,
+          "r": 624,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(1) > ul > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ofertas de las tiendas",
+        "href": "/ofertas",
+        "rect": {
+          "x": 336,
+          "y": 821.421875,
+          "ancho": 133.15625,
+          "alto": 19,
+          "top": 426.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 22,
+        "zona": {
+          "l": 336,
+          "t": 368.421875,
+          "r": 624,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(1) > ul > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cupones de las tiendas",
+        "href": "/cupones",
+        "rect": {
+          "x": 336,
+          "y": 847.421875,
+          "ancho": 142.421875,
+          "alto": 19,
+          "top": 452.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 23,
+        "zona": {
+          "l": 336,
+          "t": 368.421875,
+          "r": 624,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(1) > ul > li:nth-of-type(4) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Black Friday: ofertas reales",
+        "href": "/temporada/black-friday",
+        "rect": {
+          "x": 336,
+          "y": 873.421875,
+          "ancho": 162.296875,
+          "alto": 19,
+          "top": 478.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 24,
+        "zona": {
+          "l": 336,
+          "t": 368.421875,
+          "r": 624,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(1) > ul > li:nth-of-type(5) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Recibe las mejores ofertas",
+        "href": "/recibe-ofertas",
+        "rect": {
+          "x": 336,
+          "y": 899.421875,
+          "ancho": 160.34375,
+          "alto": 19,
+          "top": 504.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 25,
+        "zona": {
+          "l": 656,
+          "t": 368.421875,
+          "r": 944,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cosmética",
+        "href": "/cosmetica",
+        "rect": {
+          "x": 656,
+          "y": 795.421875,
+          "ancho": 63.921875,
+          "alto": 19,
+          "top": 400.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 26,
+        "zona": {
+          "l": 656,
+          "t": 368.421875,
+          "r": 944,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Electrodomésticos",
+        "href": "/electrodomesticos",
+        "rect": {
+          "x": 656,
+          "y": 821.421875,
+          "ancho": 112.59375,
+          "alto": 19,
+          "top": 426.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 27,
+        "zona": {
+          "l": 656,
+          "t": 368.421875,
+          "r": 944,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Moda",
+        "href": "/moda",
+        "rect": {
+          "x": 656,
+          "y": 847.421875,
+          "ancho": 36.15625,
+          "alto": 19,
+          "top": 452.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 28,
+        "zona": {
+          "l": 656,
+          "t": 368.421875,
+          "r": 944,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(4) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Salud",
+        "href": "/salud",
+        "rect": {
+          "x": 656,
+          "y": 873.421875,
+          "ancho": 34.125,
+          "alto": 19,
+          "top": 478.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 29,
+        "zona": {
+          "l": 656,
+          "t": 368.421875,
+          "r": 944,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(5) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Hogar y jardín",
+        "href": "/hogar-y-jardin",
+        "rect": {
+          "x": 656,
+          "y": 899.421875,
+          "ancho": 87.765625,
+          "alto": 19,
+          "top": 504.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 30,
+        "zona": {
+          "l": 656,
+          "t": 368.421875,
+          "r": 944,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(6) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Tecnología",
+        "href": "/tecnologia",
+        "rect": {
+          "x": 656,
+          "y": 925.421875,
+          "ancho": 66.234375,
+          "alto": 19,
+          "top": 530.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 31,
+        "zona": {
+          "l": 656,
+          "t": 368.421875,
+          "r": 944,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(7) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Deporte",
+        "href": "/deporte",
+        "rect": {
+          "x": 656,
+          "y": 951.421875,
+          "ancho": 50.515625,
+          "alto": 19,
+          "top": 556.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 32,
+        "zona": {
+          "l": 656,
+          "t": 368.421875,
+          "r": 944,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(8) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cómo calculamos las bajadas",
+        "href": "/como-calculamos",
+        "rect": {
+          "x": 656,
+          "y": 977.421875,
+          "ancho": 180.359375,
+          "alto": 19,
+          "top": 582.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 33,
+        "zona": {
+          "l": 656,
+          "t": 368.421875,
+          "r": 944,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(9) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Tiendas que miramos",
+        "href": "/tiendas",
+        "rect": {
+          "x": 656,
+          "y": 1003.421875,
+          "ancho": 132.078125,
+          "alto": 19,
+          "top": 608.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 34,
+        "zona": {
+          "l": 656,
+          "t": 368.421875,
+          "r": 944,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(10) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Buscar",
+        "href": "/buscar",
+        "rect": {
+          "x": 656,
+          "y": 1029.421875,
+          "ancho": 40.359375,
+          "alto": 19,
+          "top": 634.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 35,
+        "zona": {
+          "l": 656,
+          "t": 368.421875,
+          "r": 944,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(11) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Índice de categorías",
+        "href": "/categorias",
+        "rect": {
+          "x": 656,
+          "y": 1055.421875,
+          "ancho": 123.734375,
+          "alto": 19,
+          "top": 660.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 36,
+        "zona": {
+          "l": 976,
+          "t": 368.421875,
+          "r": 1264,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(3) > ul > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Aviso legal",
+        "href": "/aviso-legal",
+        "rect": {
+          "x": 976,
+          "y": 795.421875,
+          "ancho": 66.3125,
+          "alto": 19,
+          "top": 400.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 37,
+        "zona": {
+          "l": 976,
+          "t": 368.421875,
+          "r": 1264,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(3) > ul > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Privacidad",
+        "href": "/privacidad",
+        "rect": {
+          "x": 976,
+          "y": 821.421875,
+          "ancho": 63.40625,
+          "alto": 19,
+          "top": 426.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 38,
+        "zona": {
+          "l": 976,
+          "t": 368.421875,
+          "r": 1264,
+          "b": 680.421875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(3) > ul > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cookies",
+        "href": "/cookies",
+        "rect": {
+          "x": 976,
+          "y": 847.421875,
+          "ancho": 48.6875,
+          "alto": 19,
+          "top": 452.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      }
+    ],
+    "https://shop.myp.com.es/ofertas": [
+      {
+        "orden": 1,
+        "zona": {
+          "l": 16,
+          "t": 16,
+          "r": 171.765625,
+          "b": 56
+        },
+        "selector": "a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Saltar al contenido",
+        "href": "#contenido",
+        "rect": {
+          "x": 16,
+          "y": 16,
+          "ancho": 155.765625,
+          "alto": 40,
+          "top": 16
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 2,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "shop.myp Escaparate de precios",
+        "href": "/",
+        "rect": {
+          "x": 16,
+          "y": 14,
+          "ancho": 161.265625,
+          "alto": 36,
+          "top": 14
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 3,
+        "zona": {
+          "l": 197.265625,
+          "t": 12,
+          "r": 744.40625,
+          "b": 52
+        },
+        "selector": "#q-cabecera",
+        "etiqueta": "input",
+        "rol": "combobox",
+        "texto": "",
+        "href": "",
+        "rect": {
+          "x": 197.265625,
+          "y": 12,
+          "ancho": 547.140625,
+          "alto": 40,
+          "top": 12
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 4,
+        "zona": {
+          "l": 197.265625,
+          "t": 12,
+          "r": 744.40625,
+          "b": 52
+        },
+        "selector": "div > div > div > form > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Buscar",
+        "href": "",
+        "rect": {
+          "x": 678.625,
+          "y": 18,
+          "ancho": 59.78125,
+          "alto": 28,
+          "top": 18
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 5,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(1)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Rebajas",
+        "href": "/bajadas",
+        "rect": {
+          "x": 764.40625,
+          "y": 12.75,
+          "ancho": 97.828125,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 6,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(2)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ofertas",
+        "href": "/ofertas",
+        "rect": {
+          "x": 864.234375,
+          "y": 12.75,
+          "ancho": 96.1875,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 7,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(3)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cupones",
+        "href": "/cupones",
+        "rect": {
+          "x": 962.421875,
+          "y": 12.75,
+          "ancho": 105.265625,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 8,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 64
+        },
+        "selector": "header > div > nav > div > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Secciones",
+        "href": "",
+        "rect": {
+          "x": 1069.6875,
+          "y": 12.75,
+          "ancho": 106.3125,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 9,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Tema del sistema. Pulsa para cambiar",
+        "href": "",
+        "rect": {
+          "x": 1178,
+          "y": 12,
+          "ancho": 40,
+          "alto": 40,
+          "top": 12
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 10,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 64
+        },
+        "selector": "header > div > nav > details > summary",
+        "etiqueta": "summary",
+        "rol": "",
+        "texto": "Menú",
+        "href": "",
+        "rect": {
+          "x": 1220,
+          "y": 10,
+          "ancho": 44,
+          "alto": 44,
+          "top": 10
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 11,
+        "zona": {
+          "l": 0,
+          "t": 65,
+          "r": 1280,
+          "b": 97
+        },
+        "selector": "div:nth-of-type(2) > p > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cómo funciona",
+        "href": "/como-calculamos",
+        "rect": {
+          "x": 1167.09375,
+          "y": 71,
+          "ancho": 96.90625,
+          "alto": 20,
+          "top": 71
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 12,
+        "zona": {
+          "l": 16,
+          "t": 121,
+          "r": 1264,
+          "b": 141
+        },
+        "selector": "div > nav:nth-of-type(1) > ol > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Inicio",
+        "href": "/",
+        "rect": {
+          "x": 16,
+          "y": 121,
+          "ancho": 33.109375,
+          "alto": 20,
+          "top": 121
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 13,
+        "zona": {
+          "l": 16,
+          "t": 153,
+          "r": 1264,
+          "b": 207.75
+        },
+        "selector": "div > nav:nth-of-type(2) > ul > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Rebajas Medidas por nosotros",
+        "href": "/bajadas",
+        "rect": {
+          "x": 16,
+          "y": 153,
+          "ancho": 170.4375,
+          "alto": 48.75,
+          "top": 153
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 14,
+        "zona": {
+          "l": 16,
+          "t": 153,
+          "r": 1264,
+          "b": 207.75
+        },
+        "selector": "div > nav:nth-of-type(2) > ul > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ofertas Las anuncia la tienda",
+        "href": "/ofertas",
+        "rect": {
+          "x": 194.4375,
+          "y": 153,
+          "ancho": 165.96875,
+          "alto": 50.75,
+          "top": 153
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 15,
+        "zona": {
+          "l": 16,
+          "t": 153,
+          "r": 1264,
+          "b": 207.75
+        },
+        "selector": "div > nav:nth-of-type(2) > ul > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cupones Códigos de las tiendas",
+        "href": "/cupones",
+        "rect": {
+          "x": 368.40625,
+          "y": 153,
+          "ancho": 173.234375,
+          "alto": 48.75,
+          "top": 153
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 16,
+        "zona": {
+          "l": 16,
+          "t": 219.75,
+          "r": 1264,
+          "b": 444.421875
+        },
+        "selector": "div > header > div:nth-of-type(1) > p:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cómo lo comprobamos",
+        "href": "/como-calculamos#ofertas-tiendas",
+        "rect": {
+          "x": 365.53125,
+          "y": 393.921875,
+          "ancho": 159.765625,
+          "alto": 20,
+          "top": 393.921875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 17,
+        "zona": {
+          "l": 16,
+          "t": 464.421875,
+          "r": 1264,
+          "b": 508.421875
+        },
+        "selector": "div > nav:nth-of-type(3) > ul > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "−10 % o más (4723)",
+        "href": "/ofertas",
+        "rect": {
+          "x": 16,
+          "y": 464.421875,
+          "ancho": 138.703125,
+          "alto": 40,
+          "top": 464.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 18,
+        "zona": {
+          "l": 16,
+          "t": 464.421875,
+          "r": 1264,
+          "b": 508.421875
+        },
+        "selector": "div > nav:nth-of-type(3) > ul > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "−20 % o más (1000)",
+        "href": "/ofertas/20",
+        "rect": {
+          "x": 160.703125,
+          "y": 464.421875,
+          "ancho": 138.703125,
+          "alto": 40,
+          "top": 464.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 19,
+        "zona": {
+          "l": 16,
+          "t": 464.421875,
+          "r": 1264,
+          "b": 508.421875
+        },
+        "selector": "div > nav:nth-of-type(3) > ul > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "−30 % o más (1000)",
+        "href": "/ofertas/30",
+        "rect": {
+          "x": 305.40625,
+          "y": 464.421875,
+          "ancho": 138.703125,
+          "alto": 40,
+          "top": 464.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 20,
+        "zona": {
+          "l": 16,
+          "t": 464.421875,
+          "r": 1264,
+          "b": 508.421875
+        },
+        "selector": "div > nav:nth-of-type(3) > ul > li:nth-of-type(4) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "−40 % o más (1000)",
+        "href": "/ofertas/40",
+        "rect": {
+          "x": 450.109375,
+          "y": 464.421875,
+          "ancho": 138.703125,
+          "alto": 40,
+          "top": 464.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 21,
+        "zona": {
+          "l": 16,
+          "t": 464.421875,
+          "r": 1264,
+          "b": 508.421875
+        },
+        "selector": "div > nav:nth-of-type(3) > ul > li:nth-of-type(5) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "−50 % o más (555)",
+        "href": "/ofertas/50",
+        "rect": {
+          "x": 594.8125,
+          "y": 464.421875,
+          "ancho": 132.0625,
+          "alto": 40,
+          "top": 464.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 22,
+        "zona": {
+          "l": 16,
+          "t": 464.421875,
+          "r": 1264,
+          "b": 508.421875
+        },
+        "selector": "div > nav:nth-of-type(3) > ul > li:nth-of-type(6) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "−60 % o más (122)",
+        "href": "/ofertas/60",
+        "rect": {
+          "x": 732.875,
+          "y": 464.421875,
+          "ancho": 132.0625,
+          "alto": 40,
+          "top": 464.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 23,
+        "zona": {
+          "l": 16,
+          "t": 464.421875,
+          "r": 1264,
+          "b": 508.421875
+        },
+        "selector": "div > nav:nth-of-type(3) > ul > li:nth-of-type(7) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "−70 % o más (24)",
+        "href": "/ofertas/70",
+        "rect": {
+          "x": 870.9375,
+          "y": 464.421875,
+          "ancho": 125.421875,
+          "alto": 40,
+          "top": 464.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 24,
+        "zona": {
+          "l": 16,
+          "t": 524.421875,
+          "r": 1264,
+          "b": 560.421875
+        },
+        "selector": "#contenido > div > div:nth-of-type(1) > a:nth-of-type(1)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Más descuento (%)",
+        "href": "/ofertas",
+        "rect": {
+          "x": 80.109375,
+          "y": 524.421875,
+          "ancho": 144.65625,
+          "alto": 36,
+          "top": 524.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 25,
+        "zona": {
+          "l": 16,
+          "t": 524.421875,
+          "r": 1264,
+          "b": 560.421875
+        },
+        "selector": "#contenido > div > div:nth-of-type(1) > a:nth-of-type(2)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Más ahorro (€)",
+        "href": "/ofertas?orden=ahorro",
+        "rect": {
+          "x": 232.765625,
+          "y": 524.421875,
+          "ancho": 119.46875,
+          "alto": 36,
+          "top": 524.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 26,
+        "zona": {
+          "l": 16,
+          "t": 524.421875,
+          "r": 1264,
+          "b": 560.421875
+        },
+        "selector": "#contenido > div > div:nth-of-type(1) > a:nth-of-type(3)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Precio más bajo",
+        "href": "/ofertas?orden=precio",
+        "rect": {
+          "x": 360.234375,
+          "y": 524.421875,
+          "ancho": 126.328125,
+          "alto": 36,
+          "top": 524.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 27,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Todas las tiendas",
+        "href": "/ofertas",
+        "rect": {
+          "x": 16,
+          "y": 572.421875,
+          "ancho": 131.3125,
+          "alto": 36,
+          "top": 572.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 28,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Atmósfera Sport 145",
+        "href": "/ofertas?tienda=atmosfera-sport",
+        "rect": {
+          "x": 155.3125,
+          "y": 572.421875,
+          "ancho": 155.109375,
+          "alto": 36,
+          "top": 572.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 29,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Druni 91",
+        "href": "/ofertas?tienda=druni",
+        "rect": {
+          "x": 318.421875,
+          "y": 572.421875,
+          "ancho": 78.75,
+          "alto": 36,
+          "top": 572.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 30,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(4) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Klast 72",
+        "href": "/ofertas?tienda=klast",
+        "rect": {
+          "x": 405.171875,
+          "y": 572.421875,
+          "ancho": 75.734375,
+          "alto": 36,
+          "top": 572.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 31,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(5) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Douglas 63",
+        "href": "/ofertas?tienda=douglas",
+        "rect": {
+          "x": 488.90625,
+          "y": 572.421875,
+          "ancho": 97.375,
+          "alto": 36,
+          "top": 572.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 32,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(6) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Arenal 63",
+        "href": "/ofertas?tienda=arenal",
+        "rect": {
+          "x": 594.28125,
+          "y": 572.421875,
+          "ancho": 86.390625,
+          "alto": 36,
+          "top": 572.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 33,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(7) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Castore 57",
+        "href": "/ofertas?tienda=castore",
+        "rect": {
+          "x": 688.671875,
+          "y": 572.421875,
+          "ancho": 92.984375,
+          "alto": 36,
+          "top": 572.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 34,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(8) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Tennis-Point 56",
+        "href": "/ofertas?tienda=tennis-point",
+        "rect": {
+          "x": 789.65625,
+          "y": 572.421875,
+          "ancho": 123.78125,
+          "alto": 36,
+          "top": 572.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 35,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(9) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Kenay Home 54",
+        "href": "/ofertas?tienda=kenay",
+        "rect": {
+          "x": 921.4375,
+          "y": 572.421875,
+          "ancho": 126.34375,
+          "alto": 36,
+          "top": 572.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 36,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(10) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Padel-Point 31",
+        "href": "/ofertas?tienda=padel-point",
+        "rect": {
+          "x": 1055.78125,
+          "y": 572.421875,
+          "ancho": 116.703125,
+          "alto": 36,
+          "top": 572.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 37,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(11) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "ASOS 29",
+        "href": "/ofertas?tienda=asos",
+        "rect": {
+          "x": 1180.484375,
+          "y": 572.421875,
+          "ancho": 80.59375,
+          "alto": 36,
+          "top": 572.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 38,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(12) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Size Official 28",
+        "href": "/ofertas?tienda=size-official",
+        "rect": {
+          "x": 16,
+          "y": 616.421875,
+          "ancho": 119.5,
+          "alto": 36,
+          "top": 616.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 39,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(13) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Pro Breeze 24",
+        "href": "/ofertas?tienda=pro-breeze",
+        "rect": {
+          "x": 143.5,
+          "y": 616.421875,
+          "ancho": 113.359375,
+          "alto": 36,
+          "top": 616.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 40,
+        "zona": {
+          "l": 16,
+          "t": 572.421875,
+          "r": 1264,
+          "b": 832.421875
+        },
+        "selector": "div > nav:nth-of-type(4) > ul > li:nth-of-type(14) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Bike Mailorder 23",
+        "href": "/ofertas?tienda=bike-mailorder",
+        "rect": {
+          "x": 264.859375,
+          "y": 616.421875,
+          "ancho": 137.875,
+          "alto": 36,
+          "top": 616.421875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      }
+    ],
+    "https://shop.myp.com.es/producto/ub8ecfd7ebe8bb9c5-the-colossal-mascara-volum-express": [
+      {
+        "orden": 1,
+        "zona": {
+          "l": 16,
+          "t": 16,
+          "r": 171.765625,
+          "b": 56
+        },
+        "selector": "a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Saltar al contenido",
+        "href": "#contenido",
+        "rect": {
+          "x": 16,
+          "y": 16,
+          "ancho": 155.765625,
+          "alto": 40,
+          "top": 16
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 2,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "shop.myp Escaparate de precios",
+        "href": "/",
+        "rect": {
+          "x": 16,
+          "y": 14,
+          "ancho": 161.265625,
+          "alto": 36,
+          "top": 14
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 3,
+        "zona": {
+          "l": 197.265625,
+          "t": 12,
+          "r": 744.40625,
+          "b": 52
+        },
+        "selector": "#q-cabecera",
+        "etiqueta": "input",
+        "rol": "combobox",
+        "texto": "",
+        "href": "",
+        "rect": {
+          "x": 197.265625,
+          "y": 12,
+          "ancho": 547.140625,
+          "alto": 40,
+          "top": 12
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 4,
+        "zona": {
+          "l": 197.265625,
+          "t": 12,
+          "r": 744.40625,
+          "b": 52
+        },
+        "selector": "div > div > div > form > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Buscar",
+        "href": "",
+        "rect": {
+          "x": 678.625,
+          "y": 18,
+          "ancho": 59.78125,
+          "alto": 28,
+          "top": 18
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 5,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(1)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Rebajas",
+        "href": "/bajadas",
+        "rect": {
+          "x": 764.40625,
+          "y": 12.75,
+          "ancho": 97.828125,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 6,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(2)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ofertas",
+        "href": "/ofertas",
+        "rect": {
+          "x": 864.234375,
+          "y": 12.75,
+          "ancho": 96.1875,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 7,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(3)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cupones",
+        "href": "/cupones",
+        "rect": {
+          "x": 962.421875,
+          "y": 12.75,
+          "ancho": 105.265625,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 8,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 64
+        },
+        "selector": "header > div > nav > div > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Secciones",
+        "href": "",
+        "rect": {
+          "x": 1069.6875,
+          "y": 12.75,
+          "ancho": 106.3125,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 9,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Tema del sistema. Pulsa para cambiar",
+        "href": "",
+        "rect": {
+          "x": 1178,
+          "y": 12,
+          "ancho": 40,
+          "alto": 40,
+          "top": 12
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 10,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 64
+        },
+        "selector": "header > div > nav > details > summary",
+        "etiqueta": "summary",
+        "rol": "",
+        "texto": "Menú",
+        "href": "",
+        "rect": {
+          "x": 1220,
+          "y": 10,
+          "ancho": 44,
+          "alto": 44,
+          "top": 10
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 11,
+        "zona": {
+          "l": 0,
+          "t": 65,
+          "r": 1280,
+          "b": 97
+        },
+        "selector": "div:nth-of-type(2) > p > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cómo funciona",
+        "href": "/como-calculamos",
+        "rect": {
+          "x": 1167.09375,
+          "y": 71,
+          "ancho": 96.90625,
+          "alto": 20,
+          "top": 71
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 12,
+        "zona": {
+          "l": 16,
+          "t": 121,
+          "r": 1264,
+          "b": 141
+        },
+        "selector": "div > nav > ol > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Inicio",
+        "href": "/",
+        "rect": {
+          "x": 16,
+          "y": 121,
+          "ancho": 33.109375,
+          "alto": 20,
+          "top": 121
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 13,
+        "zona": {
+          "l": 16,
+          "t": 121,
+          "r": 1264,
+          "b": 141
+        },
+        "selector": "div > nav > ol > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cosmética",
+        "href": "/cosmetica",
+        "rect": {
+          "x": 66.578125,
+          "y": 121,
+          "ancho": 63.921875,
+          "alto": 20,
+          "top": 121
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 14,
+        "zona": {
+          "l": 16,
+          "t": 121,
+          "r": 1264,
+          "b": 141
+        },
+        "selector": "div > nav > ol > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Maquillaje de ojos",
+        "href": "/cosmetica/maquillaje-ojos",
+        "rect": {
+          "x": 147.96875,
+          "y": 121,
+          "ancho": 112.84375,
+          "alto": 20,
+          "top": 121
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 15,
+        "zona": {
+          "l": 554.65625,
+          "t": 161,
+          "r": 1264,
+          "b": 181
+        },
+        "selector": "div:nth-of-type(1) > div:nth-of-type(2) > header > p > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "MAYBELLINE NEW YORK",
+        "href": "/buscar?q=Maybelline%20New%20York",
+        "rect": {
+          "x": 554.65625,
+          "y": 161,
+          "ancho": 168.609375,
+          "alto": 19,
+          "top": 161
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 16,
+        "zona": {
+          "l": 554.65625,
+          "t": 325.875,
+          "r": 1264,
+          "b": 682.875
+        },
+        "selector": "#cta-tienda",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ver en Primor (se abre en otra pestaña)",
+        "href": "/ir/ub8ecfd7ebe8bb9c5-primor",
+        "rect": {
+          "x": 575.65625,
+          "y": 518.875,
+          "ancho": 167.4375,
+          "alto": 48,
+          "top": 518.875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 17,
+        "zona": {
+          "l": 554.65625,
+          "t": 325.875,
+          "r": 1264,
+          "b": 682.875
+        },
+        "selector": "header > div > div:nth-of-type(2) > details > summary",
+        "etiqueta": "summary",
+        "rol": "",
+        "texto": "Compartir",
+        "href": "",
+        "rect": {
+          "x": 751.09375,
+          "y": 520.875,
+          "ancho": 120.53125,
+          "alto": 44,
+          "top": 520.875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 18,
+        "zona": {
+          "l": 575.65625,
+          "t": 582.875,
+          "r": 1243,
+          "b": 661.875
+        },
+        "selector": "div > ul > li:nth-of-type(2) > span > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cómo calculamos",
+        "href": "/como-calculamos",
+        "rect": {
+          "x": 860,
+          "y": 641.875,
+          "ancho": 111.734375,
+          "alto": 19,
+          "top": 641.875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 19,
+        "zona": {
+          "l": 575.65625,
+          "t": 354.875,
+          "r": 1243,
+          "b": 564.875
+        },
+        "selector": "section > form > div:nth-of-type(1) > div > input",
+        "etiqueta": "input",
+        "rol": "",
+        "texto": "5,68",
+        "href": "",
+        "rect": {
+          "x": 575.65625,
+          "y": 803.875,
+          "ancho": 152,
+          "alto": 42,
+          "top": 378.875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 20,
+        "zona": {
+          "l": 554.65625,
+          "t": 273.875,
+          "r": 1264,
+          "b": 585.875
+        },
+        "selector": "header > section > form > div:nth-of-type(2) > input",
+        "etiqueta": "input",
+        "rol": "",
+        "texto": "",
+        "href": "",
+        "rect": {
+          "x": 739.65625,
+          "y": 803.875,
+          "ancho": 503.34375,
+          "alto": 42,
+          "top": 378.875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 21,
+        "zona": {
+          "l": 575.65625,
+          "t": 354.875,
+          "r": 1243,
+          "b": 564.875
+        },
+        "selector": "section > form > div:nth-of-type(4) > label > input",
+        "etiqueta": "input",
+        "rol": "",
+        "texto": "on",
+        "href": "",
+        "rect": {
+          "x": 575.65625,
+          "y": 895.875,
+          "ancho": 20,
+          "alto": 20,
+          "top": 470.875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 22,
+        "zona": {
+          "l": 575.65625,
+          "t": 468.875,
+          "r": 1243,
+          "b": 508.875
+        },
+        "selector": "form > div:nth-of-type(4) > label > span > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Privacidad",
+        "href": "/privacidad#ofertas",
+        "rect": {
+          "x": 754.71875,
+          "y": 913.875,
+          "ancho": 65.625,
+          "alto": 19,
+          "top": 488.875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 23,
+        "zona": {
+          "l": 554.65625,
+          "t": 273.875,
+          "r": 1264,
+          "b": 585.875
+        },
+        "selector": "header > section > form > div:nth-of-type(6) > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Avísame",
+        "href": "",
+        "rect": {
+          "x": 575.65625,
+          "y": 945.875,
+          "ancho": 99.140625,
+          "alto": 44,
+          "top": 520.875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 24,
+        "zona": {
+          "l": 555.65625,
+          "t": 359.875,
+          "r": 1263,
+          "b": 459.875
+        },
+        "selector": "ol > li > div > p:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Primor",
+        "href": "/tiendas/primor",
+        "rect": {
+          "x": 571.65625,
+          "y": 1290.875,
+          "ancho": 51.609375,
+          "alto": 24,
+          "top": 387.875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 25,
+        "zona": {
+          "l": 554.65625,
+          "t": 285.875,
+          "r": 1264,
+          "b": 500.875
+        },
+        "selector": "div:nth-of-type(2) > section:nth-of-type(2) > ol > li > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ver en la tienda Primor (se abre en otra pestaña)",
+        "href": "/ir/ub8ecfd7ebe8bb9c5-primor",
+        "rect": {
+          "x": 1092.609375,
+          "y": 1294.875,
+          "ancho": 154.390625,
+          "alto": 36,
+          "top": 391.875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 26,
+        "zona": {
+          "l": 16,
+          "t": 766.875,
+          "r": 1264,
+          "b": 799.875
+        },
+        "selector": "div > div > section:nth-of-type(1) > div > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ver todos",
+        "href": "/cosmetica/maquillaje-ojos?marca=Maybelline%20New%20York",
+        "rect": {
+          "x": 1203.265625,
+          "y": 1698.875,
+          "ancho": 60.734375,
+          "alto": 20,
+          "top": 779.875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 27,
+        "zona": {
+          "l": 16,
+          "t": 150.875,
+          "r": 210.65625,
+          "b": 536.046875
+        },
+        "selector": "li:nth-of-type(1) > article > div:nth-of-type(2) > h3 > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "The Falsies Black Drama Máscara de Pestañas",
+        "href": "/producto/udb139bea74647a4d-the-falsies-black-drama-mascara-de-pestanas",
+        "rect": {
+          "x": 31,
+          "y": 1964.53125,
+          "ancho": 151.15625,
+          "alto": 38.25,
+          "top": 380.53125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 28,
+        "zona": {
+          "l": 226.65625,
+          "t": 150.875,
+          "r": 421.328125,
+          "b": 536.046875
+        },
+        "selector": "li:nth-of-type(2) > article > div:nth-of-type(2) > h3 > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Colossal Curl Máscara de Pestañas Bounce Resistente al Agua",
+        "href": "/producto/u516bc7e32d9452b8-colossal-curl-mascara-de-pestanas-bounce-resistente-al-agua",
+        "rect": {
+          "x": 241.65625,
+          "y": 1964.546875,
+          "ancho": 157.90625,
+          "alto": 57.5,
+          "top": 380.546875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 29,
+        "zona": {
+          "l": 437.328125,
+          "t": 150.875,
+          "r": 632,
+          "b": 536.046875
+        },
+        "selector": "li:nth-of-type(3) > article > div:nth-of-type(2) > h3 > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Colossal Bubble Máscara de Pestañas",
+        "href": "/producto/ubf4d9448e5b1d0ca-colossal-bubble-mascara-de-pestanas",
+        "rect": {
+          "x": 452.328125,
+          "y": 1964.546875,
+          "ancho": 157.0625,
+          "alto": 38.25,
+          "top": 380.546875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 30,
+        "zona": {
+          "l": 648,
+          "t": 150.875,
+          "r": 842.65625,
+          "b": 536.046875
+        },
+        "selector": "li:nth-of-type(4) > article > div:nth-of-type(2) > h3 > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Lash Sensational Sky High Primer con Color Negro",
+        "href": "/producto/uc46d2c00b4e7f9c1-lash-sensational-sky-high-primer-con-color-negro",
+        "rect": {
+          "x": 663,
+          "y": 1964.53125,
+          "ancho": 152.890625,
+          "alto": 57.5,
+          "top": 380.53125
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 31,
+        "zona": {
+          "l": 858.65625,
+          "t": 150.875,
+          "r": 1053.328125,
+          "b": 536.046875
+        },
+        "selector": "li:nth-of-type(5) > article > div:nth-of-type(2) > h3 > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "The Burgundy Bar Paleta de Sombras",
+        "href": "/producto/u026dda560ee0af46-the-burgundy-bar-paleta-de-sombras",
+        "rect": {
+          "x": 873.65625,
+          "y": 1964.546875,
+          "ancho": 156.359375,
+          "alto": 38.25,
+          "top": 380.546875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 32,
+        "zona": {
+          "l": 1069.328125,
+          "t": 150.875,
+          "r": 1264,
+          "b": 536.046875
+        },
+        "selector": "li:nth-of-type(6) > article > div:nth-of-type(2) > h3 > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Máscara de Pestañas Lash Sensational Sky High Space Diamond",
+        "href": "/producto/u464d626618c4f9e6-mascara-de-pestanas-lash-sensational-sky-high-space-diamond",
+        "rect": {
+          "x": 1084.328125,
+          "y": 1964.546875,
+          "ancho": 163.484375,
+          "alto": 57.5,
+          "top": 380.546875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 33,
+        "zona": {
+          "l": 16,
+          "t": 592.046875,
+          "r": 1264,
+          "b": 625.046875
+        },
+        "selector": "div > div > section:nth-of-type(2) > div > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ver la categoría",
+        "href": "/cosmetica/maquillaje-ojos",
+        "rect": {
+          "x": 1165.375,
+          "y": 2189.046875,
+          "ancho": 98.625,
+          "alto": 20,
+          "top": 605.046875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      }
+    ],
+    "https://shop.myp.com.es/como-calculamos": [
+      {
+        "orden": 1,
+        "zona": {
+          "l": 16,
+          "t": 16,
+          "r": 171.765625,
+          "b": 56
+        },
+        "selector": "a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Saltar al contenido",
+        "href": "#contenido",
+        "rect": {
+          "x": 16,
+          "y": 16,
+          "ancho": 155.765625,
+          "alto": 40,
+          "top": 16
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 2,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "shop.myp Escaparate de precios",
+        "href": "/",
+        "rect": {
+          "x": 16,
+          "y": 14,
+          "ancho": 161.265625,
+          "alto": 36,
+          "top": 14
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 3,
+        "zona": {
+          "l": 197.265625,
+          "t": 12,
+          "r": 744.40625,
+          "b": 52
+        },
+        "selector": "#q-cabecera",
+        "etiqueta": "input",
+        "rol": "combobox",
+        "texto": "",
+        "href": "",
+        "rect": {
+          "x": 197.265625,
+          "y": 12,
+          "ancho": 547.140625,
+          "alto": 40,
+          "top": 12
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 4,
+        "zona": {
+          "l": 197.265625,
+          "t": 12,
+          "r": 744.40625,
+          "b": 52
+        },
+        "selector": "div > div > div > form > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Buscar",
+        "href": "",
+        "rect": {
+          "x": 678.625,
+          "y": 18,
+          "ancho": 59.78125,
+          "alto": 28,
+          "top": 18
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 5,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(1)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Rebajas",
+        "href": "/bajadas",
+        "rect": {
+          "x": 764.40625,
+          "y": 12.75,
+          "ancho": 97.828125,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 6,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(2)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ofertas",
+        "href": "/ofertas",
+        "rect": {
+          "x": 864.234375,
+          "y": 12.75,
+          "ancho": 96.1875,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 7,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > a:nth-of-type(3)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cupones",
+        "href": "/cupones",
+        "rect": {
+          "x": 962.421875,
+          "y": 12.75,
+          "ancho": 105.265625,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 8,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 64
+        },
+        "selector": "header > div > nav > div > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Secciones",
+        "href": "",
+        "rect": {
+          "x": 1069.6875,
+          "y": 12.75,
+          "ancho": 106.3125,
+          "alto": 38.5,
+          "top": 12.75
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 9,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 65
+        },
+        "selector": "header > div > nav > button",
+        "etiqueta": "button",
+        "rol": "",
+        "texto": "Tema del sistema. Pulsa para cambiar",
+        "href": "",
+        "rect": {
+          "x": 1178,
+          "y": 12,
+          "ancho": 40,
+          "alto": 40,
+          "top": 12
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 10,
+        "zona": {
+          "l": 0,
+          "t": 0,
+          "r": 1280,
+          "b": 64
+        },
+        "selector": "header > div > nav > details > summary",
+        "etiqueta": "summary",
+        "rol": "",
+        "texto": "Menú",
+        "href": "",
+        "rect": {
+          "x": 1220,
+          "y": 10,
+          "ancho": 44,
+          "alto": 44,
+          "top": 10
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 11,
+        "zona": {
+          "l": 0,
+          "t": 65,
+          "r": 1280,
+          "b": 97
+        },
+        "selector": "div:nth-of-type(2) > p > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cómo funciona",
+        "href": "/como-calculamos",
+        "rect": {
+          "x": 1167.09375,
+          "y": 71,
+          "ancho": 96.90625,
+          "alto": 20,
+          "top": 71
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 12,
+        "zona": {
+          "l": 272,
+          "t": 121,
+          "r": 1008,
+          "b": 141
+        },
+        "selector": "div > nav > ol > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Inicio",
+        "href": "/",
+        "rect": {
+          "x": 272,
+          "y": 121,
+          "ancho": 33.109375,
+          "alto": 20,
+          "top": 121
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 13,
+        "zona": {
+          "l": 272,
+          "t": 348,
+          "r": 1008,
+          "b": 549.5
+        },
+        "selector": "div > article > ul:nth-of-type(1) > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Rebajas",
+        "href": "/bajadas",
+        "rect": {
+          "x": 409.296875,
+          "y": 351,
+          "ancho": 53.828125,
+          "alto": 21,
+          "top": 351
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 14,
+        "zona": {
+          "l": 272,
+          "t": 348,
+          "r": 1008,
+          "b": 549.5
+        },
+        "selector": "div > article > ul:nth-of-type(1) > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ofertas",
+        "href": "/ofertas",
+        "rect": {
+          "x": 528.671875,
+          "y": 410.96875,
+          "ancho": 51.359375,
+          "alto": 21,
+          "top": 410.96875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 15,
+        "zona": {
+          "l": 272,
+          "t": 348,
+          "r": 1008,
+          "b": 549.5
+        },
+        "selector": "div > article > ul:nth-of-type(1) > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cupones",
+        "href": "/cupones",
+        "rect": {
+          "x": 408.21875,
+          "y": 470.9375,
+          "ancho": 61.953125,
+          "alto": 21,
+          "top": 470.9375
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 16,
+        "zona": {
+          "l": 272,
+          "t": 386.5,
+          "r": 1008,
+          "b": 468.0625
+        },
+        "selector": "#contenido > div > article > p:nth-of-type(10) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ofertas de las tiendas",
+        "href": "/ofertas",
+        "rect": {
+          "x": 293.53125,
+          "y": 1327.5,
+          "ancho": 152.171875,
+          "alto": 21,
+          "top": 389.5
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 17,
+        "zona": {
+          "l": 272,
+          "t": 386.9375,
+          "r": 1008,
+          "b": 441.3125
+        },
+        "selector": "#contenido > div > article > p:nth-of-type(14) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cupones",
+        "href": "/cupones",
+        "rect": {
+          "x": 293.53125,
+          "y": 1794.9375,
+          "ancho": 61.953125,
+          "alto": 21,
+          "top": 389.9375
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 18,
+        "zona": {
+          "l": 272,
+          "t": 318.46875,
+          "r": 1008,
+          "b": 427.21875
+        },
+        "selector": "#contenido > div > article > p:nth-of-type(29) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "cómo ordenamos los productos",
+        "href": "#orden",
+        "rect": {
+          "x": 272,
+          "y": 3851.84375,
+          "ancho": 725.765625,
+          "alto": 48.1875,
+          "top": 375.84375
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 19,
+        "zona": {
+          "l": 272,
+          "t": 664.34375,
+          "r": 1008,
+          "b": 718.71875
+        },
+        "selector": "#contenido > div > article > p:nth-of-type(30) > a:nth-of-type(1)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "info@mediosyproyectos.com",
+        "href": "mailto:info@mediosyproyectos.com",
+        "rect": {
+          "x": 570.734375,
+          "y": 4143.34375,
+          "ancho": 205.390625,
+          "alto": 21,
+          "top": 667.34375
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 20,
+        "zona": {
+          "l": 272,
+          "t": 664.34375,
+          "r": 1008,
+          "b": 718.71875
+        },
+        "selector": "#contenido > div > article > p:nth-of-type(30) > a:nth-of-type(2)",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "tiendas que comparamos",
+        "href": "/tiendas",
+        "rect": {
+          "x": 272,
+          "y": 4143.34375,
+          "ancho": 666.4375,
+          "alto": 48.1875,
+          "top": 667.34375
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 21,
+        "zona": {
+          "l": 16,
+          "t": 381.71875,
+          "r": 304,
+          "b": 693.71875
+        },
+        "selector": "footer > div:nth-of-type(1) > div > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "shop.myp Escaparate de precios",
+        "href": "/",
+        "rect": {
+          "x": 16,
+          "y": 4298.71875,
+          "ancho": 288,
+          "alto": 36,
+          "top": 381.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 22,
+        "zona": {
+          "l": 336,
+          "t": 381.71875,
+          "r": 624,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(1) > ul > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Rebajas: todas las bajadas de precio",
+        "href": "/bajadas",
+        "rect": {
+          "x": 336,
+          "y": 4330.71875,
+          "ancho": 221.234375,
+          "alto": 19,
+          "top": 413.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 23,
+        "zona": {
+          "l": 336,
+          "t": 381.71875,
+          "r": 624,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(1) > ul > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Ofertas de las tiendas",
+        "href": "/ofertas",
+        "rect": {
+          "x": 336,
+          "y": 4356.71875,
+          "ancho": 133.15625,
+          "alto": 19,
+          "top": 439.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 24,
+        "zona": {
+          "l": 336,
+          "t": 381.71875,
+          "r": 624,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(1) > ul > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cupones de las tiendas",
+        "href": "/cupones",
+        "rect": {
+          "x": 336,
+          "y": 4382.71875,
+          "ancho": 142.421875,
+          "alto": 19,
+          "top": 465.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 25,
+        "zona": {
+          "l": 336,
+          "t": 381.71875,
+          "r": 624,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(1) > ul > li:nth-of-type(4) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Black Friday: ofertas reales",
+        "href": "/temporada/black-friday",
+        "rect": {
+          "x": 336,
+          "y": 4408.71875,
+          "ancho": 162.296875,
+          "alto": 19,
+          "top": 491.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 26,
+        "zona": {
+          "l": 336,
+          "t": 381.71875,
+          "r": 624,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(1) > ul > li:nth-of-type(5) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Recibe las mejores ofertas",
+        "href": "/recibe-ofertas",
+        "rect": {
+          "x": 336,
+          "y": 4434.71875,
+          "ancho": 160.34375,
+          "alto": 19,
+          "top": 517.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 27,
+        "zona": {
+          "l": 656,
+          "t": 381.71875,
+          "r": 944,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cosmética",
+        "href": "/cosmetica",
+        "rect": {
+          "x": 656,
+          "y": 4330.71875,
+          "ancho": 63.921875,
+          "alto": 19,
+          "top": 413.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 28,
+        "zona": {
+          "l": 656,
+          "t": 381.71875,
+          "r": 944,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Electrodomésticos",
+        "href": "/electrodomesticos",
+        "rect": {
+          "x": 656,
+          "y": 4356.71875,
+          "ancho": 112.59375,
+          "alto": 19,
+          "top": 439.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 29,
+        "zona": {
+          "l": 656,
+          "t": 381.71875,
+          "r": 944,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Moda",
+        "href": "/moda",
+        "rect": {
+          "x": 656,
+          "y": 4382.71875,
+          "ancho": 36.15625,
+          "alto": 19,
+          "top": 465.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 30,
+        "zona": {
+          "l": 656,
+          "t": 381.71875,
+          "r": 944,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(4) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Salud",
+        "href": "/salud",
+        "rect": {
+          "x": 656,
+          "y": 4408.71875,
+          "ancho": 34.125,
+          "alto": 19,
+          "top": 491.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 31,
+        "zona": {
+          "l": 656,
+          "t": 381.71875,
+          "r": 944,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(5) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Hogar y jardín",
+        "href": "/hogar-y-jardin",
+        "rect": {
+          "x": 656,
+          "y": 4434.71875,
+          "ancho": 87.765625,
+          "alto": 19,
+          "top": 517.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 32,
+        "zona": {
+          "l": 656,
+          "t": 381.71875,
+          "r": 944,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(6) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Tecnología",
+        "href": "/tecnologia",
+        "rect": {
+          "x": 656,
+          "y": 4460.71875,
+          "ancho": 66.234375,
+          "alto": 19,
+          "top": 543.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 33,
+        "zona": {
+          "l": 656,
+          "t": 381.71875,
+          "r": 944,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(7) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Deporte",
+        "href": "/deporte",
+        "rect": {
+          "x": 656,
+          "y": 4486.71875,
+          "ancho": 50.515625,
+          "alto": 19,
+          "top": 569.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 34,
+        "zona": {
+          "l": 656,
+          "t": 381.71875,
+          "r": 944,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(8) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cómo calculamos las bajadas",
+        "href": "/como-calculamos",
+        "rect": {
+          "x": 656,
+          "y": 4512.71875,
+          "ancho": 180.359375,
+          "alto": 19,
+          "top": 595.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 35,
+        "zona": {
+          "l": 656,
+          "t": 381.71875,
+          "r": 944,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(9) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Tiendas que miramos",
+        "href": "/tiendas",
+        "rect": {
+          "x": 656,
+          "y": 4538.71875,
+          "ancho": 132.078125,
+          "alto": 19,
+          "top": 621.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 36,
+        "zona": {
+          "l": 656,
+          "t": 381.71875,
+          "r": 944,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(10) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Buscar",
+        "href": "/buscar",
+        "rect": {
+          "x": 656,
+          "y": 4564.71875,
+          "ancho": 40.359375,
+          "alto": 19,
+          "top": 647.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 37,
+        "zona": {
+          "l": 656,
+          "t": 381.71875,
+          "r": 944,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(2) > ul > li:nth-of-type(11) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Índice de categorías",
+        "href": "/categorias",
+        "rect": {
+          "x": 656,
+          "y": 4590.71875,
+          "ancho": 123.734375,
+          "alto": 19,
+          "top": 673.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 38,
+        "zona": {
+          "l": 976,
+          "t": 381.71875,
+          "r": 1264,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(3) > ul > li:nth-of-type(1) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Aviso legal",
+        "href": "/aviso-legal",
+        "rect": {
+          "x": 976,
+          "y": 4330.71875,
+          "ancho": 66.3125,
+          "alto": 19,
+          "top": 413.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 39,
+        "zona": {
+          "l": 976,
+          "t": 381.71875,
+          "r": 1264,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(3) > ul > li:nth-of-type(2) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Privacidad",
+        "href": "/privacidad",
+        "rect": {
+          "x": 976,
+          "y": 4356.71875,
+          "ancho": 63.40625,
+          "alto": 19,
+          "top": 439.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      },
+      {
+        "orden": 40,
+        "zona": {
+          "l": 976,
+          "t": 381.71875,
+          "r": 1264,
+          "b": 693.71875
+        },
+        "selector": "div:nth-of-type(1) > nav:nth-of-type(3) > ul > li:nth-of-type(3) > a",
+        "etiqueta": "a",
+        "rol": "",
+        "texto": "Cookies",
+        "href": "/cookies",
+        "rect": {
+          "x": 976,
+          "y": 4382.71875,
+          "ancho": 48.6875,
+          "alto": 19,
+          "top": 465.71875
+        },
+        "tamañoCero": false,
+        "transparente": false,
+        "fueraDeVista": false,
+        "puntosVisibles": 5,
+        "focoVisible": true
+      }
+    ]
+  }
+}
