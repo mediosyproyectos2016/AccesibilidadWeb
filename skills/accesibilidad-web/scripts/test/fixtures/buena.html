@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Página accesible de prueba</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; color: #1a1a1a; background: #fff; }
+    :focus-visible { outline: 3px solid #1a4fd6; outline-offset: 2px; }
+    .saltar { position: absolute; left: -999px; }
+    .saltar:focus { left: 8px; top: 8px; background: #fff; padding: 8px; }
+    button { min-width: 44px; min-height: 44px; }
+  </style>
+</head>
+<body>
+  <a class="saltar" href="#principal">Saltar al contenido</a>
+  <header><nav aria-label="Principal"><a href="#principal">Inicio</a></nav></header>
+  <main id="principal" tabindex="-1">
+    <h1>Página accesible</h1>
+    <p>Texto con contraste suficiente.</p>
+    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="" width="40" height="40">
+    <label for="correo">Correo electrónico</label>
+    <input id="correo" type="email" autocomplete="email">
+    <button type="button">Enviar</button>
+  </main>
+  <footer><p>Pie</p></footer>
+</body>
+</html>
