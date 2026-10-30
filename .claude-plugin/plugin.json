@@ -1,0 +1,14 @@
+{
+  "name": "accesibilidad-web",
+  "displayName": "Accesibilidad Web (WCAG 2.2 AA · EN 301 549)",
+  "version": "0.1.0",
+  "description": "Audita y adapta webs a la normativa de accesibilidad española y europea (Ley 11/2023, RD 1112/2018, EN 301 549, WCAG 2.2 AA): auditoría con axe-core y Playwright, revisión manual guiada, recetas de arreglo por stack y declaración de accesibilidad.",
+  "author": {
+    "name": "Medios y Proyectos Neil, S.L.",
+    "url": "https://github.com/mediosyproyectos2016"
+  },
+  "homepage": "https://github.com/mediosyproyectos2016/AccesibilidadWeb",
+  "repository": "https://github.com/mediosyproyectos2016/AccesibilidadWeb",
+  "license": "MIT",
+  "keywords": ["accesibilidad", "accessibility", "a11y", "wcag", "wcag22", "en-301-549", "ley-11-2023", "european-accessibility-act", "axe-core", "playwright"]
+}

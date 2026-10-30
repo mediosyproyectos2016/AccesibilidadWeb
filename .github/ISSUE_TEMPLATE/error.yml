@@ -1,0 +1,27 @@
+name: Error
+description: Algo no funciona (script, skill, plugin, acción).
+labels: [error]
+body:
+  - type: textarea
+    id: que
+    attributes:
+      label: Qué ha pasado
+      description: Qué esperabas y qué ocurrió.
+    validations:
+      required: true
+  - type: textarea
+    id: como
+    attributes:
+      label: Cómo reproducirlo
+      description: Comando, URL de prueba (si es pública) e IA o agente usado.
+      render: shell
+  - type: input
+    id: entorno
+    attributes:
+      label: Entorno
+      placeholder: Node 20, Windows 11, Claude Code / Cursor / Codex…
+  - type: textarea
+    id: log
+    attributes:
+      label: Salida o informe
+      render: text

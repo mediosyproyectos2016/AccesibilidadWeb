@@ -1,0 +1,39 @@
+# Ejemplo: audita una web en CI con la acción de este repositorio.
+# En tu proyecto, sustituye `uses: ./` por `uses: mediosyproyectos2016/AccesibilidadWeb@v0.1.0`.
+name: Accesibilidad
+
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: 'URLs a auditar (separadas por espacios)'
+        required: true
+        default: 'https://www.w3.org/WAI/demos/bad/before/home.html'
+      umbral:
+        description: 'Falla con problemas de este impacto o peor'
+        default: 'grave'
+        type: choice
+        options: [critico, grave, moderado, leve, ninguno]
+  schedule:
+    - cron: '0 6 * * 1' # lunes a las 06:00 UTC
+
+permissions:
+  contents: read
+
+jobs:
+  auditar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Auditoría de accesibilidad
+        uses: ./
+        with:
+          urls: ${{ github.event.inputs.urls || 'https://www.w3.org/WAI/demos/bad/before/home.html' }}
+          umbral: ${{ github.event.inputs.umbral || 'ninguno' }}
+      - name: Guardar informe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: informe-accesibilidad
+          path: informe-accesibilidad/

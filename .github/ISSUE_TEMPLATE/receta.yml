@@ -1,0 +1,23 @@
+name: Receta o regla
+description: Proponer una receta nueva, mejorar una existente o una comprobación automática.
+labels: [receta]
+body:
+  - type: input
+    id: componente
+    attributes:
+      label: Componente o problema
+      placeholder: Selector de fecha, mapa interactivo, paginación…
+    validations:
+      required: true
+  - type: input
+    id: criterios
+    attributes:
+      label: Criterios WCAG afectados
+      placeholder: 2.1.1 Teclado, 4.1.2 Nombre, función, valor
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: Propuesta
+      description: Patrón correcto, ejemplos por stack y cómo verificarlo. Enlaza fuentes (W3C, APG).
+    validations:
+      required: true

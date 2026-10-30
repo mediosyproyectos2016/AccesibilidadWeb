@@ -1,0 +1,16 @@
+{
+  "name": "accesibilidad-web",
+  "description": "Herramientas de accesibilidad web para la normativa española y europea.",
+  "owner": {
+    "name": "Medios y Proyectos Neil, S.L.",
+    "url": "https://github.com/mediosyproyectos2016"
+  },
+  "plugins": [
+    {
+      "name": "accesibilidad-web",
+      "source": "./",
+      "description": "Audita y adapta webs a WCAG 2.2 AA / EN 301 549 (Ley 11/2023, RD 1112/2018): auditoría automática, revisión manual guiada, recetas por stack y declaración de accesibilidad.",
+      "category": "accessibility"
+    }
+  ]
+}

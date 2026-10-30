@@ -1,0 +1,11 @@
+---
+description: Auditar y adaptar la accesibilidad de una web (WCAG 2.2 AA, EN 301 549, Ley 11/2023, RD 1112/2018). Úsala al revisar accesibilidad, arreglar fallos de axe/Lighthouse o preparar la declaración de accesibilidad.
+globs:
+alwaysApply: false
+---
+
+Sigue la skill [skills/accesibilidad-web/SKILL.md](mdc:skills/accesibilidad-web/SKILL.md): es la fuente única de instrucciones.
+
+- Auditoría automática: `node skills/accesibilidad-web/scripts/auditar.mjs <url>` (antes `npm install && npx playwright install chromium` en `skills/accesibilidad-web/scripts`).
+- Arreglos: [recetas](mdc:skills/accesibilidad-web/references/recetas/README.md), [patrones ARIA](mdc:skills/accesibilidad-web/references/patrones-aria.md), [anti-patrones](mdc:skills/accesibilidad-web/references/anti-patrones.md).
+- Al escribir componentes de interfaz: HTML nativo antes que ARIA, foco visible, nombre accesible en botones y enlaces, `<label>` en campos, contraste 4,5:1, nada de overlays.

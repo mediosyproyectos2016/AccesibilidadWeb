@@ -1,0 +1,63 @@
+name: 'Auditoría de accesibilidad (WCAG 2.2 AA / EN 301 549)'
+description: 'Audita URLs con Playwright + axe-core a 1280 y 390 px y falla si hay problemas por encima del umbral.'
+author: 'Medios y Proyectos Neil, S.L.'
+branding:
+  icon: 'eye'
+  color: 'blue'
+inputs:
+  urls:
+    description: 'URLs a auditar, separadas por espacios o saltos de línea.'
+    required: true
+  rastrear:
+    description: 'Si es > 0, descubre hasta N páginas del mismo dominio a partir de la primera URL.'
+    default: '0'
+  umbral:
+    description: 'critico | grave | moderado | leve | ninguno'
+    default: 'grave'
+  anchos:
+    description: 'Anchos de ventana en px.'
+    default: '1280,390'
+  salida:
+    description: 'Carpeta del informe.'
+    default: 'informe-accesibilidad'
+  argumentos:
+    description: 'Argumentos extra para auditar.mjs (p. ej. --excluir "#chat").'
+    default: ''
+outputs:
+  informe:
+    description: 'Ruta del informe Markdown.'
+    value: ${{ steps.auditar.outputs.informe }}
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    - name: Instalar dependencias
+      shell: bash
+      working-directory: ${{ github.action_path }}/skills/accesibilidad-web/scripts
+      run: |
+        npm ci --no-audit --no-fund
+        npx playwright install --with-deps chromium
+    - name: Auditar
+      id: auditar
+      shell: bash
+      env:
+        URLS: ${{ inputs.urls }}
+        RASTREAR: ${{ inputs.rastrear }}
+        UMBRAL: ${{ inputs.umbral }}
+        ANCHOS: ${{ inputs.anchos }}
+        SALIDA: ${{ inputs.salida }}
+        EXTRA: ${{ inputs.argumentos }}
+      run: |
+        set +e
+        args=(--umbral "$UMBRAL" --anchos "$ANCHOS" --salida "$GITHUB_WORKSPACE/$SALIDA")
+        if [ "$RASTREAR" != "0" ]; then args+=(--rastrear "$RASTREAR"); fi
+        # shellcheck disable=SC2086
+        node "${{ github.action_path }}/skills/accesibilidad-web/scripts/auditar.mjs" "${args[@]}" $EXTRA $URLS
+        codigo=$?
+        echo "informe=$GITHUB_WORKSPACE/$SALIDA/informe.md" >> "$GITHUB_OUTPUT"
+        if [ -f "$GITHUB_WORKSPACE/$SALIDA/informe.md" ]; then
+          head -c 60000 "$GITHUB_WORKSPACE/$SALIDA/informe.md" >> "$GITHUB_STEP_SUMMARY"
+        fi
+        exit $codigo

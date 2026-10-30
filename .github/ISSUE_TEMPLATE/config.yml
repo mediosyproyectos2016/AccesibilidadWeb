@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Pregunta o idea
+    url: https://github.com/mediosyproyectos2016/AccesibilidadWeb/discussions
+    about: Dudas de uso, ideas y debate.
