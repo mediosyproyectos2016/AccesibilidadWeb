@@ -15,4 +15,4 @@ Resultado: 0 problemas automáticos en los 20 contextos (5 páginas × 1280/390 
 
 Que la herramienta automática no encuentre fallos **no** significa que la web cumpla: falta la revisión manual (`skills/accesibilidad-web/references/revision-manual.md`).
 
-Se publica un informe de una web propia para no exponer a terceros.
+Se publica un informe de una web propia para no exponer a terceros. Se generó con la versión 0.1.0: la 0.2.0 añade comprobaciones (movimiento, diálogos, zoom, espaciado, texto sobre imagen) y puede dar otros resultados.

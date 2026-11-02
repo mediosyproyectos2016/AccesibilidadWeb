@@ -2,6 +2,7 @@
 
 > **Cómo usar esta plantilla**
 >
+> - Si has hecho la auditoría y la revisión manual, genera el borrador con tus resultados reales: `node declaracion.mjs` (ver `skills/accesibilidad-web/SKILL.md`, paso 7). Lo siguiente vale para completarlo o para hacerlo a mano.
 > - Basada en el **modelo de declaración de accesibilidad** del anexo de la **Decisión de Ejecución (UE) 2018/1523** de la Comisión, de 11 de octubre de 2018 (DOUE L 256, de 12-10-2018, p. 103), obligatorio para el sector público según el **Real Decreto 1112/2018** (art. 15).
 > - Adaptada para servir también como **información de accesibilidad del servicio** del **art. 13 de la Ley 11/2023** (sector privado). Esa información debe estar en las **condiciones generales o en un documento equivalente**, en formatos accesibles, **por escrito y de forma oral**, y **mantenerse actualizada**.
 > - Sustituye cada `{{MARCADOR}}`. Borra las notas entre `<!-- -->` y los bloques que no apliquen (marcados **[SECTOR PÚBLICO]** o **[SECTOR PRIVADO]**).

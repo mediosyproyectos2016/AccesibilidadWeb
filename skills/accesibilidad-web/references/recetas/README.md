@@ -18,7 +18,7 @@ Cada receta explica un tipo de componente: el problema, los criterios WCAG/EN 30
 | [estructura.md](estructura.md) | Idioma, título, regiones, encabezados, enlace de salto, zoom, reflow 320 px |
 | [teclado-y-foco.md](teclado-y-foco.md) | Foco visible y no oculto, orden, `tabindex`, trampas, atajos |
 
-Ver también: [patrones-aria.md](../patrones-aria.md), [anti-patrones.md](../anti-patrones.md), [deteccion-stack.md](../deteccion-stack.md) y [checklist-wcag22-aa.md](../checklist-wcag22-aa.md).
+Ver también: [guías por framework](../frameworks/), [patrones-aria.md](../patrones-aria.md), [anti-patrones.md](../anti-patrones.md), [deteccion-stack.md](../deteccion-stack.md) y [checklist-wcag22-aa.md](../checklist-wcag22-aa.md).
 
 ## Añadir o mejorar una receta
 
