@@ -59,6 +59,23 @@
 
 `inert` está soportado en todos los navegadores actuales y es más fiable que atrapar el foco a mano o `aria-hidden` en el resto.
 
+## Un diálogo que se abre solo
+
+Si el diálogo aparece sin que nadie pulse nada (aviso de temporada, boletín, cookies al cargar), no hay control que lo abriera y `close` dejaría el foco en `<body>`: quien usa teclado vuelve al principio del documento. Decide a dónde va el foco **antes** de abrirlo:
+
+```js
+const previo = document.activeElement;            // puede ser <body> si nadie ha enfocado nada
+dlg.addEventListener('close', () => {
+  const destino = previo && previo !== document.body && previo.isConnected
+    ? previo
+    : document.querySelector('main');             // <main tabindex="-1"> o el h1 con tabindex="-1"
+  destino.focus({ preventScroll: true });
+}, { once: true });
+dlg.showModal();
+```
+
+`<main tabindex="-1">` deja el foco al comienzo del contenido sin añadirlo a la tabulación. Mejor aún, no lo abras solo: un aviso que roba el foco al cargar rompe la lectura de quien llega con lector de pantalla. `auditar.mjs` cierra con Esc un diálogo abierto al cargar antes de recorrer la página y lo anota en el informe.
+
 ## Anti-patrones
 
 - `aria-hidden="true"` en un contenedor que tiene elementos enfocables (`aria-hidden-focus`).

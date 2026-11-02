@@ -60,6 +60,7 @@ El destino debe existir (`id="contenido"`). `tabindex="-1"` en `<main>` garantiz
 ## Regiones (1.3.1)
 
 - Un único `<main>`; `<header>` y `<footer>` de primer nivel (banner y contentinfo); `<nav>` con nombre si hay varias; `<aside>` para contenido complementario.
+- Si hay dos regiones del mismo tipo (dos `<nav>`, dos `role="search"`, dos `<aside>`), cada una necesita un `aria-label` **distinto** según su contexto (`landmark-unique`): «Principal» y «Pie», «Buscar en la tienda» y «Buscar en la ayuda». Si una es solo para móvil y otra solo para escritorio, no las dupliques con `display:none` en el CSS sin más: deja una y adapta su diseño.
 - Todo el contenido visible debe estar dentro de alguna región (regla `region`), incluidos banners de cookies (que pueden ser `<section aria-label="Cookies">` o un diálogo).
 
 ## Encabezados (1.3.1, 2.4.6)

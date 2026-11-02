@@ -34,7 +34,7 @@ Un «sí» automático **no** significa que el criterio se cumpla: las herramien
 | 1.4.4 | Cambio de tamaño del texto | AA | 9.1.4.4 | Con zoom del 200 % no se pierde contenido ni funcionalidad. | parcial (`meta-viewport`) | [estructura](recetas/estructura.md) |
 | 1.4.5 | Imágenes de texto | AA | 9.1.4.5 | No se usan imágenes para mostrar texto (salvo logotipos o casos esenciales). | no | [imagenes](recetas/imagenes.md) |
 | 1.4.10 | Reajuste del texto (reflow) | AA | 9.1.4.10 | A 320 px CSS de ancho (equivale a 1280 px al 400 %) no hay scroll horizontal ni pérdida de contenido. | parcial (`reflow-320` propio) | [estructura](recetas/estructura.md) |
-| 1.4.11 | Contraste no textual | AA | 9.1.4.11 | Bordes de campos, iconos informativos, estados de controles e indicadores de foco: 3:1 con lo adyacente. | no | [contraste](recetas/contraste.md) |
+| 1.4.11 | Contraste no textual | AA | 9.1.4.11 | Bordes de campos, iconos informativos, estados de controles e indicadores de foco: 3:1 con lo adyacente. | parcial (`imagen-transparente-oscuro`, a revisar) | [contraste](recetas/contraste.md) |
 | 1.4.12 | Espaciado del texto | AA | 9.1.4.12 | Con interlineado 1,5, párrafos 2×, letras 0,12 y palabras 0,16 em no se corta ni solapa texto. | no (bookmarklet en revisión manual) | [estructura](recetas/estructura.md) |
 | 1.4.13 | Contenido con hover o foco | AA | 9.1.4.13 | Tooltips y desplegables por hover/foco: se pueden descartar (Esc), se puede pasar el ratón por encima y persisten. | no | [patrones-aria](patrones-aria.md#tooltip) |
 
@@ -61,7 +61,7 @@ Un «sí» automático **no** significa que el criterio se cumpla: las herramien
 | 2.5.3 | Etiqueta en el nombre | A | 9.2.5.3 | El nombre accesible contiene el texto visible del control. | parcial (`label-content-name-mismatch`) | [botones](recetas/botones.md) |
 | 2.5.4 | Activación mediante movimiento | A | 9.2.5.4 | Lo que se activa agitando o inclinando el dispositivo tiene alternativa y se puede desactivar. | no | [video-y-animaciones](recetas/video-y-animaciones.md) |
 | 2.5.7 | Movimientos de arrastre | AA | — (WCAG 2.2) | Lo que se hace arrastrando (sliders, reordenar, mapas) se puede hacer con clics simples. | no | [botones](recetas/botones.md) |
-| 2.5.8 | Tamaño del objetivo (mínimo) | AA | — (WCAG 2.2) | Objetivos de al menos 24×24 px CSS o con separación suficiente (excepciones: enlaces en texto, nativos sin estilo). | sí (`target-size`) | [botones](recetas/botones.md) |
+| 2.5.8 | Tamaño del objetivo (mínimo) | AA | — (WCAG 2.2) | Objetivos de al menos 24×24 px CSS o con separación suficiente (excepciones: enlaces en texto, nativos sin estilo). | sí (`target-size` y lista `objetivo-pequeno`) | [botones](recetas/botones.md) |
 
 ## 3. Comprensible
 

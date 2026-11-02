@@ -19,6 +19,7 @@
 ```
 
 - Busca y elimina `outline: none` / `outline: 0` sin sustituto (`grep -rn "outline: *\(none\|0\)"`).
+- Si el anillo se pinta en `::before`/`::after` (botones con pseudo-elemento), `auditar.mjs` lo da por bueno cuando el pseudo-elemento cambia al enfocar y nada lo recorta. Si lo recorta un antepasado con `overflow: hidden` (anillo con `inset` negativo en una tarjeta que recorta), es un fallo real aunque haya CSS de foco: dibuja el anillo hacia dentro (`inset: 0` o `outline-offset` negativo) o quita el recorte.
 - El indicador debe contrastar **3:1** con los colores adyacentes (1.4.11). El doble anillo blanco + color funciona sobre cualquier fondo.
 - `box-shadow` desaparece en el modo de alto contraste de Windows (*forced colors*); `outline` no. Si usas sombra, añade `outline: 2px solid transparent` (se vuelve visible en ese modo).
 

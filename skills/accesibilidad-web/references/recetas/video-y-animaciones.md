@@ -10,7 +10,7 @@
 | Información solo visual (texto en pantalla, acciones) | **Audiodescripción** (1.2.5) o una versión con narración que la incluya. Alternativa en nivel A: transcripción descriptiva (1.2.3). |
 | Vídeo sin sonido | Descripción textual o pista de audio (1.2.1). |
 | Emisión en directo | Subtítulos en directo (1.2.4). |
-| Vídeo puramente decorativo (fondo) | Sin información; con botón de pausa si dura más de 5 s (2.2.2). Ocúltalo al lector (`aria-hidden="true"`). |
+| Vídeo puramente decorativo (fondo) | Sin información; con botón de pausa si dura más de 5 s (2.2.2). Ocúltalo al lector (`aria-hidden="true"`), pero **el botón de pausa va fuera** de lo oculto (ver más abajo). |
 
 ```html
 <video controls preload="metadata" poster="demo.jpg">
@@ -21,6 +21,7 @@
 <p><a href="demo-transcripcion.html">Transcripción del vídeo</a></p>
 ```
 
+- Vídeo con `autoplay` o `loop` que no sea de fondo: o lleva `controls`, o un botón de pausa propio (receta de «Vídeo de fondo con pausa»). Sin una de las dos cosas, `auditar.mjs` da `movimiento-sin-pausa`.
 - `controls` nativos son accesibles por teclado en los navegadores actuales; si usas un reproductor propio, cada botón necesita nombre, foco y estado.
 - La pista `kind="descriptions"` tiene soporte limitado en navegadores y lectores: la vía más robusta para audiodescripción es una **versión alternativa del vídeo** con la descripción grabada.
 
@@ -96,11 +97,55 @@ b.addEventListener('click', () => {
 });
 ```
 
+**El botón de pausa va fuera del contenedor oculto.** Si envuelves la decoración en `aria-hidden="true"` y metes dentro el botón, dispara `aria-hidden-focus` (enfocable dentro de algo oculto) y, además, no sirve a quien usa lector de pantalla. Ponlo como hermano del contenedor oculto, o sácalo con un portal si el componente lo impide:
+
+```html
+<section class="hero" aria-labelledby="t-hero">
+  <h2 id="t-hero">Colección de otoño</h2>
+  <div class="hero__fondo" aria-hidden="true"><video autoplay muted loop playsinline src="fondo.mp4"></video></div>
+  <button type="button" class="pausa-fondo" aria-pressed="false">Pausar animación de fondo</button>
+</section>
+```
+
+### Animaciones CSS: el patrón `[data-pausable]`
+
+Para animaciones de CSS (no vídeo) es lo más barato: un contenedor marcado, un botón y `animation-play-state`. No hace falta tocar cada animación.
+
+```html
+<section data-pausable aria-labelledby="t-marcas">
+  <h2 id="t-marcas">Marcas</h2>
+  <button type="button" data-pausar aria-pressed="false">Pausar animación</button>
+  <div class="cinta" aria-hidden="true">…</div>
+</section>
+```
+
+```css
+[data-pausable][data-pausado] *,
+[data-pausable][data-pausado] *::before,
+[data-pausable][data-pausado] *::after {
+  animation-play-state: paused !important;
+}
+```
+
+```js
+document.querySelectorAll('[data-pausable]').forEach((zona) => {
+  const boton = zona.querySelector('[data-pausar]');
+  boton.addEventListener('click', () => {
+    const pausado = zona.toggleAttribute('data-pausado');
+    boton.setAttribute('aria-pressed', String(pausado));
+    boton.textContent = pausado ? 'Reanudar animación' : 'Pausar animación';
+    zona.querySelectorAll('video').forEach((v) => (pausado ? v.pause() : v.play()));
+  });
+});
+```
+
+El botón tiene que estar en la misma `<section>` (o región) que lo que se mueve, visible y fuera de cualquier `aria-hidden`. Si el visitante pide `prefers-reduced-motion: reduce`, pon `data-pausado` desde el principio.
+
 Animaciones con librerías (GSAP, Lottie, Three.js, scroll animado): comprueba `prefers-reduced-motion` antes de iniciarlas y ofrece pausa si son en bucle.
 
 ### Qué comprueba `auditar.mjs`
 
-- `movimiento-sin-pausa` (2.2.2): tras observar la página más de 5 s, animaciones infinitas o largas, vídeos automáticos sin controles, `<marquee>` y carruseles que cambian solos, si no hay un control de pausa cerca. Si el elemento es pequeño, o solo se ve que algo cambia, queda como «revisar»: no sabe si es decorativo ni si es esencial.
+- `movimiento-sin-pausa` (2.2.2): tras observar la página más de 5 s, animaciones infinitas o largas, vídeos automáticos sin controles, `<marquee>` y carruseles que cambian solos, si no hay un control de pausa cerca: en los seis antepasados más próximos o en la misma `<section>` o región (`role="region"`). Un botón dentro de `aria-hidden` o en otra sección no cuenta. Si el elemento es pequeño, o solo se ve que algo cambia, queda como «revisar»: no sabe si es decorativo ni si es esencial.
 - `movimiento-reducido-ignorado`: lo que se sigue moviendo con `prefers-reduced-motion: reduce`. 2.3.3 es de nivel AAA, así que se informa como buena práctica. Hacerle caso no sustituye a la pausa: quien no tiene activada esa preferencia también tiene derecho a parar el movimiento.
 
 ## Activación por movimiento (2.5.4)

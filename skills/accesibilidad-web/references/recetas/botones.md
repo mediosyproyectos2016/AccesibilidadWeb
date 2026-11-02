@@ -37,9 +37,11 @@ El nombre accesible debe **contener** el texto visible, idealmente al principio,
 <!-- Mal -->
 <button aria-label="Añadir al carrito">Comprar</button>
 
-<!-- Bien -->
+<!-- Bien: quita el aria-label y completa con texto oculto DENTRO del control -->
 <button>Comprar<span class="visualmente-oculto"> Cafetera Express X200</span></button>
 ```
+
+Lo mismo con enlaces de tarjeta (`<a aria-label="…">` que no contiene lo que se ve): usa el texto visible y añade el resto con una clase `sr-only` dentro del enlace. Esa clase usa `position: absolute`: si el control está dentro de un contenedor con `overflow`, pon `position: relative` en ese contenedor o provocará scroll horizontal a 320 px.
 
 ## Tamaño del objetivo (2.5.8)
 
@@ -56,6 +58,10 @@ Mínimo **24×24 px CSS**, o separación suficiente para que un círculo de 24 p
 .boton-icono-pequeno { position: relative; }
 .boton-icono-pequeno::before { content: ""; position: absolute; inset: -10px; }
 ```
+
+### Lista de objetivos pequeños que hace `auditar.mjs`
+
+Además del `target-size` de axe, el informe trae la regla propia `objetivo-pequeno` (en «Sospechas»): los enlaces, botones y campos de menos de 24×24 px que no están en línea dentro de un texto, con su medida real y, primero, los que no salva la excepción de separación. Los más comunes: enlaces sueltos de 20 a 23 px de alto y casillas de `size-5` (20 px) de Tailwind. Las casillas y botones de opción nativos sin estilo están exentos (tienen el tamaño del navegador); con `appearance: none` o un tamaño propio de 20 px dejan de estarlo. Arreglo: `min-width`/`min-height` de 24 px (mejor 44 px en móvil), `padding` o el pseudo-elemento ampliado de arriba. Se desactiva con `--sin-objetivos`.
 
 ## Punteros y arrastre (2.5.2, 2.5.7)
 

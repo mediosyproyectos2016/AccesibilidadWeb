@@ -75,7 +75,19 @@ Si la web cambia con `prefers-color-scheme: dark` o con un conmutador, **audita 
 }
 ```
 
-Las imágenes de producto con fondo transparente pueden desaparecer sobre un fondo oscuro. Dales un fondo claro fijo y compruébalo a mano: una herramienta no sabe qué partes de la imagen son transparentes.
+Las imágenes de producto con fondo transparente pueden desaparecer sobre un fondo oscuro. Dales un fondo claro fijo en el contenedor, también en modo oscuro:
+
+```css
+.ficha__foto { background: #fff; }                 /* claro fijo, en los dos modos */
+@media (prefers-color-scheme: dark) {
+  .ficha__foto { background: #fff; }               /* repítelo si el modo oscuro redefine el fondo */
+  .ficha__foto img { mix-blend-mode: normal; }     /* multiply sobre fondo oscuro lo oscurece aún más */
+}
+```
+
+Lo que suele fallar no es que falte el fondo claro, sino que una regla **más específica** lo pisa: un `background: transparent` o `var(--fondo)` del modo oscuro en el contenedor, o un `mix-blend-mode: multiply` pensado para fondos claros. Mira el valor **calculado** en el inspector (pestaña «Computed»: `background-color` y `mix-blend-mode` del contenedor de la imagen, con el modo oscuro activo), no la regla que crees que gana.
+
+`auditar.mjs` lo mide en el modo oscuro (regla `imagen-transparente-oscuro`): para cada `img` con transparencia mira el fondo y el modo de mezcla calculados en su contenedor y, si el navegador deja leer la imagen, cuánto de lo dibujado llega a 3:1 con ese fondo. Sale como **«revisar»**, salvo que se hayan podido leer los píxeles y la mayoría del dibujo no se distinga; si la imagen es de otro origen sin CORS no se pueden leer y siempre queda en «revisar». Confírmalo a ojo con las imágenes reales. Se desactiva con `--sin-imagen-oscuro`.
 
 ## Texto sobre imagen o vídeo
 
