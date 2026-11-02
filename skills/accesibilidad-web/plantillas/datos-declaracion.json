@@ -1,0 +1,14 @@
+{
+  "entidad": "Mi Tienda, S.L.",
+  "sector": "privado",
+  "ambito": "https://mi-tienda.example",
+  "norma": "la norma UNE-EN 301549:2022 (EN 301 549 V3.2.1), que incorpora las WCAG 2.1 nivel AA",
+  "metodo": "una autoevaluación realizada por Mi Tienda, S.L.",
+  "formulario": "https://mi-tienda.example/accesibilidad/contacto",
+  "correo": "accesibilidad@mi-tienda.example",
+  "telefono": "900 000 000",
+  "plazo": "15 días hábiles",
+  "comunidad": "la comunidad autónoma correspondiente",
+  "autoridad": "comprueba el dato antes de publicar; ver docs/normativa-es.md",
+  "alternativas": "puede pedir cualquier contenido en formato accesible por las vías de contacto"
+}

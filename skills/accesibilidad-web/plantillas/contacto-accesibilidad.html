@@ -1,0 +1,76 @@
+<!doctype html>
+<!--
+  Formulario de comunicación de accesibilidad. Plantilla de AccesibilidadWeb (MIT).
+
+  Sirve para recoger problemas de accesibilidad y pedir contenido en formato
+  accesible (RD 1112/2018, arts. 10-12; ver docs/normativa-es.md). Por sí solo no
+  cumple ninguna obligación: necesita un destino real y alguien que responda.
+
+  Antes de publicarlo:
+  1. Sustituye {{URL_ENVIO}} por el punto que recibe el formulario en tu servidor.
+     Esta plantilla no envía datos a ningún sitio por sí misma.
+  2. Sustituye {{CORREO_ACCESIBILIDAD}}, {{TELEFONO}}, {{PLAZO_RESPUESTA}} y
+     {{URL_PRIVACIDAD}}. El sector público necesita, además del canal electrónico,
+     al menos otro complementario (teléfono u oficina).
+  3. Copia el <form> a tu plantilla y adapta los estilos. Si el servidor rechaza el
+     envío, muestra los errores en el campo, en texto, y mueve el foco al primero.
+  4. Envía un mensaje de prueba con teclado y con lector de pantalla.
+-->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comunicar un problema de accesibilidad</title>
+  <style>
+    body { max-width: 40rem; margin: 0 auto; padding: 1rem; font-family: system-ui, sans-serif; line-height: 1.5; color: #1a1a1a; background: #fff; }
+    :focus-visible { outline: 3px solid #0b57d0; outline-offset: 2px; }
+    a { color: #0b57d0; }
+    label, legend { display: block; margin: 1rem 0 .25rem; font-weight: 600; }
+    fieldset { margin: 1rem 0 0; padding: 0; border: 0; }
+    input[type="text"], input[type="email"], input[type="url"], textarea { width: 100%; min-height: 44px; padding: .5rem; border: 2px solid #1a1a1a; border-radius: 6px; font: inherit; box-sizing: border-box; }
+    .ayuda { margin: .1rem 0 .3rem; font-size: .9375rem; color: #3d3d3d; }
+    .opcion { display: flex; gap: .5rem; align-items: center; min-height: 44px; }
+    .opcion input { width: 24px; height: 24px; margin: 0; }
+    .opcion label { margin: 0; font-weight: 400; }
+    button { min-height: 44px; margin-top: 1.25rem; padding: .5rem 1rem; border: 2px solid #1a1a1a; border-radius: 6px; background: #1a1a1a; color: #fff; font: inherit; cursor: pointer; }
+    button:hover { background: #3d3d3d; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Comunicar un problema de accesibilidad</h1>
+    <p>Cuéntanos qué barrera has encontrado o pide un contenido en otro formato. Responderemos en {{PLAZO_RESPUESTA}}.</p>
+    <p>También puedes escribir a <a href="mailto:{{CORREO_ACCESIBILIDAD}}">{{CORREO_ACCESIBILIDAD}}</a> o llamar al {{TELEFONO}}.</p>
+
+    <form action="{{URL_ENVIO}}" method="post">
+      <label for="a11y-nombre">Nombre (opcional)</label>
+      <input id="a11y-nombre" name="nombre" type="text" autocomplete="name">
+
+      <label for="a11y-correo">Correo electrónico</label>
+      <p class="ayuda" id="a11y-correo-ayuda">Lo usaremos solo para responderte. Obligatorio.</p>
+      <input id="a11y-correo" name="correo" type="email" autocomplete="email" required aria-describedby="a11y-correo-ayuda">
+
+      <fieldset>
+        <legend>Motivo</legend>
+        <div class="opcion"><input id="a11y-motivo-1" type="radio" name="motivo" value="problema" checked><label for="a11y-motivo-1">Comunicar un problema de accesibilidad</label></div>
+        <div class="opcion"><input id="a11y-motivo-2" type="radio" name="motivo" value="formato"><label for="a11y-motivo-2">Pedir un contenido en formato accesible</label></div>
+        <div class="opcion"><input id="a11y-motivo-3" type="radio" name="motivo" value="queja"><label for="a11y-motivo-3">Presentar una queja</label></div>
+      </fieldset>
+
+      <label for="a11y-pagina">Dirección de la página (opcional)</label>
+      <input id="a11y-pagina" name="pagina" type="url" autocomplete="url">
+
+      <label for="a11y-mensaje">Qué ha ocurrido o qué necesitas</label>
+      <p class="ayuda" id="a11y-mensaje-ayuda">Obligatorio.</p>
+      <textarea id="a11y-mensaje" name="mensaje" rows="6" required aria-describedby="a11y-mensaje-ayuda"></textarea>
+
+      <label for="a11y-tecnologia">Tecnología que usas, si quieres contarlo (opcional)</label>
+      <p class="ayuda" id="a11y-tecnologia-ayuda">Por ejemplo, navegador y lector de pantalla. Nos ayuda a reproducir el problema.</p>
+      <input id="a11y-tecnologia" name="tecnologia" type="text" aria-describedby="a11y-tecnologia-ayuda">
+
+      <button type="submit">Enviar</button>
+    </form>
+    <p>Tratamos estos datos solo para atender tu comunicación. Consulta la <a href="{{URL_PRIVACIDAD}}">política de privacidad</a>.</p>
+  </main>
+</body>
+</html>
