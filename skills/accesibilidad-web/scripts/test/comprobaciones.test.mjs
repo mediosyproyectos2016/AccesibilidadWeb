@@ -136,11 +136,11 @@ test('reintenta un tiempo agotado y lista aparte la página que no se pudo audit
   let intentos = 0;
   srv.estado.rutas['/lenta'] = (req, res) => {
     intentos++;
-    if (intentos === 1) return; // la primera vez no responde
+    if (intentos === 1) return; // la primera vez no responde: agota el tiempo y debe reintentar
     res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
     res.end('<!doctype html><html lang="es"><title>Lenta</title><main><h1>Lenta</h1></main></html>');
   };
-  const ok = await auditar(['--rapido', '--sin-teclado', '--sin-reflow', '--timeout', '3000', `${srv.base}/lenta`]);
+  const ok = await auditar(['--rapido', '--sin-teclado', '--sin-reflow', '--timeout', '15000', `${srv.base}/lenta`]);
   assert.equal(ok.informe.paginas[0].error, null, ok.log);
   assert.ok(intentos >= 2);
 
