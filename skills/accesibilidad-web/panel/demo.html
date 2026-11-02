@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prueba del panel de preferencias de accesibilidad</title>
+  <style>
+    body { max-width: 42rem; margin: 0 auto; padding: 1rem; font-family: Georgia, serif; font-size: 1rem; color: #1a1a1a; background: #fff; }
+    :focus-visible { outline: 3px solid #0b57d0; outline-offset: 2px; }
+    .saltar { position: absolute; left: -999px; }
+    .saltar:focus { left: 8px; top: 8px; padding: 8px; background: #fff; }
+    .gira { width: 96px; height: 96px; border: 8px dashed #0b57d0; border-radius: 50%; }
+    @media (prefers-reduced-motion: no-preference) { .gira { animation: gira 4s linear 1; } }
+    @keyframes gira { to { transform: rotate(360deg); } }
+    footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #1a1a1a; }
+    a { color: #0b57d0; text-decoration: none; font-weight: 700; }
+    @media (prefers-color-scheme: dark) { body { background: #111; color: #f2f2f2; } a { color: #9dc1ff; } footer { border-color: #f2f2f2; } }
+  </style>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <header><p>Mi Tienda</p></header>
+  <main id="contenido">
+    <h1>Prueba del panel</h1>
+    <p>Abre el panel y cambia los ajustes: <a href="#ejemplo">este enlace</a> debería subrayarse, el texto crecer, el contraste cambiar y la animación detenerse.</p>
+    <div class="gira" aria-hidden="true"></div>
+    <h2 id="ejemplo">Un apartado</h2>
+    <p>Este panel es una comodidad adicional. No hace accesible una web ni sustituye arreglar su código.</p>
+  </main>
+  <footer>
+    <panel-accesibilidad modo="en-linea" declaracion="#declaracion"></panel-accesibilidad>
+  </footer>
+  <script src="panel-accesibilidad.js" defer></script>
+</body>
+</html>
