@@ -501,6 +501,7 @@ async function main() {
 
     const problemas = agrupar(hallazgos);
     const resumen = resumir(problemas);
+    resumen.paginasNoAuditadas = paginas.filter((p) => p.error).length;
     const datos = {
       herramienta: 'AccesibilidadWeb',
       version: VERSION,
@@ -532,6 +533,7 @@ async function main() {
 
     console.log(`\n${resumen.problemas} problemas · ` +
       IMPACTOS.map((i) => `${IMPACTO_ES[i]}: ${resumen.porImpacto[i] ?? 0}`).join(' · '));
+    if (resumen.paginasNoAuditadas) console.log(`Atención: ${resumen.paginasNoAuditadas} página(s) no auditadas; sus fallos no están contados.`);
     console.log(`Informe: ${path.resolve(values.salida, 'informe.md')}`);
 
     const fallidas = paginas.filter((p) => p.error);

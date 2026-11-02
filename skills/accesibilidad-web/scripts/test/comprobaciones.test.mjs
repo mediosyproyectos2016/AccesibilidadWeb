@@ -50,7 +50,7 @@ test('la tienda con fallos activa las comprobaciones que axe no cubre', { timeou
   for (const esperada of [
     'movimiento-sin-pausa', 'movimiento-reducido-ignorado', 'modal-sin-foco', 'modal-foco-escapa', 'modal-esc',
     'desplegable-sin-estado', 'tabindex-positivo', 'espaciado-recorta', 'zoom-200-desborde', 'reflow-320',
-    'texto-sobre-media', 'target-size', 'foco-no-visible', 'image-alt', 'html-has-lang', 'meta-viewport',
+    'texto-sobre-media', 'target-size', 'foco-no-visible', 'image-alt', 'html-has-lang', 'meta-viewport', 'aria-hidden-focus',
   ]) assert.ok(r.includes(esperada), `falta ${esperada} en ${r.join(', ')}`);
   const carrusel = informe.problemas.find((p) => p.regla === 'movimiento-sin-pausa' && /carrusel/i.test(p.selector));
   assert.ok(carrusel, 'no detecta el carrusel que cambia solo');
@@ -147,10 +147,39 @@ test('reintenta un tiempo agotado y lista aparte la página que no se pudo audit
   srv.estado.rutas['/prohibida'] = (req, res) => { res.writeHead(403); res.end('no'); };
   const parcial = await auditar(['--rapido', '--sin-teclado', '--sin-reflow', `${srv.base}/lenta`, `${srv.base}/prohibida`]);
   const md = readFileSync(path.join(parcial.salida, 'informe.md'), 'utf8');
+  assert.equal(parcial.informe.resumen.paginasNoAuditadas, 1);
+  assert.match(parcial.log, /1 página\(s\) no auditadas/);
   assert.match(md, /1 página\(s\) no se pudieron auditar/);
   assert.match(md, /no se rodea/);
   assert.match(md, /## No comprobado/);
   assert.match(md, /lector de pantalla/);
+});
+
+test('un diálogo que retiene el foco a propósito no es una trampa', { timeout: 200000 }, async () => {
+  const pagina = (cuerpo) => ({ texto: `<!doctype html><html lang="es"><head><meta name="viewport" content="width=device-width, initial-scale=1"><title>Modal</title></head><body><main><h1>Modal</h1><a href="#x">Enlace</a>${cuerpo}</main></body></html>` });
+  const retener = "addEventListener('keydown', (e) => { if (e.key !== 'Tab') return; e.preventDefault(); const b = [...document.querySelectorAll('[role=dialog] button')]; b[(b.indexOf(document.activeElement) + 1) % b.length].focus(); });";
+  srv.estado.rutas['/modal-nativo'] = pagina("<dialog id='d'><h2>Aviso</h2><button type='button'>Uno</button><button type='button'>Dos</button></dialog><script>const d = document.getElementById('d'); d.addEventListener('cancel', (e) => e.preventDefault()); d.showModal();</script>");
+  srv.estado.rutas['/modal-js'] = pagina(`<div role='dialog' aria-modal='true' aria-label='Aviso'><button type='button' id='p'>Uno</button><button type='button'>Dos</button></div><script>${retener} document.getElementById('p').focus();</script>`);
+  srv.estado.rutas['/modal-uno'] = pagina(`<div role='dialog' aria-modal='true' aria-label='Aviso'><button type='button' id='p'>Solo uno</button></div><script>${retener} document.getElementById('p').focus();</script>`);
+  for (const ruta of ['/modal-nativo', '/modal-js', '/modal-uno']) {
+    const { informe, log } = await auditar(['--rapido', '--sin-reflow', `${srv.base}${ruta}`]);
+    assert.ok(!reglas(informe).includes('trampa-foco'), `${ruta}: ${log} ${JSON.stringify(informe.problemas.filter((p) => p.regla === 'trampa-foco'))}`);
+    assert.ok(informe.paginas[0].avisos?.some((a) => /diálogo modal/.test(a)), `${ruta}: avisa del diálogo abierto`);
+  }
+});
+
+test('reflow: señala el texto oculto que escapa de un contenedor con overflow, y no lo que el contenedor recorta', { timeout: 200000 }, async () => {
+  const pagina = (estilo) => ({ texto: `<!doctype html><html lang="es"><head><meta name="viewport" content="width=device-width, initial-scale=1"><title>Reflow</title><style>body{margin:0}.oculto{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.fila{white-space:nowrap}.fila span{display:inline-block;width:200px}.fila span.oculto{width:1px}</style></head><body><main><h1>Reflow</h1><div tabindex="0" role="group" aria-label="Fila" style="overflow-x:auto;${estilo}"><div class="fila"><span>A</span><span>B</span><span>C</span><span>D</span><span class="oculto" id="escapa">Solo para lectores</span></div></div></main></body></html>` });
+  srv.estado.rutas['/escapa'] = pagina('');
+  const mal = await auditar(['--rapido', '--sin-teclado', `${srv.base}/escapa`]);
+  const p = mal.informe.problemas.find((x) => x.regla === 'reflow-320');
+  assert.ok(p, mal.log);
+  assert.match(p.detalle, /solo para lectores de pantalla.*position: relative/i);
+  assert.match(p.selector, /escapa/);
+
+  srv.estado.rutas['/contenido'] = pagina('position:relative');
+  const bien = await auditar(['--rapido', '--sin-teclado', `${srv.base}/contenido`]);
+  assert.ok(!reglas(bien.informe).includes('reflow-320'), JSON.stringify(bien.informe.problemas));
 });
 
 test('detecta una trampa de foco en ciclo', { timeout: 120000 }, async () => {
@@ -161,7 +190,7 @@ test('detecta una trampa de foco en ciclo', { timeout: 120000 }, async () => {
 test('no da falsos positivos con iframes, shadow DOM ni texto legible sobre imagen', { timeout: 200000 }, async () => {
   const { informe } = await auditar([`${srv.base}/casos`]);
   const r = reglas(informe);
-  for (const no of ['trampa-foco', 'texto-sobre-media', 'foco-no-visible']) assert.ok(!r.includes(no), `sobra ${no}: ${JSON.stringify(informe.problemas.filter((p) => p.regla === no))}`);
+  for (const no of ['trampa-foco', 'foco-oculto', 'texto-sobre-media', 'foco-no-visible']) assert.ok(!r.includes(no), `sobra ${no}: ${JSON.stringify(informe.problemas.filter((p) => p.regla === no))}`);
 });
 
 test('--estados audita un estado interactivo y avisa si no se puede reproducir', { timeout: 200000 }, async () => {

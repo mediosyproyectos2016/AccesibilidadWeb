@@ -141,6 +141,11 @@ Banners con el texto de la oferta incrustado en la imagen: no escala, no se trad
 | `aria-hidden="true"` | Solo oculto al lector | Decoración e iconos duplicados; **nunca** con elementos enfocables dentro |
 | `opacity:0` o fuera de pantalla sin más | Sigue siendo enfocable e invisible | Evitar: provoca foco «perdido» (2.4.7, 2.4.11) |
 
+Dos trampas frecuentes con estas técnicas:
+
+- **`aria-hidden` en el envoltorio de un widget decorativo que trae un control.** Si el vídeo o la animación incluyen un botón de pausa, ese botón queda oculto al lector pero sigue recibiendo foco (regla `aria-hidden-focus`). Saca el control del envoltorio: `aria-hidden` solo en lo decorativo.
+- **`.visualmente-oculto` sin antepasado posicionado dentro de un contenedor con `overflow-x`.** Al ser `position: absolute`, escapa del contenedor y puede dar scroll horizontal a toda la página a 320 px (regla `reflow-320`). Pon `position: relative` en el contenedor con `overflow`.
+
 ## 16. Abrir ventanas nuevas sin avisar
 
 `target="_blank"` sin aviso desorienta. Si es necesario, indícalo: texto o icono con alternativa «(se abre en una ventana nueva)».

@@ -97,9 +97,11 @@ export async function revisarMovimiento(page, { ms = 5500 } = {}) {
 
     const hayPausaCerca = (el) => {
       let n = el;
-      for (let i = 0; n && n !== document.documentElement && i < 6; i++, n = n.parentElement) {
+      // Hasta <body> sin incluirlo: un botón de pausa de otra zona no para esto. Un
+      // control dentro de aria-hidden tampoco cuenta: el lector de pantalla no lo ve.
+      for (let i = 0; n && n !== document.body && n !== document.documentElement && i < 6; i++, n = n.parentElement) {
         const controles = n.querySelectorAll('button, [role="button"], input[type="button"], input[type="checkbox"], a[href]');
-        if ([...controles].some((c) => ay.visible(c) && reNombre.test(ay.nombre(c)))) return true;
+        if ([...controles].some((c) => ay.visible(c) && !c.closest('[aria-hidden="true"]') && reNombre.test(ay.nombre(c)))) return true;
       }
       return false;
     };

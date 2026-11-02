@@ -175,7 +175,7 @@ export const ARREGLOS = {
   'tabindex': { texto: 'No uses `tabindex` positivo; ordena el DOM.', receta: `${REC}/teclado-y-foco.md` },
   'scrollable-region-focusable': { texto: 'Las zonas con desplazamiento deben poder enfocarse (`tabindex="0"` + nombre) o contener enfocables.', receta: `${REC}/teclado-y-foco.md` },
   'nested-interactive': { texto: 'No anides controles interactivos (botón dentro de enlace, etc.).', receta: `${REC}/botones.md` },
-  'aria-hidden-focus': { texto: 'Un contenedor `aria-hidden="true"` no puede tener elementos enfocables (añade `inert` o `tabindex="-1"`).', receta: `${REC}/modales.md` },
+  'aria-hidden-focus': { texto: 'Un contenedor `aria-hidden="true"` no puede tener elementos enfocables. Pasa a menudo al envolver un widget decorativo que trae un botón (por ejemplo, de pausa): saca el control del envoltorio y deja `aria-hidden` solo en lo decorativo, o usa `inert` si de verdad no debe usarse.', receta: `${REC}/modales.md` },
   'aria-hidden-body': { texto: 'No pongas `aria-hidden` en `<body>`.', receta: `${REC}/modales.md` },
   'aria-dialog-name': { texto: 'Da nombre al diálogo con `aria-labelledby` apuntando a su título.', receta: `${REC}/modales.md` },
   'aria-required-attr': { texto: 'Añade los atributos obligatorios del rol (p. ej. `aria-checked` en `role="checkbox"`).', receta: 'references/patrones-aria.md' },
@@ -229,7 +229,7 @@ export const ARREGLOS = {
   'meta-viewport-large': { texto: 'Permite un zoom amplio: quita `maximum-scale` y `user-scalable=no` del viewport.', receta: `${REC}/estructura.md` },
   'table-fake-caption': { texto: 'Usa `<caption>` en lugar de una celda que simula el título de la tabla.', receta: `${REC}/tablas.md` },
   // Comprobaciones propias de auditar.mjs
-  'reflow-320': { texto: 'A 320 px de ancho aparece scroll horizontal: usa unidades relativas, `flex-wrap`, `max-width:100%` y evita anchos fijos.', receta: `${REC}/estructura.md` },
+  'reflow-320': { texto: 'A 320 px de ancho aparece scroll horizontal: usa unidades relativas, `flex-wrap`, `max-width:100%` y evita anchos fijos. Si lo causa un texto oculto visualmente (`sr-only`) dentro de un contenedor con `overflow-x`, pon `position: relative` en ese contenedor.', receta: `${REC}/estructura.md` },
   'foco-no-visible': { texto: 'El elemento recibe foco sin indicador visible: añade estilos `:focus-visible` (contorno ≥ 2 px con contraste 3:1).', receta: `${REC}/teclado-y-foco.md` },
   'foco-oculto': { texto: 'El elemento enfocado queda oculto o fuera de la pantalla (cabecera fija, tamaño cero): usa `scroll-padding-top` o retira del orden de tabulación lo que no se ve.', receta: `${REC}/teclado-y-foco.md` },
   'trampa-foco': { texto: 'El foco queda atrapado en el mismo elemento: revisa los manejadores de teclado.', receta: `${REC}/teclado-y-foco.md` },

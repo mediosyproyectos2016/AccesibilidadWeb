@@ -33,6 +33,10 @@ De auditar a arreglar: la skill lleva de la auditoría a la web arreglada, en cu
 ### Corregido
 - Falso positivo de trampa de foco en iframes y en componentes con shadow DOM.
 - Una trampa en ciclo entre varios elementos ya se detecta, antes pasaba por el final del recorrido.
+- Un diálogo modal que retiene el foco a propósito, nativo o con JavaScript, ya no se marca como trampa.
+- Falso positivo de foco tapado en componentes con shadow DOM.
+- El reflow a 320 px ya no culpa a lo que recorta un contenedor con `overflow`, y señala el texto `sr-only` que escapa de él por no tener antepasado posicionado.
+- Un botón de pausa solo cuenta si está cerca de lo que se mueve y no está dentro de `aria-hidden`.
 - Una página no auditada se avisa siempre; con línea base da código 2.
 
 ## [0.1.0] - 2026-10-30

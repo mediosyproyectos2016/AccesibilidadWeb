@@ -45,10 +45,25 @@ function infoFocoEnPagina() {
     [r.left + 2, r.top + 2], [r.right - 2, r.top + 2],
     [r.left + 2, r.bottom - 2], [r.right - 2, r.bottom - 2],
   ];
+  // elementFromPoint se detiene en el anfitrión de un shadow DOM y contains no cruza
+  // esa frontera: hay que bajar y subir a mano o todo componente web parecería tapado.
+  const enPunto = (x, y) => {
+    let e = document.elementFromPoint(x, y);
+    while (e && e.shadowRoot) {
+      const dentro = e.shadowRoot.elementFromPoint(x, y);
+      if (!dentro || dentro === e) break;
+      e = dentro;
+    }
+    return e;
+  };
+  const contieneCruzando = (padre, hijo) => {
+    for (let n = hijo; n; n = n.parentNode || n.host) if (n === padre) return true;
+    return false;
+  };
   for (const [x, y] of puntos) {
     if (x < 0 || y < 0 || x > innerWidth || y > innerHeight) continue;
-    const arriba = document.elementFromPoint(x, y);
-    if (arriba && (arriba === el || el.contains(arriba) || arriba.contains(el))) puntosVisibles++;
+    const arriba = enPunto(x, y);
+    if (arriba && (contieneCruzando(el, arriba) || contieneCruzando(arriba, el))) puntosVisibles++;
   }
 
   // Zona de comparación: el elemento y hasta 3 antepasados de tamaño razonable
@@ -87,8 +102,17 @@ export async function revisarTeclado(page, { maxTabs = 40 } = {}) {
   // Si al cargar hay un diálogo modal abierto (promoción, cookies), se intenta
   // cerrar con Esc para recorrer la página; si no se cierra, se recorre el diálogo.
   const avisos = [];
-  const hayModal = () => page.evaluate(() => [...document.querySelectorAll('dialog[open], [aria-modal="true"]')]
-    .some((d) => { const r = d.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(d).visibility !== 'hidden'; }));
+  const hayModal = () => page.evaluate(() => {
+    const buscar = (raiz) => [
+      ...raiz.querySelectorAll('dialog[open], [aria-modal="true"], [role="dialog"], [role="alertdialog"]'),
+      ...[...raiz.querySelectorAll('*')].flatMap((e) => (e.shadowRoot ? buscar(e.shadowRoot) : [])),
+    ];
+    return buscar(document).some((d) => {
+      const r = d.getBoundingClientRect();
+      const cs = getComputedStyle(d);
+      return r.width > 0 && r.height > 0 && cs.visibility !== 'hidden' && cs.display !== 'none';
+    });
+  });
   if (await hayModal().catch(() => false)) {
     await page.keyboard.press('Escape');
     await page.waitForTimeout(300);
@@ -111,7 +135,6 @@ export async function revisarTeclado(page, { maxTabs = 40 } = {}) {
   let repeticiones = 0;
   let enIframe = 0;
   const vistos = new Set();
-  const modalAbierto = await hayModal().catch(() => false);
 
   for (let i = 0; i < maxTabs; i++) {
     await page.keyboard.press('Tab');
@@ -128,7 +151,10 @@ export async function revisarTeclado(page, { maxTabs = 40 } = {}) {
     if (clave === anterior) {
       repeticiones++;
       if (repeticiones >= 2) {
-        hallazgos.push({ regla: 'trampa-foco', impacto: 'critical', selector: clave, detalle: 'Tab no saca el foco de este elemento.' });
+        // Un diálogo con un solo control retiene el foco en él a propósito.
+        if (!(await hayModal().catch(() => false))) {
+          hallazgos.push({ regla: 'trampa-foco', impacto: 'critical', selector: clave, detalle: 'Tab no saca el foco de este elemento.' });
+        }
         break;
       }
       continue;
@@ -139,7 +165,7 @@ export async function revisarTeclado(page, { maxTabs = 40 } = {}) {
       // navegador (activeElement = body) y ahí acaba el recorrido. Volver a un
       // elemento ya visitado sin haber salido es un ciclo: la página retiene el foco.
       // Dentro de un diálogo modal ese ciclo es justo lo que debe pasar.
-      if (!modalAbierto) {
+      if (!(await hayModal().catch(() => false))) {
         hallazgos.push({ regla: 'trampa-foco', impacto: 'critical', selector: clave, texto: info.texto, detalle: `Tab vuelve a este elemento tras ${pasos.length} paradas sin salir del ciclo: no se llega al resto de la página ni se sale de ella.` });
       }
       break;
@@ -213,24 +239,41 @@ export async function revisarReflow(page) {
     const ancho = document.documentElement.clientWidth;
     const desborde = Math.max(document.documentElement.scrollWidth, document.body ? document.body.scrollWidth : 0);
     const culpables = [];
+    // ¿Lo recorta un antepasado? Un elemento absoluto solo lo recortan su bloque
+    // contenedor y los antepasados de este: sin antepasado posicionado, escapa de un
+    // overflow y es el que da el scroll de la página.
+    const recortado = (el) => {
+      let buscandoBloque = getComputedStyle(el).position === 'absolute';
+      for (let n = el.parentElement; n && n !== document.body && n !== document.documentElement; n = n.parentElement) {
+        const cs = getComputedStyle(n);
+        if (buscandoBloque) {
+          if (cs.position === 'static' && cs.transform === 'none') continue;
+          buscandoBloque = false;
+        }
+        if (cs.overflowX !== 'visible') return true;
+      }
+      return false;
+    };
+    const soloLector = [];
     if (desborde > ancho + 1) {
       for (const el of document.querySelectorAll('body *')) {
         const rr = el.getBoundingClientRect();
-        if (rr.right > ancho + 1 && rr.width > 0 && getComputedStyle(el).position !== 'fixed') {
+        if (rr.right > ancho + 1 && rr.width > 0 && getComputedStyle(el).position !== 'fixed' && !recortado(el)) {
           // Quédate con el elemento más externo que desborda.
           if (!culpables.some((c) => c.contains(el))) culpables.push(el);
+          if (rr.width <= 2 && rr.height <= 2 && getComputedStyle(el).position === 'absolute') soloLector.push(el);
           if (culpables.length >= 5) break;
         }
       }
     }
     const sel = (n) => n.id ? `#${n.id}` : n.tagName.toLowerCase() + (n.classList.length ? '.' + [...n.classList].slice(0, 2).join('.') : '');
-    return { ancho, desborde, culpables: culpables.map(sel) };
+    return { ancho, desborde, culpables: culpables.map(sel), soloLector: soloLector.map(sel) };
   });
   await page.setViewportSize(original);
   if (r.desborde <= r.ancho + 1) return [];
   return [{
     regla: 'reflow-320', impacto: 'serious',
     selector: r.culpables[0] || 'html',
-    detalle: `A 320 px el contenido mide ${r.desborde} px de ancho (scroll horizontal). Elementos que desbordan: ${r.culpables.join(', ') || 'sin identificar'}.`,
+    detalle: `A 320 px el contenido mide ${r.desborde} px de ancho (scroll horizontal). Elementos que desbordan: ${r.culpables.join(', ') || 'sin identificar'}.${r.soloLector.length ? ` Texto solo para lectores de pantalla que escapa de su contenedor (${r.soloLector.join(', ')}): pon position: relative en el contenedor con overflow.` : ''}`,
   }];
 }
