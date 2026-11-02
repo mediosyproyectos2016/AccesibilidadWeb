@@ -20,6 +20,9 @@ Uso: node declaracion.mjs --informe <informe.json> [opciones]
 Opciones:
   --revision <fichero>    Revisión manual (revision.mjs). Sin ella, solo un borrador.
   --datos <fichero>       Datos de la entidad: ver plantillas/datos-declaracion.json.
+  --aplicabilidad <fichero> Resultado de aplicabilidad.mjs: adapta el texto a si la norma
+                          obliga, es dudosa o no aplica. Sin él, el texto cita las normas
+                          como si fueran exigibles: compruébalo antes de publicar.
   --salida <carpeta>      Dónde escribir declaracion.md y .html (por defecto, carpeta del informe).
   --situacion no-conforme Si hay fallos, declara «no conforme» en lugar de «parcialmente».
                           Decídelo tú: «parcial» supone que se cumple la mayor parte.
@@ -38,6 +41,7 @@ function main() {
       informe: { type: 'string' },
       revision: { type: 'string' },
       datos: { type: 'string' },
+      aplicabilidad: { type: 'string' },
       salida: { type: 'string' },
       situacion: { type: 'string' },
       'confirmar-plena-conformidad': { type: 'string' },
@@ -58,7 +62,12 @@ function main() {
   const revision = leer(values.revision);
   const datos = leer(values.datos) ?? {};
   const confirmacion = values['confirmar-plena-conformidad']?.trim() || null;
-  const opciones = { confirmacion, situacion: values.situacion ?? null };
+  const aplicabilidad = leer(values.aplicabilidad);
+  if (aplicabilidad && aplicabilidad.esquema !== 1) {
+    console.error('Error: --aplicabilidad no es un resultado de aplicabilidad.mjs.');
+    return 2;
+  }
+  const opciones = { confirmacion, situacion: values.situacion ?? null, aplicabilidad };
 
   if (confirmacion) {
     const motivo = motivoRechazoConfirmacion(evaluar(informe, revision, opciones));
@@ -77,6 +86,9 @@ function main() {
   for (const m of r.evaluacion.motivos) console.log(`  - ${m}`);
   if (r.marcadores.length) console.log(`  - Faltan datos: ${r.marcadores.join(', ')}`);
   console.log(`Declaración: ${path.resolve(salida, 'declaracion.md')} y .html`);
+  if (!aplicabilidad) console.log('Sin --aplicabilidad: el texto dice «de conformidad con» estas normas. Si no te obligan, usa aplicabilidad.mjs.');
+  else console.log(`Veredicto de aplicabilidad: ${aplicabilidad.veredicto} (revisado el ${aplicabilidad.revisado}).`);
+  for (const a of r.deberes) console.log(`  * ${a}`);
   if (!r.publicable) {
     console.log('Es un BORRADOR: no la publiques hasta resolver lo anterior.');
     return 1;

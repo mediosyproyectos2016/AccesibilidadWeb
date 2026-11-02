@@ -71,11 +71,13 @@ function contenidoNoAccesible(ev) {
 }
 
 /** Bloques de contenido; se renderizan después a Markdown y HTML. */
-export function bloques(informe, revision, datos, ev, { confirmacion = null } = {}) {
+export function bloques(informe, revision, datos, ev, { confirmacion = null, aplicabilidad = null } = {}) {
   const d = (k, m = k.toUpperCase()) => (datos?.[k] && String(datos[k]).trim()) || marc(m);
   const entidad = d('entidad', 'NOMBRE_ENTIDAD');
-  const sector = datos?.sector;
+  const A = aplicabilidad?.declaracion?.variante ? aplicabilidad.declaracion : null;
+  const sector = A?.sector ?? datos?.sector;
   const norma = d('norma', 'NORMA_DE_REFERENCIA');
+  const rellenar = (s) => s.replaceAll('{ENTIDAD}', entidad).replaceAll('{NORMA}', norma);
   const B = [];
   const h1 = (t) => B.push({ t: 'h1', v: t });
   const h2 = (t) => B.push({ t: 'h2', v: t });
@@ -87,16 +89,17 @@ export function bloques(informe, revision, datos, ev, { confirmacion = null } = 
   if (sector !== 'privado') normas.push('[SECTOR PÚBLICO] el Real Decreto 1112/2018, de 7 de septiembre, sobre accesibilidad de los sitios web y aplicaciones para dispositivos móviles del sector público');
   if (sector !== 'publico') normas.push('[SECTOR PRIVADO] el Título I de la Ley 11/2023, de 8 de mayo, que traspone la Directiva (UE) 2019/882 sobre los requisitos de accesibilidad de los productos y servicios');
   const limpiar = (s) => (sector ? s.replace(/^\[SECTOR [A-ZÚ]+\] /, '') : s);
-  p(`${entidad} se ha comprometido a hacer accesible su sitio web, de conformidad con ${normas.map(limpiar).join(' / ')}.`);
+  if (A) p(rellenar(A.introduccion));
+  else p(`${entidad} se ha comprometido a hacer accesible su sitio web, de conformidad con ${normas.map(limpiar).join(' / ')}.`);
   p(`La presente declaración se aplica a: ${d('ambito', 'URL_O_NOMBRE_APP')}.`);
 
   h2('Situación de cumplimiento');
   if (ev.situacion === 'plena') {
     p(`Este sitio web es plenamente conforme con ${norma}. Lo confirma ${confirmacion} a partir de la evaluación que se describe abajo.`);
   } else if (ev.situacion === 'parcial') {
-    p(`Este sitio web es parcialmente conforme con ${norma} debido a la falta de conformidad que se indica a continuación.`);
+    p(A ? rellenar(A.parcial) : `Este sitio web es parcialmente conforme con ${norma} debido a la falta de conformidad que se indica a continuación.`);
   } else if (ev.situacion === 'no-conforme') {
-    p(`Este sitio web no es conforme con ${norma}. La falta de conformidad se indica a continuación.`);
+    p(A ? rellenar(A.noConforme) : `Este sitio web no es conforme con ${norma}. La falta de conformidad se indica a continuación.`);
   } else {
     p(`Situación sin determinar: la evaluación no está completa y este texto no afirma ninguna conformidad. ${ev.motivos.join(' ')}`);
   }
@@ -105,7 +108,7 @@ export function bloques(informe, revision, datos, ev, { confirmacion = null } = 
   if (lista.length) {
     h2('Contenido no accesible');
     p('El contenido que se recoge a continuación no es accesible por lo siguiente.');
-    B.push({ t: 'h3', v: 'Falta de conformidad con la normativa aplicable' });
+    B.push({ t: 'h3', v: !A || ['obligado', 'sector-publico'].includes(A.variante) ? 'Falta de conformidad con la normativa aplicable' : 'Problemas detectados' });
     ul(lista);
     if (datos?.alternativas) p(`Alternativas accesibles: ${datos.alternativas}`);
   }
@@ -126,6 +129,17 @@ export function bloques(informe, revision, datos, ev, { confirmacion = null } = 
     p(`Páginas evaluadas de forma automática: ${paginasOk.slice(0, 20).map((x) => rutaDe(x.url)).join(', ')}${paginasOk.length > 20 ? ` y ${paginasOk.length - 20} más` : ''}.`);
   }
 
+  if (A?.exigeInformacionServicio) {
+    h2('Información de accesibilidad del servicio');
+    ul([
+      `Descripción general del servicio: ${d('descripcionServicio', 'DESCRIPCIÓN_SERVICIO')}`,
+      `Cómo funciona, explicado de forma comprensible: ${d('funcionamiento', 'EXPLICACIÓN_FUNCIONAMIENTO')}`,
+      `Requisitos aplicados: anexo I de la Ley 11/2023; como referencia técnica, ${norma}.`,
+      `Cómo se garantiza que sigue cumpliéndolos: ${d('procesoRevision', 'PROCESO_REVISIÓN')}`,
+      `Otros formatos: puede pedir esta información en formatos accesibles y de forma oral en ${d('canalOral', 'TELÉFONO_O_CANAL_ORAL')}.`,
+    ]);
+  }
+
   h2('Observaciones y datos de contacto');
   p('Puede comunicarnos cualquier problema de accesibilidad o pedir información sobre contenido no accesible por estas vías:');
   ul([
@@ -137,6 +151,15 @@ export function bloques(informe, revision, datos, ev, { confirmacion = null } = 
   p(`Plazo de respuesta: ${d('plazo', 'PLAZO_RESPUESTA')}.`);
 
   h2('Procedimiento de aplicación');
+  if (A?.procedimiento === 'propio') {
+    p('Si no está satisfecho con nuestra respuesta, vuelva a escribirnos por las vías anteriores y revisaremos su caso.');
+    return B;
+  }
+  if (A?.procedimiento === 'autoridad') {
+    const propia = datos?.autoridad && String(datos.autoridad).trim();
+    p(`Si no está satisfecho con nuestra respuesta, ${propia ? `puede dirigirse a ${propia} (Ley 11/2023, arts. 24, 27 y 29).` : A.autoridad || `puede dirigirse a ${marc('NOMBRE_Y_CONTACTO_AUTORIDAD')}.`}`);
+    return B;
+  }
   if (sector !== 'privado') {
     p(`${sector ? '' : '[SECTOR PÚBLICO] '}Si, una vez realizada una solicitud de información accesible o una queja, esta hubiera sido desestimada, no estuviera de acuerdo con la decisión adoptada o la respuesta no cumpliera los requisitos, puede presentar una reclamación ante ${d('responsable', 'UNIDAD_RESPONSABLE')} en ${d('reclamaciones', 'URL_O_SEDE_RECLAMACIONES')}.`);
   }
@@ -199,5 +222,6 @@ export function generarDeclaracion(informe, revision, datos, opciones = {}) {
   if (ev.situacion === 'sin-determinar' || ev.situacion === 'sin-confirmar') avisos.push(ev.motivos.join(' '));
   if (marcadores.length) avisos.push(`Faltan datos: ${marcadores.join(', ')}.`);
   const aviso = avisos.join(' ');
-  return { evaluacion: ev, marcadores, publicable: !aviso, markdown: aMarkdown(B, aviso), html: aHTML(B, aviso) };
+  const deberes = opciones.aplicabilidad?.declaracion?.avisos ?? [];
+  return { evaluacion: ev, marcadores, publicable: !aviso, deberes, markdown: aMarkdown(B, aviso), html: aHTML(B, aviso) };
 }
