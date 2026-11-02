@@ -75,6 +75,24 @@ Si la web cambia con `prefers-color-scheme: dark` o con un conmutador, **audita 
 }
 ```
 
+Las imágenes de producto con fondo transparente pueden desaparecer sobre un fondo oscuro. Dales un fondo claro fijo y compruébalo a mano: una herramienta no sabe qué partes de la imagen son transparentes.
+
+## Texto sobre imagen o vídeo
+
+axe no puede decidir estos casos y los deja como «necesita revisión». `auditar.mjs` fotografía el fondo sin el texto y mide el contraste real, con varias muestras si hay vídeo: regla `texto-sobre-media`. Si más de la mitad del fondo no llega al mínimo lo da por fallo; si solo una parte, lo deja para revisar. Una sola muestra no sirve para un carrusel ni para un vídeo: comprueba las demás a mano.
+
+```css
+/* Mal: el contraste depende de cada foto */
+.portada h2 { color: #fff; }
+
+/* Bien: velo opaco bajo el texto, que aguanta cualquier foto */
+.portada h2 { color: #fff; background: rgb(0 0 0 / .75); padding: .25em .5em; }
+```
+
+Un velo sobre toda la imagen también vale si, con la foto más clara posible, el texto sigue llegando al mínimo. `text-shadow` ayuda, pero no se puede medir: compruébalo a ojo con cada imagen. Cambiar la imagen o el color es una decisión de diseño: propónla.
+
+En gráficos SVG, el texto sobre líneas o áreas tampoco lo evalúa axe. Dale un halo con `paint-order: stroke; stroke: #fff; stroke-width: 3px;` y compruébalo a mano.
+
 ## Uso del color (1.4.1)
 
 El color no puede ser el **único** medio de transmitir información:

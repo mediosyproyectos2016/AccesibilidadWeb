@@ -4,6 +4,17 @@ La auditoría automática no puede juzgar si un `alt` describe bien la imagen, s
 
 ## Cómo registrar los resultados
 
+Regístralo con `node revision.mjs`: crea `revision-manual.json` con las comprobaciones de esta guía y la declaración se genera a partir de él. Una comprobación sin autor y método no cuenta, y un agente (`--agente`) no puede aprobar lo que exige a una persona.
+
+```bash
+node revision.mjs crear --informe informe.json --salida revision-manual.json
+node revision.mjs marcar revision-manual.json --id lector-pantalla --estado fallo --por "Ana" --metodo "NVDA + Firefox" --notas "El carrito no anuncia los cambios"
+```
+
+Además, prueba con personas: quien usa a diario un lector de pantalla, un magnificador o control por voz encontrará lo que esta lista no recoge. Pídele que complete las tareas principales (buscar, comprar, contactar) y escucha.
+
+Si necesitas el detalle por página, añade esta tabla al informe final:
+
 Para cada comprobación anota una fila. Va al informe final junto a los resultados automáticos:
 
 | Página | Criterio | Resultado | Evidencia | Arreglo propuesto |

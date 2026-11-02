@@ -9,7 +9,7 @@
     {
       "name": "accesibilidad-web",
       "source": "./",
-      "description": "Audita y adapta webs a WCAG 2.2 AA / EN 301 549 (Ley 11/2023, RD 1112/2018): auditoría automática, revisión manual guiada, recetas por stack y declaración de accesibilidad.",
+      "description": "De la auditoría al código arreglado en WCAG 2.2 AA / EN 301 549 (Ley 11/2023, RD 1112/2018): auditar, priorizar, arreglar, reauditar, revisión manual, declaración, CI y panel de preferencias.",
       "category": "accessibility"
     }
   ]

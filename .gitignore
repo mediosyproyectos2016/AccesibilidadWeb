@@ -1,5 +1,7 @@
 node_modules/
 informe-accesibilidad/
+a11y/
+arreglos.diff
 *.log
 .DS_Store
 Thumbs.db

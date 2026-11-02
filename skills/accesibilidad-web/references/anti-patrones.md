@@ -13,10 +13,12 @@ Lo que **no** hay que hacer, por qué y qué hacer en su lugar. Si un agente de 
 - **No corrige el código de origen**: los fallos de estructura, nombres accesibles, teclado o formularios siguen ahí. La conformidad con WCAG/EN 301 549 se evalúa sobre el contenido, no sobre un widget.
 - **Puede empeorar la experiencia**: hay usuarios de lectores de pantalla que reportan interferencias con su tecnología de apoyo (atajos de teclado secuestrados, ARIA añadido automáticamente de forma errónea, contenido duplicado).
 - **Duplica lo que ya hacen el sistema y el navegador** (zoom, alto contraste, lectores), que las personas con discapacidad ya tienen configurados.
-- La comunidad de profesionales de la accesibilidad ha expresado su rechazo de forma pública, p. ej. en el [Overlay Fact Sheet](https://overlayfactsheet.com/), firmado por centenares de especialistas.
+- El [European Disability Forum y la IAAP](https://www.edf-feph.org/accessibility-overlays-dont-guarantee-compliance-with-european-legislation/) lo dijeron en 2023: «*Overlays do not make the website accessible or compliant with European accessibility legislation*».
+- La comunidad de profesionales de la accesibilidad lo rechaza de forma pública en el [Overlay Fact Sheet](https://overlayfactsheet.com/en/), con más de mil firmas.
+- En abril de 2025, la [FTC de Estados Unidos](https://www.ftc.gov/news-events/news/press-releases/2025/04/ftc-approves-final-order-requiring-accessibe-pay-1-million) aprobó una orden definitiva por la que accessiBe debe pagar 1 millón de dólares por afirmar que su producto podía hacer conforme cualquier web con WCAG.
 - Instalar un overlay **no basta** para cumplir la Ley 11/2023 ni el RD 1112/2018: la obligación es que el producto o servicio sea accesible, con su declaración y canal de quejas. Ver [docs/normativa-es.md](../../../docs/normativa-es.md).
 
-**Qué hacer**: arreglar el código siguiendo las [recetas](recetas/README.md), y retirar el overlay si interfiere. Si el cliente quiere ofrecer ajustes de visualización, que sean funciones propias, bien implementadas y que no sustituyan a la conformidad.
+**Qué hacer**: arreglar el código siguiendo las [recetas](recetas/README.md), y retirar el overlay si interfiere. Si el cliente quiere ofrecer ajustes de visualización, que sean funciones propias, bien implementadas y que no sustituyan a la conformidad. El [panel de esta skill](../panel/README.md) es eso: sin rastreo, sin «reparaciones» automáticas y sin promesas. Ofrécelo después de arreglar, nunca en su lugar.
 
 ## 2. `div` o `span` clicables
 

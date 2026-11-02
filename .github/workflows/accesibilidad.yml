@@ -1,5 +1,7 @@
 # Ejemplo: audita una web en CI con la acción de este repositorio.
-# En tu proyecto, sustituye `uses: ./` por `uses: mediosyproyectos2016/AccesibilidadWeb@v0.1.0`.
+# En tu proyecto, sustituye `uses: ./` por `uses: mediosyproyectos2016/AccesibilidadWeb@v0.2.0`.
+# Para fallar solo con regresiones, sube una línea base (auditar.mjs --guardar-linea-base)
+# y pásala con `linea-base: a11y-base.json`.
 name: Accesibilidad
 
 on:

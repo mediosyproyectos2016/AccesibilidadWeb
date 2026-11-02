@@ -1,5 +1,5 @@
 name: 'Auditoría de accesibilidad (WCAG 2.2 AA / EN 301 549)'
-description: 'Audita URLs con Playwright + axe-core a 1280 y 390 px y falla si hay problemas por encima del umbral.'
+description: 'Audita URLs con Playwright + axe-core y falla si hay problemas por encima del umbral o, con línea base, solo si hay regresiones.'
 author: 'Medios y Proyectos Neil, S.L.'
 branding:
   icon: 'eye'
@@ -20,6 +20,9 @@ inputs:
   salida:
     description: 'Carpeta del informe.'
     default: 'informe-accesibilidad'
+  linea-base:
+    description: 'Ruta, relativa al repositorio, de una línea base (auditar.mjs --guardar-linea-base). Con ella falla solo con regresiones del umbral o peor.'
+    default: ''
   argumentos:
     description: 'Argumentos extra para auditar.mjs (p. ej. --excluir "#chat").'
     default: ''
@@ -37,7 +40,7 @@ runs:
       shell: bash
       working-directory: ${{ github.action_path }}/skills/accesibilidad-web/scripts
       run: |
-        npm ci --no-audit --no-fund
+        npm ci --omit=dev --no-audit --no-fund
         npx playwright install --with-deps chromium
     - name: Auditar
       id: auditar
@@ -48,11 +51,13 @@ runs:
         UMBRAL: ${{ inputs.umbral }}
         ANCHOS: ${{ inputs.anchos }}
         SALIDA: ${{ inputs.salida }}
+        LINEA_BASE: ${{ inputs.linea-base }}
         EXTRA: ${{ inputs.argumentos }}
       run: |
         set +e
         args=(--umbral "$UMBRAL" --anchos "$ANCHOS" --salida "$GITHUB_WORKSPACE/$SALIDA")
         if [ "$RASTREAR" != "0" ]; then args+=(--rastrear "$RASTREAR"); fi
+        if [ -n "$LINEA_BASE" ]; then args+=(--linea-base "$GITHUB_WORKSPACE/$LINEA_BASE"); fi
         # shellcheck disable=SC2086
         node "${{ github.action_path }}/skills/accesibilidad-web/scripts/auditar.mjs" "${args[@]}" $EXTRA $URLS
         codigo=$?

@@ -98,6 +98,11 @@ b.addEventListener('click', () => {
 
 Animaciones con librerías (GSAP, Lottie, Three.js, scroll animado): comprueba `prefers-reduced-motion` antes de iniciarlas y ofrece pausa si son en bucle.
 
+### Qué comprueba `auditar.mjs`
+
+- `movimiento-sin-pausa` (2.2.2): tras observar la página más de 5 s, animaciones infinitas o largas, vídeos automáticos sin controles, `<marquee>` y carruseles que cambian solos, si no hay un control de pausa cerca. Si el elemento es pequeño, o solo se ve que algo cambia, queda como «revisar»: no sabe si es decorativo ni si es esencial.
+- `movimiento-reducido-ignorado`: lo que se sigue moviendo con `prefers-reduced-motion: reduce`. 2.3.3 es de nivel AAA, así que se informa como buena práctica. Hacerle caso no sustituye a la pausa: quien no tiene activada esa preferencia también tiene derecho a parar el movimiento.
+
 ## Activación por movimiento (2.5.4)
 
 Agitar, inclinar o girar el dispositivo para hacer algo: alternativa con un control en pantalla y opción de desactivarlo.

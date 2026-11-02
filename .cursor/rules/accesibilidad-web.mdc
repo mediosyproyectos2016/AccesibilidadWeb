@@ -1,11 +1,12 @@
 ---
-description: Auditar y adaptar la accesibilidad de una web (WCAG 2.2 AA, EN 301 549, Ley 11/2023, RD 1112/2018). Úsala al revisar accesibilidad, arreglar fallos de axe/Lighthouse o preparar la declaración de accesibilidad.
+description: Auditar y arreglar la accesibilidad de una web (WCAG 2.2 AA, EN 301 549, Ley 11/2023, RD 1112/2018). Úsala al revisar o mejorar la accesibilidad, arreglar fallos de axe/Lighthouse, añadir un panel de preferencias, proteger la CI o preparar la declaración de accesibilidad.
 globs:
 alwaysApply: false
 ---
 
 Sigue la skill [skills/accesibilidad-web/SKILL.md](mdc:skills/accesibilidad-web/SKILL.md): es la fuente única de instrucciones.
 
-- Auditoría automática: `node skills/accesibilidad-web/scripts/auditar.mjs <url>` (antes `npm install && npx playwright install chromium` en `skills/accesibilidad-web/scripts`).
-- Arreglos: [recetas](mdc:skills/accesibilidad-web/references/recetas/README.md), [patrones ARIA](mdc:skills/accesibilidad-web/references/patrones-aria.md), [anti-patrones](mdc:skills/accesibilidad-web/references/anti-patrones.md).
+- Flujo con los scripts de `skills/accesibilidad-web/scripts`: `auditar.mjs` → `priorizar.mjs` → `arreglar.mjs` → `comparar.mjs` en bucle → `revision.mjs` → `declaracion.mjs` (antes `npm install --omit=dev && npx playwright install chromium`).
+- No prometas una web «100 % accesible». Ningún panel sustituye arreglar el código; no inventes textos alternativos ni resultados.
+- Arreglos: [recetas](mdc:skills/accesibilidad-web/references/recetas/README.md), [patrones ARIA](mdc:skills/accesibilidad-web/references/patrones-aria.md), [anti-patrones](mdc:skills/accesibilidad-web/references/anti-patrones.md), [guía del bucle](mdc:skills/accesibilidad-web/references/flujo-arreglo.md).
 - Al escribir componentes de interfaz: HTML nativo antes que ARIA, foco visible, nombre accesible en botones y enlaces, `<label>` en campos, contraste 4,5:1, nada de overlays.

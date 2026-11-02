@@ -1,5 +1,7 @@
 # Detectar el stack y dónde arreglar
 
+`node priorizar.mjs informe.json --proyecto <carpeta>` hace esta detección y localiza el fichero probable de cada fallo. Guías con código por stack: [frameworks/](frameworks/) ([HTML y plantillas](frameworks/html.md), [React y Next](frameworks/react-next.md), [Vue y Nuxt](frameworks/vue-nuxt.md), [Astro](frameworks/astro.md), [WordPress](frameworks/wordpress.md), [Shopify](frameworks/shopify.md)).
+
 Antes de tocar nada, averigua con qué está hecha la web: el mismo fallo se arregla en sitios distintos según el stack. Arreglar el HTML generado (lo que ves en el navegador) no sirve si se regenera en el siguiente despliegue.
 
 ## 1. Señales para detectarlo

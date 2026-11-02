@@ -228,12 +228,13 @@ Los *overlays* son scripts de terceros (a menudo un botón o widget) que promete
 
 - **Overlay Fact Sheet** (overlayfactsheet.com, unas 1.048 firmas de profesionales y personas con discapacidad a 30-10-2026): «*No overlay product on the market can cause a website to become fully compliant with any existing accessibility standard*» (ningún overlay hace que una web cumpla por completo una norma de accesibilidad).
 - **European Disability Forum (EDF) e IAAP**, declaración conjunta de **17-05-2023**: «*Overlays do not make the website accessible or compliant with European accessibility legislation*» y no son «*an acceptable alternative or a substitute for fixing the website itself*». Enlace: <https://www.edf-feph.org/accessibility-overlays-dont-guarantee-compliance-with-european-legislation/>.
-- **FTC (Estados Unidos) — accessiBe:** el **22-04-2025** la Federal Trade Commission aprobó por 3 votos a 0 la orden definitiva que obliga a accessiBe a pagar **1.000.000 de dólares**. Le acusaba de afirmar falsamente que su plug-in accessWidget podía hacer cualquier web conforme a WCAG y de presentar reseñas como independientes sin revelar su relación con los autores. La propuesta de orden se anunció en enero de 2025 (día exacto **[pendiente de verificar]**). La orden le prohíbe afirmar sin pruebas que su producto automatizado hace o mantiene una web conforme a WCAG.
+- **FTC (Estados Unidos) — accessiBe:** el **22-04-2025** la Federal Trade Commission aprobó por 3 votos a 0 la orden definitiva que obliga a accessiBe a pagar **1.000.000 de dólares**. Le acusaba de afirmar falsamente que su plug-in accessWidget podía hacer cualquier web conforme a WCAG y de presentar reseñas como independientes sin revelar su relación con los autores. La propuesta de orden se anunció el 3-01-2025. La orden le prohíbe afirmar sin pruebas que su producto automatizado hace o mantiene una web conforme a WCAG.
 
 ### 8.2 Límites de los tests automáticos
 
 - **W3C/WAI:** «*Tools cannot check all accessibility aspects automatically. Human judgement is required.*» y las herramientas «*can not determine accessibility, they can only assist*».
-- **GOV.UK (Government Digital Service), 24-02-2017:** de 10 herramientas probadas sobre una página con barreras conocidas, la mejor detectó el **41 %** de ellas.
+- **GOV.UK (Government Digital Service), 24-02-2017:** de 10 herramientas probadas sobre una página con 143 barreras conocidas, la mejor detectó el **41 %** de ellas y 42 no las detectó ninguna.
+- **Deque (fabricante de axe-core):** con datos de sus propias auditorías, estima que sus pruebas automáticas identifican el **57,38 %** de las incidencias por volumen. Cuenta incidencias y no criterios, y es el fabricante quien lo mide.
 
 ### 8.3 Tests gratuitos en línea
 
@@ -265,6 +266,7 @@ Todas consultadas el **30-10-2026**.
 | W3C, WCAG 2.2 | https://www.w3.org/TR/WCAG22/ | Criterios nuevos, 4.1.1 eliminado, versión de 12-12-2024 |
 | W3C/WAI, selección de herramientas | https://www.w3.org/WAI/test-evaluate/tools/selecting/ | Límites de las herramientas automáticas |
 | GOV.UK Accessibility blog | https://accessibility.blog.gov.uk/2017/02/24/what-we-found-when-we-tested-tools-on-the-worlds-least-accessible-webpage/ | 41 % de barreras detectadas |
+| Deque, informe de cobertura | https://www.deque.com/automated-accessibility-testing-coverage/ | 57,38 % por volumen de incidencias |
 | FTC, nota de prensa | https://www.ftc.gov/news-events/news/press-releases/2025/04/ftc-approves-final-order-requiring-accessibe-pay-1-million | 22-04-2025, 1 M$, 3-0 |
 | FTC, expediente accessiBe | https://www.ftc.gov/legal-library/browse/cases-proceedings/2223156-accessibe-inc | Expediente 222-3156 |
 | EDF, declaración sobre overlays | https://www.edf-feph.org/accessibility-overlays-dont-guarantee-compliance-with-european-legislation/ | 17-05-2023, con IAAP |
@@ -277,4 +279,3 @@ Todas consultadas el **30-10-2026**.
 - Que exista hoy en el DOUE alguna norma armonizada para la Directiva 2019/882, y la fecha real de cita de la EN 301 549 V4.1.1 (prevista para el 16-12-2026).
 - Adopción española (UNE-EN) de la V4.1.1; estado vigente de UNE 153101 EX y qué norma sustituye a UNE 139803 (las fichas de UNE devolvieron error 403).
 - Orden ministerial vigente prevista en el art. 15.3 del RD 1112/2018 sobre la declaración.
-- Día exacto de enero de 2025 en que la FTC anunció la propuesta de orden contra accessiBe.

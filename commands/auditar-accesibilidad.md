@@ -9,4 +9,5 @@ Usa la skill `accesibilidad-web` para auditar: $ARGUMENTS
 2. Ejecuta la auditoría automática con el script de la skill:
    `cd "${CLAUDE_PLUGIN_ROOT}/skills/accesibilidad-web/scripts" && npm install --no-audit --no-fund && npx playwright install chromium && node auditar.mjs --umbral ninguno --salida "<carpeta del proyecto>/informe-accesibilidad" $ARGUMENTS`
 3. Lee `informe-accesibilidad/informe.md` y resume: problemas por impacto y por criterio, los 5 más importantes y en qué componente compartido se arreglan.
-4. Si estás dentro del código de esa web, propone los arreglos siguiendo el paso 4 de la skill (recetas por stack) y pregunta antes de aplicarlos. Si no, entrega el resumen y la lista de revisión manual pendiente.
+4. Si estás dentro del código de esa web, genera el plan con `node priorizar.mjs "<carpeta del proyecto>/informe-accesibilidad/informe.json" --proyecto "<carpeta del proyecto>"` y ofrece arreglarlo con `/accesibilidad-web:arreglar-accesibilidad`. Si no, entrega el resumen y la lista de revisión manual pendiente.
+5. Recuerda que un informe limpio no acredita la conformidad: detecta solo una parte de los fallos.

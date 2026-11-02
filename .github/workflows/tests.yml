@@ -25,3 +25,18 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npx playwright install --with-deps chromium
       - run: npm test
+
+  panel:
+    # El panel debe seguir sin dependencias: basta con Node para comprobar su sintaxis.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check skills/accesibilidad-web/panel/panel-accesibilidad.js
+      - name: Sin peticiones de red ni rastreo
+        run: |
+          if grep -nE "fetch\(|XMLHttpRequest|sendBeacon|WebSocket|document\.cookie" skills/accesibilidad-web/panel/panel-accesibilidad.js; then
+            exit 1
+          fi
