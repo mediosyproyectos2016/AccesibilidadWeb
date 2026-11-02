@@ -4,6 +4,24 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/); v
 
 ## [Sin publicar]
 
+## [0.3.1] - 2026-11-02
+
+Lo aprendido al usar la skill en una web real: menos falsos positivos y tres comprobaciones nuevas.
+
+### Cambiado
+- Panel: Tab y Mayús+Tab dan la vuelta dentro del diálogo; antes, en 40 pulsaciones, 4 paradas caían en `body`.
+- `@axe-core/playwright` fijado a `~4.13.0`: la 4.14 declara Node ≥ 22.12 y el proyecto admite Node ≥ 20 (la CI prueba 20, 22 y 24). `axe-core` sigue en `^4.10.3` y es el que se inyecta.
+- `foco-no-visible` mira los `::before`/`::after`: un anillo que cambia al enfocar y no está recortado ya no es un fallo. Al revés, un anillo en pseudo-elemento que recorta por completo un `overflow` de un antepasado se avisa como fallo real (2.4.7).
+- `trampa-foco` compara por identidad del elemento y no por selector: tarjetas iguales con enlace estirado ya no dan una repetición falsa.
+- `movimiento-sin-pausa` cuenta un control de pausa en la misma `<section>` o región, aunque esté a más de 6 niveles. Sigue sin contar el que está en `aria-hidden` o en otra sección.
+- `texto-sobre-media` no mide la foto en etiquetas con fondo sólido propio (esquinas de `clip-path`).
+- `target-size` solo se mide dentro de un diálogo modal abierto; `zoom-200-cabecera` ignora lo tapado por un diálogo modal.
+- Recetas: patrón `[data-pausable]` con `animation-play-state`, botón de pausa fuera de `aria-hidden`, dónde dejar el foco si un diálogo se abre solo, etiqueta en el nombre con texto oculto, regiones duplicadas y fondo claro fijo para imágenes con transparencia.
+
+### Añadido
+- `imagen-transparente-oscuro` (modo oscuro): fondo y `mix-blend-mode` calculados en el contenedor de cada `img` con transparencia. Sale como «revisar» salvo que se puedan leer los píxeles y el dibujo no llegue a 3:1. `--sin-imagen-oscuro` lo desactiva.
+- `objetivo-pequeno`: lista de objetivos de menos de 24×24 px que no están en línea en un texto, con su medida. `--sin-objetivos` la desactiva.
+
 ## [0.3.0] - 2026-11-02
 
 La skill responde si la normativa de accesibilidad le aplica a una web, con fuentes y sin presentar como cierto lo que no lo está.
