@@ -27,6 +27,8 @@ const TITULOS_PROPIOS = {
   'zoom-200-desborde': 'Scroll horizontal al 200 % de zoom',
   'zoom-200-cabecera': 'Los elementos fijos tapan el contenido al 200 %',
   'texto-sobre-media': 'Texto sobre imagen o vídeo con contraste insuficiente',
+  'objetivo-pequeno': 'Objetivo táctil de menos de 24×24 px',
+  'imagen-transparente-oscuro': 'Imagen con transparencia sobre fondo oscuro',
 };
 
 export { TITULOS_PROPIOS };

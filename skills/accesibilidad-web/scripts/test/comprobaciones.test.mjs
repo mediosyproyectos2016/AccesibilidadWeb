@@ -292,5 +292,5 @@ test('valida el fichero de estados', () => {
 test('la ayuda documenta las opciones nuevas', () => {
   const r = spawnSync(process.execPath, [AUDITAR, '--ayuda'], { encoding: 'utf8' });
   assert.equal(r.status, 0);
-  for (const o of ['--sitemap', '--estados', '--linea-base', '--guardar-linea-base', '--sesion', '--rapido']) assert.ok(r.stdout.includes(o), o);
+  for (const o of ['--sitemap', '--estados', '--linea-base', '--guardar-linea-base', '--sesion', '--rapido', '--sin-objetivos', '--sin-imagen-oscuro']) assert.ok(r.stdout.includes(o), o);
 });

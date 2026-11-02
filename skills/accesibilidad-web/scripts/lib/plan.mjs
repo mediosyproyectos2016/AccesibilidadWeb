@@ -14,7 +14,7 @@ const DE_PLANTILLA = new Set([
   'meta-refresh', 'bypass', 'skip-link', 'sin-enlace-saltar', 'landmark-one-main', 'region', 'zoom-200-desborde', 'reflow-320',
   'movimiento-reducido-ignorado',
 ]);
-const DE_ESTILO = new Set(['color-contrast', 'color-contrast-enhanced', 'link-in-text-block', 'foco-no-visible', 'espaciado-recorta', 'target-size', 'texto-sobre-media']);
+const DE_ESTILO = new Set(['color-contrast', 'color-contrast-enhanced', 'link-in-text-block', 'foco-no-visible', 'espaciado-recorta', 'target-size', 'texto-sobre-media', 'imagen-transparente-oscuro', 'objetivo-pequeno']);
 
 /** Genera el plan a partir de un informe. `indice` y `stack` son opcionales. */
 export function generarPlan(informe, { indice = null, stack = null } = {}) {

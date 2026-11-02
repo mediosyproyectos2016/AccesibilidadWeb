@@ -25,7 +25,7 @@ import { revisarTeclado, revisarReflow } from './lib/teclado.mjs';
 import {
   esIndiceSitemap, ejecutarPasos, muestraPorSecciones, revisarDesplegables, revisarDialogoAbierto,
   revisarEspaciado, revisarModales, revisarMovimiento, revisarMovimientoReducido, revisarOrdenFoco,
-  revisarTextoSobreMedia, revisarZoom200, urlsDeSitemap, validarEstados,
+  revisarTextoSobreMedia, revisarZoom200, revisarObjetivosPequenos, revisarImagenTransparenteOscuro, urlsDeSitemap, validarEstados,
 } from './lib/comprobaciones.mjs';
 import { irConReintento } from './lib/carga.mjs';
 import { crearLineaBase, regresiones } from './lib/comparar.mjs';
@@ -80,7 +80,9 @@ Opciones:
   --sin-movimiento        No observa el movimiento (ahorra unos 6 s por página).
   --sin-zoom              No comprueba el zoom al 200 % ni el espaciado de texto.
   --sin-texto-media       No mide el contraste del texto sobre imagen o vídeo.
-  --rapido                Solo axe, teclado y reflow: desactiva las cinco opciones anteriores.
+  --sin-objetivos         No lista los objetivos de menos de 24×24 px (2.5.8).
+  --sin-imagen-oscuro     No revisa las imágenes con transparencia sobre fondo oscuro (modo oscuro).
+  --rapido                Solo axe, teclado y reflow: desactiva las siete opciones anteriores.
   --linea-base <fichero>  Compara con una línea base: falla (código 1) solo con regresiones del
                           umbral o peor; si no se puede auditar una página conocida, código 2.
   --guardar-linea-base <fichero>  Guarda los fallos actuales como línea base y sale con código 0.
@@ -117,6 +119,8 @@ function leerOpciones(argv) {
       'sin-movimiento': { type: 'boolean', default: false },
       'sin-zoom': { type: 'boolean', default: false },
       'sin-texto-media': { type: 'boolean', default: false },
+      'sin-objetivos': { type: 'boolean', default: false },
+      'sin-imagen-oscuro': { type: 'boolean', default: false },
       rapido: { type: 'boolean', default: false },
       desplegables: { type: 'string', default: '5' },
       sitemap: { type: 'string' },
@@ -299,6 +303,8 @@ async function main() {
     movimiento: !rapido && !values['sin-movimiento'],
     zoom: !rapido && !values['sin-zoom'],
     textoMedia: !rapido && !values['sin-texto-media'],
+    objetivos: !rapido && !values['sin-objetivos'],
+    imagenOscuro: !rapido && !values['sin-imagen-oscuro'],
     desplegables: rapido ? 0 : parseInt(values.desplegables, 10) || 0,
   };
 
@@ -393,9 +399,25 @@ async function main() {
             if (!pag.titulo) pag.titulo = await page.title();
             // target-size (2.5.8) está desactivada por defecto en axe: hay que pedirla.
             const analizar = async () => {
-              let b = new AxeBuilder({ page, axeSource: fuente }).withTags(etiquetas).options({ rules: { 'target-size': { enabled: true } } });
-              for (const sel of values.excluir ?? []) b = b.exclude(sel);
-              return b.analyze();
+              const nuevo = () => new AxeBuilder({ page, axeSource: fuente }).withTags(etiquetas);
+              // Con un diálogo modal abierto encima, lo que queda debajo no se puede pulsar:
+              // target-size solo se mide dentro del diálogo.
+              const hayModal = await page.evaluate(() => {
+                document.querySelectorAll('[data-a11y-axe-modal]').forEach((n) => n.removeAttribute('data-a11y-axe-modal'));
+                const d = [...document.querySelectorAll('dialog[open], [aria-modal="true"]')].find((n) => {
+                  const r = n.getBoundingClientRect();
+                  const cs = getComputedStyle(n);
+                  return r.width > 0 && r.height > 0 && cs.visibility !== 'hidden' && (n.matches('dialog:modal') || n.getAttribute('aria-modal') === 'true');
+                });
+                if (d) d.setAttribute('data-a11y-axe-modal', '1');
+                return !!d;
+              }).catch(() => false);
+              const conExcluidos = (b) => { for (const sel of values.excluir ?? []) b = b.exclude(sel); return b; };
+              if (!hayModal) return conExcluidos(nuevo().options({ rules: { 'target-size': { enabled: true } } })).analyze();
+              const general = await conExcluidos(nuevo().options({ rules: { 'target-size': { enabled: false } } })).analyze();
+              const dentro = await nuevo().include('[data-a11y-axe-modal]').options({ rules: { 'target-size': { enabled: true } } }).analyze();
+              general.violations.push(...dentro.violations.filter((v) => v.id === 'target-size'));
+              return general;
             };
             const res = await analizar();
             hallazgos.push(...hallazgosDeAxe(res, pag.url, contexto));
@@ -419,6 +441,15 @@ async function main() {
             if (primero && hacer.textoMedia) {
               const r = await seguro(() => revisarTextoSobreMedia(page), pag, 'texto sobre imagen');
               if (r) { hallazgos.push(...hallazgosPropios(r.hallazgos, pag.url, contexto)); revisar.push(...revisionPropia(r.revisar, pag.url)); }
+            }
+            if (primero && hacer.objetivos) {
+              const o = await seguro(() => revisarObjetivosPequenos(page), pag, 'objetivos pequeños');
+              if (o) revisar.push(...revisionPropia(o.revisar, pag.url));
+            }
+            // Las imágenes con transparencia solo se miden en modo oscuro (una vez por página).
+            if (esquema === 'oscuro' && ancho === anchos[0] && hacer.imagenOscuro) {
+              const im = await seguro(() => revisarImagenTransparenteOscuro(page), pag, 'imágenes sobre fondo oscuro');
+              if (im) { hallazgos.push(...hallazgosPropios(im.hallazgos, pag.url, contexto)); revisar.push(...revisionPropia(im.revisar, pag.url)); }
             }
             if (primero && hacer.zoom && !movil) {
               const z = await seguro(() => revisarZoom200(page), pag, 'zoom');

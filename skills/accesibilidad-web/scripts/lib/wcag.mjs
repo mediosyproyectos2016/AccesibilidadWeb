@@ -246,6 +246,8 @@ export const ARREGLOS = {
   'espaciado-recorta': { texto: 'Quita alturas fijas y `overflow:hidden` del contenedor de texto; usa `min-height`.', receta: `${REC}/estructura.md` },
   'zoom-200-desborde': { texto: 'Al 200 % aparece scroll horizontal: usa anchos relativos y `flex-wrap`.', receta: `${REC}/estructura.md` },
   'zoom-200-cabecera': { texto: 'Reduce los elementos fijos a poca altura de ventana (`@media (max-height: …)`, sin `position: sticky`).', receta: `${REC}/estructura.md` },
+  'objetivo-pequeno': { texto: 'Dale al objetivo al menos 24×24 px (`min-width`/`min-height` o `padding`) o separa los objetivos vecinos; un enlace dentro de una frase está exento.', receta: `${REC}/botones.md` },
+  'imagen-transparente-oscuro': { texto: 'Dale al contenedor de la imagen un fondo claro fijo en modo oscuro y comprueba que ninguna regla más específica lo pisa ni aplica `mix-blend-mode: multiply`.', receta: `${REC}/contraste.md` },
   'texto-sobre-media': { texto: 'Pon un fondo o velo opaco bajo el texto, o cambia su color, para llegar al contraste mínimo en todo el fondo.', receta: `${REC}/contraste.md` },
 };
 
@@ -284,6 +286,7 @@ export const CRITERIO_HUMANO = {
   'empty-heading': 'Decide si el encabezado sobra o le falta texto.',
   'heading-order': 'La jerarquía de encabezados refleja la estructura del contenido.',
   'color-contrast': 'Cambiar colores toca la marca: propón el token mínimo que llega a 4,5:1 y que alguien lo apruebe.',
+  'imagen-transparente-oscuro': 'Fondo y modo de mezcla del contenedor en modo oscuro: es una decisión de diseño; confirma a ojo con las imágenes reales.',
   'texto-sobre-media': 'Velo, cambio de color o de imagen: es una decisión de diseño. Compruébalo con todas las imágenes y fotogramas que pueda haber.',
   'link-in-text-block': 'Subrayar enlaces cambia el aspecto del texto corrido.',
   'frame-title': 'El título debe decir qué contiene el iframe.',
@@ -323,4 +326,6 @@ export const CRITERIOS_PROPIOS = {
   'zoom-200-desborde': ['1.4.4'],
   'zoom-200-cabecera': ['1.4.10'],
   'texto-sobre-media': ['1.4.3'],
+  'objetivo-pequeno': ['2.5.8'],
+  'imagen-transparente-oscuro': ['1.4.11'],
 };

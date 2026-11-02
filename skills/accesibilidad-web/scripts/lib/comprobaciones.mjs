@@ -96,14 +96,20 @@ export async function revisarMovimiento(page, { ms = 5500 } = {}) {
     delete window.__a11yMov;
 
     const hayPausaCerca = (el) => {
+      const controlDePausa = (n) => {
+        const controles = n.querySelectorAll('button, [role="button"], input[type="button"], input[type="checkbox"], a[href]');
+        return [...controles].some((c) => ay.visible(c) && !c.closest('[aria-hidden="true"]') && reNombre.test(ay.nombre(c)));
+      };
       let n = el;
       // Hasta <body> sin incluirlo: un botón de pausa de otra zona no para esto. Un
       // control dentro de aria-hidden tampoco cuenta: el lector de pantalla no lo ve.
       for (let i = 0; n && n !== document.body && n !== document.documentElement && i < 6; i++, n = n.parentElement) {
-        const controles = n.querySelectorAll('button, [role="button"], input[type="button"], input[type="checkbox"], a[href]');
-        if ([...controles].some((c) => ay.visible(c) && !c.closest('[aria-hidden="true"]') && reNombre.test(ay.nombre(c)))) return true;
+        if (controlDePausa(n)) return true;
       }
-      return false;
+      // Una sección o región completa (animación en el fondo de toda la sección, con
+      // más de 6 niveles de por medio) también cuenta: el control está en la misma zona.
+      const region = el.closest('section, [role="region"]');
+      return !!region && controlDePausa(region);
     };
     const area = (el) => { const b = el.getBoundingClientRect(); return b.width * b.height; };
 
@@ -446,6 +452,12 @@ export async function revisarZoom200(page) {
       if (!ay.visible(el)) continue;
       const b = el.getBoundingClientRect();
       if (b.width < ancho * 0.6) continue;
+      // Un diálogo modal abierto (aviso de edad, cookies) o lo que queda debajo de él
+      // no es una cabecera que tape el contenido.
+      const MODAL = 'dialog[open], [role="dialog"], [role="alertdialog"], [aria-modal="true"]';
+      if (el.closest(MODAL)) continue;
+      const encima = document.elementFromPoint(Math.min(Math.max(b.left + b.width / 2, 0), ancho - 1), Math.min(Math.max(b.top + Math.min(b.height, alto) / 2, 0), alto - 1));
+      if (encima && encima.closest(MODAL)) continue;
       const visible = Math.min(b.bottom, alto) - Math.max(b.top, 0);
       if (visible > 0) { tapado += visible; fijos.push(ay.selector(el)); }
     }
@@ -508,6 +520,11 @@ export async function revisarTextoSobreMedia(page, { max = 10 } = {}) {
       const cs = getComputedStyle(el);
       const color = parseColor(cs.color);
       if (!color || color.a < 0.99) continue; // color translúcido: lo mira axe o la revisión manual
+
+      // Con fondo sólido propio (etiquetas con clip-path, botones) el texto se lee sobre
+      // ese fondo: las esquinas que recorta clip-path o border-radius no son su fondo.
+      const propio = parseColor(cs.backgroundColor);
+      if (propio && propio.a > 0.99) continue;
 
       // ¿Hay fondo opaco antes de llegar a una imagen?
       let media = null;
@@ -575,6 +592,178 @@ export async function revisarTextoSobreMedia(page, { max = 10 } = {}) {
       hallazgos.push({ regla: 'texto-sobre-media', impacto: 'serious', selector: c.selector, texto: c.texto, detalle: `${base}.` });
     } else {
       revisar.push({ regla: 'texto-sobre-media', selector: c.selector, detalle: `${base}${c.conSombra ? ' (tiene sombra o borde, que no se mide)' : ''}. «${c.texto}»` });
+    }
+  }
+  return { hallazgos, revisar };
+}
+
+/**
+ * Lista propia de objetivos menores de 24×24 px (2.5.8) que no están en línea
+ * dentro de un texto y a los que no salva la excepción de separación (un círculo
+ * de 24 px centrado en el objetivo no toca a otro). Los enlaces sueltos de 20-23 px
+ * de alto y las casillas de 20 px son el fallo más común. Es una lista de revisión
+ * con la medida real: axe (`target-size`) sigue siendo quien da el fallo.
+ */
+export async function revisarObjetivosPequenos(page, { max = 40 } = {}) {
+  await ayudantes(page);
+  const lista = await page.evaluate((max) => {
+    const ay = window.__a11yAy;
+    const SEL = 'a[href], button, input:not([type="hidden"]), select, textarea, summary, [role="button"], [role="link"], [role="checkbox"], [role="radio"], [role="switch"], [role="tab"]';
+    const todos = ay.buscar(SEL).filter((el) => {
+      if (!ay.visible(el) || el.disabled) return false;
+      const r = el.getBoundingClientRect();
+      if (r.width <= 2 && r.height <= 2) return false; // texto o control solo para lectores de pantalla
+      return !el.closest('[inert], [aria-hidden="true"]');
+    });
+    const cajas = todos.map((el) => ({ el, r: el.getBoundingClientRect() }));
+    const pequeno = (r) => r.width < 24 || r.height < 24;
+    const enLinea = (el) => {
+      if (!el.matches('a[href], [role="link"]') || getComputedStyle(el).display !== 'inline') return false;
+      const padre = el.parentElement;
+      const propio = (el.textContent || '').trim().length;
+      return !!padre && (padre.textContent || '').trim().length > propio + 8;
+    };
+    // Un control nativo sin estilo tiene el tamaño del navegador, que la norma exime.
+    const nativoSinEstilo = (el, r) => {
+      if (!/^(checkbox|radio)$/.test(el.type || '') || getComputedStyle(el).appearance === 'none') return false;
+      const t = document.createElement('input');
+      t.type = el.type;
+      t.style.cssText = 'position:absolute;visibility:hidden';
+      document.body.appendChild(t);
+      const d = t.getBoundingClientRect();
+      t.remove();
+      return Math.abs(d.width - r.width) < 0.5 && Math.abs(d.height - r.height) < 0.5;
+    };
+    const distCirculoCaja = (cx, cy, r) => Math.hypot(Math.max(r.left - cx, 0, cx - r.right), Math.max(r.top - cy, 0, cy - r.bottom));
+    const out = [];
+    for (const { el, r } of cajas) {
+      if (out.length >= max) break;
+      if (!pequeno(r) || enLinea(el) || nativoSinEstilo(el, r)) continue;
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const toca = cajas.some(({ el: o, r: q }) => {
+        if (o === el || el.contains(o) || o.contains(el)) return false;
+        if (pequeno(q)) return Math.hypot(cx - (q.left + q.width / 2), cy - (q.top + q.height / 2)) < 24;
+        return distCirculoCaja(cx, cy, q) < 12;
+      });
+      out.push({
+        toca,
+        selector: ay.selector(el), ancho: Math.round(r.width * 10) / 10, alto: Math.round(r.height * 10) / 10,
+        nombre: ay.nombre(el).slice(0, 40),
+      });
+    }
+    // Primero los que la excepción de separación no salva.
+    return out.sort((a, b) => Number(b.toca) - Number(a.toca));
+  }, max);
+  return {
+    hallazgos: [],
+    revisar: lista.map((o) => ({
+      regla: 'objetivo-pequeno', selector: o.selector,
+      detalle: `Objetivo de ${o.ancho}×${o.alto} px (mínimo 24×24)${o.nombre ? `: «${o.nombre}»` : ''}. ${o.toca ? 'Hay otro objetivo a menos de 24 px, así que no lo salva la excepción de separación: sube el tamaño (min-width/min-height: 24px o padding) o sepáralos.' : 'Está lo bastante separado de los demás para cumplir por la excepción de separación; si puedes, súbelo a 24 px igualmente.'}`,
+    })),
+  };
+}
+
+/**
+ * Imágenes con transparencia sobre fondo oscuro (1.4.11 cuando la imagen informa).
+ * Una foto de producto recortada pensada para fondo claro se pierde si, en modo
+ * oscuro, su contenedor queda oscuro o transparente, o si un `mix-blend-mode:
+ * multiply` la oscurece aún más (a veces una regla más específica pisa el fondo
+ * claro fijo del componente). Se mide el fondo y el modo de mezcla calculados en
+ * el contenedor, y los píxeles de la imagen si el navegador deja leerlos.
+ *
+ * Es una sospecha: sale como «revisar» salvo que se lean los píxeles y la mayoría
+ * del dibujo no llegue a 3:1 con el fondo. Se llama con la página en modo oscuro.
+ */
+export async function revisarImagenTransparenteOscuro(page, { max = 20 } = {}) {
+  await ayudantes(page);
+  const r = await page.evaluate((max) => {
+    const ay = window.__a11yAy;
+    const parseColor = (s) => {
+      const m = String(s).match(/rgba?\(\s*([\d.]+)[ ,]+([\d.]+)[ ,]+([\d.]+)(?:[ ,/]+([\d.]+%?))?/);
+      if (!m) return null;
+      return { rgb: [Number(m[1]), Number(m[2]), Number(m[3])], a: m[4] === undefined ? 1 : parseFloat(m[4]) / (m[4].endsWith('%') ? 100 : 1) };
+    };
+    const lin = (c) => { const v = c / 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+    const lum = ([r, g, b]) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+    const ratio = (a, b) => { const x = lum(a); const y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+
+    const out = [];
+    for (const img of document.querySelectorAll('img')) {
+      if (out.length >= max) break;
+      if (!ay.visible(img) || !img.complete || !img.naturalWidth) continue;
+      const b = img.getBoundingClientRect();
+      if (b.width < 24 || b.height < 24) continue;
+      const src = img.currentSrc || img.src || '';
+      if (/\.jpe?g(\?|#|$)/i.test(src) || /^data:image\/jpe?g/i.test(src)) continue; // un JPEG no tiene transparencia
+
+      // ¿Tiene transparencia? Se lee en una miniatura; si el navegador no deja (origen
+      // cruzado sin CORS), queda «desconocida» y se supone posible (PNG, WebP, SVG…).
+      let lectura = null;
+      try {
+        const c = document.createElement('canvas');
+        c.width = 48; c.height = 48;
+        const ctx = c.getContext('2d', { willReadFrequently: true });
+        ctx.drawImage(img, 0, 0, 48, 48);
+        lectura = ctx.getImageData(0, 0, 48, 48).data;
+      } catch { lectura = null; }
+      let pixeles = null;
+      if (lectura) {
+        let translucidos = 0;
+        pixeles = [];
+        for (let i = 0; i < lectura.length; i += 4) {
+          if (lectura[i + 3] < 250) translucidos++;
+          if (lectura[i + 3] >= 128) pixeles.push([lectura[i], lectura[i + 1], lectura[i + 2]]);
+        }
+        if (translucidos / (lectura.length / 4) < 0.02) continue; // opaca: no hay nada que se pierda
+      }
+
+      // Fondo calculado del contenedor y modos de mezcla por el camino.
+      let fondo = null;
+      let conImagen = false;
+      const mezclas = new Set();
+      let contenedor = null;
+      for (let n = img; n && n.nodeType === 1; n = n.parentElement) {
+        const cs = getComputedStyle(n);
+        if (cs.mixBlendMode !== 'normal') mezclas.add(cs.mixBlendMode);
+        if (n === img) continue;
+        if (!contenedor) contenedor = n;
+        if (cs.backgroundImage !== 'none') { conImagen = true; break; }
+        const f = parseColor(cs.backgroundColor);
+        if (f && f.a > 0.99) { fondo = f.rgb; contenedor = n; break; }
+      }
+      if (conImagen) continue; // fondo con imagen o degradado: lo mide el texto sobre media, no esto
+      if (!fondo) fondo = /dark/.test(getComputedStyle(document.documentElement).colorScheme) ? [18, 18, 18] : [255, 255, 255];
+      if (lum(fondo) >= 0.2) continue; // fondo claro: la imagen se ve como se pensó
+
+      const multiplica = [...mezclas].some((m) => /multiply|darken|color-burn|hard-light/.test(m));
+      let malos = null;
+      if (pixeles && pixeles.length) {
+        const visto = (p) => (multiplica ? p.map((v, k) => (v * fondo[k]) / 255) : p);
+        malos = pixeles.filter((p) => ratio(visto(p), fondo) < 3).length / pixeles.length;
+        if (malos < 0.05) continue; // el dibujo se distingue bien sobre ese fondo
+      }
+      out.push({
+        selector: ay.selector(img),
+        fondo: fondo.map(Math.round), contenedor: contenedor ? ay.selector(contenedor) : 'html',
+        mezcla: [...mezclas].join(', ') || 'normal', malos, medida: !!pixeles,
+      });
+    }
+    return out;
+  }, max);
+
+  const hallazgos = [];
+  const revisar = [];
+  for (const i of r) {
+    const base = `Imagen con transparencia sobre fondo oscuro en modo oscuro (fondo rgb(${i.fondo.join(', ')}) en ${i.contenedor}${i.mezcla !== 'normal' ? `, mix-blend-mode: ${i.mezcla}` : ''}).`;
+    const arreglo = 'Dale al contenedor un fondo claro fijo que no pise ninguna regla más específica, y quita mix-blend-mode: multiply en modo oscuro.';
+    if (i.medida && i.malos >= 0.6) {
+      hallazgos.push({ regla: 'imagen-transparente-oscuro', impacto: 'moderate', selector: i.selector, detalle: `${base} El ${Math.round(i.malos * 100)} % de lo dibujado no llega a 3:1 con el fondo. ${arreglo}` });
+    } else {
+      revisar.push({
+        regla: 'imagen-transparente-oscuro', selector: i.selector,
+        detalle: `${base} ${i.medida ? `El ${Math.round(i.malos * 100)} % de lo dibujado no llega a 3:1 con el fondo.` : 'No se han podido leer sus píxeles.'} Comprueba a ojo si se distingue. ${arreglo}`,
+      });
     }
   }
   return { hallazgos, revisar };
