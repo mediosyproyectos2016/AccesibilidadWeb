@@ -27,6 +27,7 @@ import {
   revisarEspaciado, revisarModales, revisarMovimiento, revisarMovimientoReducido, revisarOrdenFoco,
   revisarTextoSobreMedia, revisarZoom200, urlsDeSitemap, validarEstados,
 } from './lib/comprobaciones.mjs';
+import { irConReintento } from './lib/carga.mjs';
 import { crearLineaBase, regresiones } from './lib/comparar.mjs';
 import {
   agrupar, generarMarkdown, hallazgosDeAxe, hallazgosPropios,
@@ -159,20 +160,8 @@ async function enParalelo(lista, n, fn) {
   await Promise.all(Array.from({ length: Math.max(1, n) }, trabajador));
 }
 
-const ES_FALLO_DE_RED = /Timeout|net::ERR_/;
-
 async function cargar(page, url, { timeout, espera, clic = [], teclas = [] }) {
-  // Un reintento ante tiempos agotados y errores de red, que suelen ser pasajeros.
-  // Una respuesta HTTP (403, 500…) no se reintenta: un bloqueo no se rodea.
-  const ir = () => page.goto(url, { waitUntil: 'domcontentloaded', timeout });
-  let resp;
-  try {
-    resp = await ir();
-  } catch (e) {
-    if (!ES_FALLO_DE_RED.test(e.message)) throw e;
-    await page.waitForTimeout(1000);
-    resp = await ir();
-  }
+  const resp = await irConReintento(page, url, { waitUntil: 'domcontentloaded', timeout });
   await page.waitForLoadState('load', { timeout: Math.min(timeout, 15000) }).catch(() => {});
   await page.waitForLoadState('networkidle', { timeout: 3000 }).catch(() => {});
   if (espera) await page.waitForTimeout(espera);

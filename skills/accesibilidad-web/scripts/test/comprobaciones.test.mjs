@@ -7,6 +7,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { servir } from '../ayuda-tests/servidor.mjs';
+import { irConReintento } from '../lib/carga.mjs';
 import { fraccionSinContraste, muestraPorSecciones, relacionContraste, urlsDeSitemap, validarEstados } from '../lib/comprobaciones.mjs';
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -132,27 +133,60 @@ test('--tecla, --almacenamiento y --concurrencia', { timeout: 200000 }, async ()
   assert.equal(conc.informe.paginas.filter((p) => !p.error).length, 3, conc.log);
 });
 
-test('reintenta un tiempo agotado y lista aparte la página que no se pudo auditar', { timeout: 200000 }, async () => {
-  let intentos = 0;
-  srv.estado.rutas['/lenta'] = (req, res) => {
-    intentos++;
-    if (intentos === 1) return; // la primera vez no responde: agota el tiempo y debe reintentar
-    res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
-    res.end('<!doctype html><html lang="es"><title>Lenta</title><main><h1>Lenta</h1></main></html>');
+test('reintenta una vez ante tiempo agotado o error de red, y nunca ante otro error', async () => {
+  const pagina = (respuestas) => {
+    const llamadas = [];
+    return {
+      llamadas,
+      waitForTimeout: async () => {},
+      goto: async (url) => {
+        llamadas.push(url);
+        const r = respuestas.shift();
+        if (r instanceof Error) throw r;
+        return r;
+      },
+    };
   };
-  const ok = await auditar(['--rapido', '--sin-teclado', '--sin-reflow', '--timeout', '15000', `${srv.base}/lenta`]);
-  assert.equal(ok.informe.paginas[0].error, null, ok.log);
-  assert.ok(intentos >= 2);
+  const agotado = () => new Error('page.goto: Timeout 45000ms exceeded.');
 
-  srv.estado.rutas['/prohibida'] = (req, res) => { res.writeHead(403); res.end('no'); };
-  const parcial = await auditar(['--rapido', '--sin-teclado', '--sin-reflow', `${srv.base}/lenta`, `${srv.base}/prohibida`]);
-  const md = readFileSync(path.join(parcial.salida, 'informe.md'), 'utf8');
-  assert.equal(parcial.informe.resumen.paginasNoAuditadas, 1);
-  assert.match(parcial.log, /1 página\(s\) no auditadas/);
+  const una = pagina([agotado(), 'bien']);
+  assert.equal(await irConReintento(una, 'u', {}), 'bien');
+  assert.equal(una.llamadas.length, 2);
+
+  const red = pagina([new Error('net::ERR_CONNECTION_RESET'), 'bien']);
+  assert.equal(await irConReintento(red, 'u', {}), 'bien');
+
+  const dos = pagina([agotado(), agotado(), 'nunca']);
+  await assert.rejects(irConReintento(dos, 'u', {}), /Timeout/);
+  assert.equal(dos.llamadas.length, 2, 'solo un reintento');
+
+  const otro = pagina([new Error('URL no válida'), 'nunca']);
+  await assert.rejects(irConReintento(otro, 'u', {}), /no válida/);
+  assert.equal(otro.llamadas.length, 1);
+
+  const bloqueo = pagina(['respuesta 403', 'nunca']);
+  assert.equal(await irConReintento(bloqueo, 'u', {}), 'respuesta 403');
+  assert.equal(bloqueo.llamadas.length, 1, 'una respuesta HTTP no se reintenta');
+});
+
+test('lista como no auditada la página que no responde y la bloqueada', { timeout: 200000 }, async () => {
+  // Servidor que nunca responde y plazo corto y fijo: el resultado no depende de la carga.
+  srv.estado.rutas['/nunca'] = () => {};
+  const opc = ['--rapido', '--sin-teclado', '--sin-reflow'];
+  const nunca = await auditar([...opc, '--timeout', '2000', `${srv.base}/nunca`]);
+  assert.equal(nunca.codigo, 2, nunca.log);
+  assert.match(nunca.informe.paginas[0].error, /Timeout/);
+  assert.equal(nunca.informe.resumen.paginasNoAuditadas, 1);
+  assert.match(nunca.log, /1 página\(s\) no auditadas/);
+  const md = readFileSync(path.join(nunca.salida, 'informe.md'), 'utf8');
   assert.match(md, /1 página\(s\) no se pudieron auditar/);
-  assert.match(md, /no se rodea/);
   assert.match(md, /## No comprobado/);
   assert.match(md, /lector de pantalla/);
+
+  srv.estado.rutas['/prohibida'] = (req, res) => { res.writeHead(403); res.end('no'); };
+  const prohibida = await auditar([...opc, `${srv.base}/prohibida`]);
+  assert.match(prohibida.informe.paginas[0].error, /HTTP 403.*no se rodea/);
+  assert.match(readFileSync(path.join(prohibida.salida, 'informe.md'), 'utf8'), /no se rodea/);
 });
 
 test('un diálogo que retiene el foco a propósito no es una trampa', { timeout: 200000 }, async () => {
