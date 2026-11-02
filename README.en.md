@@ -19,11 +19,12 @@ The skill and its references are written in **Spanish** (its primary audience is
 ## The flow
 
 ```text
-audit → prioritise → fix in code → re-audit ⟲ → manual review with people → statement → CI
+which law applies? → audit → prioritise → fix in code → re-audit ⟲ → manual review with people → statement → CI
 ```
 
 | Step | Tool | What it does |
 |---|---|---|
+| Applicability | `aplicabilidad.mjs` | For any website: applies, does not apply or unsettled («dudoso»), with certainty, article and link, arguments, duties, authority and statement wording. Spain first, with the EU Directive as the base for other countries. No network or install. Output in Spanish. |
 | Audit | `auditar.mjs` | axe-core at 1280 and 390 px, plus what axe does not cover: keyboard, focus traps and order, dialogs (focus, containment, `Esc`, return), disclosures, motion without pause, `prefers-reduced-motion`, 320 px reflow, 200 % zoom, text spacing and measured contrast of text over images or video. Multiple pages via sitemap, and interactive states. |
 | Prioritise | `priorizar.mjs` | Plan by impact and reach: shared components, likely source file, recipe and who can fix it. |
 | Fix | `arreglar.mjs`, recipes | Safe fixes with a reviewable diff. Recipes per component and [guides per framework](skills/accesibilidad-web/references/frameworks/). A list of what needs human judgement. |
@@ -67,6 +68,7 @@ You need **Node.js 20+** for the scripts.
 /plugin install accesibilidad-web@accesibilidad-web
 /accesibilidad-web:auditar-accesibilidad https://your-site.example
 /accesibilidad-web:arreglar-accesibilidad http://localhost:3000
+/accesibilidad-web:aplicabilidad-accesibilidad online shop run by a 25-person company
 /accesibilidad-web:panel-accesibilidad en-linea
 ```
 
@@ -127,6 +129,7 @@ To try it: `cd skills/accesibilidad-web/panel && python -m http.server 8000`, th
 
 ## Regulations
 
+- [Does the law apply to your site?](skills/accesibilidad-web/references/aplicabilidad.md) Decision tree, microenterprises, e-commerce, duties, authorities and sources (Spanish). Not legal advice; reviewed on 2 Nov 2026. Where neither the text nor official guidance settles a case, it says so and gives both arguments.
 - [Spanish and EU accessibility law guide](docs/normativa-es.en.md) (summary in English; full guide in Spanish at [docs/normativa-es.md](docs/normativa-es.md)).
 - [Accessibility statement template](docs/declaracion-accesibilidad-plantilla.md) (Spanish).
 

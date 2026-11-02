@@ -2,7 +2,9 @@
 
 > **Aviso importante.** Este documento es material divulgativo de un proyecto de código abierto. **No es asesoramiento jurídico** ni sustituye la lectura de las normas oficiales o la opinión de un profesional. Los textos consolidados del BOE son informativos y no tienen valor jurídico; lo que vale es lo publicado en el BOE y el DOUE. Cada dato lleva su fuente y fecha de consulta (tabla final). Lo que no se ha podido confirmar está marcado **[pendiente de verificar]**.
 >
-> Última revisión de fuentes: **30-10-2026**.
+> Última revisión de fuentes: **2-11-2026** (aplicabilidad, autoridades, microempresa, RD 1112/2018 DA 1.ª y EN 301 549); el resto, 30-10-2026.
+>
+> **¿Te aplica?** Responde con `node aplicabilidad.mjs` o lee [references/aplicabilidad.md](../skills/accesibilidad-web/references/aplicabilidad.md): árbol de decisión, casos dudosos con los dos argumentos, obligaciones y autoridades.
 
 ---
 
@@ -29,8 +31,10 @@ Orientación rápida. Una misma entidad puede estar en varias filas.
 | Administración General del Estado, comunidades autónomas, entidades locales, sector público institucional, Administración de Justicia | **RD 1112/2018** | Webs: en vigor desde 20-09-2018 (con plazos escalonados); apps: desde 23-06-2021 | Declaración de accesibilidad, canal de comunicaciones y quejas, unidad responsable, informes anuales. |
 | Empresa (no microempresa) que presta **a consumidores** alguno de los servicios del art. 2.2 de la Ley 11/2023: comercio electrónico, banca, comunicaciones electrónicas, acceso a servicios audiovisuales, determinados elementos del transporte de viajeros, libros electrónicos, determinados elementos del suministro de electricidad, agua y gas, agencias de viaje y turoperadores, redes sociales | **Ley 11/2023, Título I** | 28-06-2025 | Requisitos del anexo I, información de accesibilidad del servicio (art. 13), régimen transitorio hasta 28-06-2030 para productos ya en uso. |
 | Fabricante, importador o distribuidor de los **productos** del art. 2.1 (ordenadores y sistemas operativos de consumo, terminales de autoservicio, terminales de pago, lectores electrónicos, etc.) | **Ley 11/2023, Título I** | 28-06-2025 | Fuera del alcance principal de este proyecto (que trata webs y apps), pero mismo régimen. |
-| **Microempresa** que presta servicios (menos de 10 personas y volumen de negocios anual o balance general ≤ 2 millones €) | Exenta de los requisitos del Título I (art. 3.3 y anexo VII, punto 16, Ley 11/2023) | — | Sigue sujeta a las normas generales de igualdad y no discriminación (RDL 1/2013). Las administraciones deben ofrecerle orientación (DA 2.ª Ley 11/2023). |
-| Empresa que solo vende a otras empresas (B2B) | El Título I se refiere a servicios **a consumidores** | — | Revisar caso por caso; puede verse afectada como proveedora de una entidad obligada o en contratación pública (art. 25). |
+| **Microempresa** que presta servicios (menos de 10 personas y volumen de negocios anual o balance general ≤ 2 millones €) | Exenta de los requisitos del Título I (art. 3.3 y anexo VII, punto 16, Ley 11/2023). Solo servicios, no productos | — | Asociadas y vinculadas suman según la Recomendación 2003/361/CE, por el considerando 53 de la Directiva; la ley española no lo dice. Sigue sujeta al art. 29 del RDL 1/2013. Las administraciones deben ofrecerle orientación (DA 2.ª Ley 11/2023). |
+| Empresa que solo vende a otras empresas (B2B) | El Título I se refiere a servicios **a consumidores** | — | Si de verdad impide contratar a un consumidor, no aplica. Si deja comprar a cualquiera, dudoso. Puede verse afectada como proveedora de una entidad obligada o en contratación pública (art. 25). |
+| Web que envía a contratar a otra (afiliación, directorios, comparadores, enlaces) o donde se pide presupuesto | **Dudoso**: ni la norma ni un criterio oficial lo zanjan | — | Ver [aplicabilidad](../skills/accesibilidad-web/references/aplicabilidad.md#4-qué-es-comercio-electrónico). |
+| Empresa privada con fondos públicos para su web, que gestiona un servicio público o centro sostenido con fondos públicos | **RD 1112/2018, DA 1.ª**: criterios técnicos de los arts. 5 y 6 | — | Las administraciones «exigirán» esos criterios. No es todo el régimen del sector público. |
 | Gran empresa (≥ 250 trabajadores, o volumen de negocios > 50 M€, o balance > 43 M€) que vende a consumidores, y cualquier empresa de suministros básicos, transporte, postales, comunicaciones electrónicas o servicios financieros | **Ley 10/2025** (servicios de atención a la clientela) | En vigor desde 28-12-2025; adaptación en 12 meses | Atención a la clientela universalmente accesible, lectura fácil y pictogramas, canales accesibles. |
 | Empresa privada con web meramente informativa, sin venta a consumidores ni servicio del art. 2.2 | No hay obligación técnica específica de la Ley 11/2023 | — | Aplican los principios generales de accesibilidad universal del RDL 1/2013. Recomendable cumplir WCAG 2.2 AA igualmente. |
 
@@ -96,7 +100,9 @@ El Título I se aplica también a la respuesta a las comunicaciones de emergenci
 
 - Son **designadas por las comunidades autónomas y por Ceuta y Melilla** en su ámbito de competencias (art. 27). Verifican la conformidad de los servicios y tramitan quejas (art. 24).
 - **Unidad técnica de apoyo y coordinación** (art. 28), creada por el **Real Decreto 143/2026, de 25 de febrero** (BOE núm. 52, de 27-02-2026, en vigor el 28-02-2026). La asume la **Dirección General de Derechos de las Personas con Discapacidad**. Coordina, es punto de contacto para ciudadanía y empresas y actúa como autoridad de vigilancia **solo en los ámbitos donde no se haya designado ninguna** (art. 3.h del RD).
-- Qué autoridad concreta ha designado cada comunidad autónoma: **[pendiente de verificar]** — consultar el diario oficial autonómico.
+- **Designaciones a 2-11-2026:** ninguna fuente oficial consultada publica un listado. Asturias y la Comunitat Valenciana **no la han designado**, según la noticia de 29-08-2026 sobre el Defensor del Pueblo, que también pidió información a Aragón, Cataluña y Galicia. En las demás, **no consta** tras buscar por buscador. Detalle por comunidad: [aplicabilidad](../skills/accesibilidad-web/references/aplicabilidad.md#7-autoridad-por-comunidad).
+- **Contacto de la Unidad técnica:** `utac@dsca.gob.es`. Las denuncias van por ahora por la página de infracciones del ministerio; el trámite en sede electrónica está anunciado sin fecha.
+- **Domicilio del prestador o del usuario:** ninguna norma lo dice. Dudoso.
 - Cualquier consumidor, organismo público, asociación u organización de personas con discapacidad con interés legítimo puede acudir a órganos administrativos y tribunales (art. 29).
 
 ### 2.6 Régimen sancionador
@@ -114,7 +120,7 @@ Cuantías del RDL 1/2013 (texto consolidado, última actualización publicada el
 - **Sanciones accesorias (art. 85):** graves, prohibición de pedir ayudas públicas en el sector hasta un año; muy graves, hasta dos años, y supresión, cancelación o suspensión de ayudas.
 - **Criterios de graduación (art. 84):** intencionalidad, negligencia, fraude, reincidencia, volumen de negocio, número de personas afectadas, etc.
 - **Prescripción:** infracciones leves 1 año, graves 3, muy graves 4 (art. 82); sanciones leves 1 año, graves 4, muy graves 5 (art. 87).
-- Las comunidades autónomas pueden tener su propio régimen de infracciones en su normativa de accesibilidad; los grados del art. 96 son los de **competencia estatal**. Qué régimen aplicará cada autoridad autonómica a la Ley 11/2023: **[pendiente de verificar]**.
+- Las comunidades autónomas pueden tener su propio régimen de infracciones en su normativa de accesibilidad; los grados del art. 96 son los de **competencia estatal**. Qué régimen aplicará cada autoridad autonómica a la Ley 11/2023: no consta a 2-11-2026.
 
 ---
 
@@ -124,7 +130,8 @@ Cuantías del RDL 1/2013 (texto consolidado, última actualización publicada el
 
 > **Atención: STC 100/2019, de 18 de julio.** El Tribunal Constitucional declaró que varios preceptos (entre ellos los arts. 12.1, 12.3, 12.4, 12.6, gran parte del 13, parte del 15.3, 16.2, primera frase del 17.4 y parte del 19.3) no son básicos o son inconstitucionales. En la práctica, **comunidades autónomas y entidades locales pueden tener sus propios plazos y procedimientos**; los citados abajo se aplican con seguridad a la **Administración General del Estado**. Consultar las notas del texto consolidado.
 
-- **Ámbito (art. 2):** AGE, comunidades autónomas, entidades locales, sector público institucional y asociaciones de entidades públicas; también la Administración de Justicia (art. 2.2).
+- **Ámbito (art. 2):** AGE, comunidades autónomas, entidades locales, sector público institucional y asociaciones de entidades públicas; también la Administración de Justicia (art. 2.2). El institucional incluye las entidades de derecho privado vinculadas o dependientes de una administración (art. 2.2 Ley 39/2015).
+- **Empresa privada (DA 1.ª):** las administraciones «exigirán» los criterios de los arts. 5 y 6 a webs y apps con financiación pública para su diseño o mantenimiento, a las vinculadas a servicios públicos de quien los gestiona por concesión o contrato, y a las de centros educativos privados sostenidos con fondos públicos.
 - **Exclusiones (art. 3.4):** formatos ofimáticos publicados antes del 20-09-2018 (salvo que sean necesarios para tareas administrativas activas); multimedia pregrabado de base temporal publicado antes del 20-09-2018; multimedia en directo; mapas en línea si la información esencial es accesible; contenido de terceros no financiado, desarrollado ni controlado; reproducciones de piezas de patrimonio que no puedan hacerse accesibles; contenidos de intranets y extranets publicados antes del 23-09-2019 hasta su revisión sustancial; archivos no necesarios para tareas activas ni actualizados.
 - **Requisitos (arts. 5 y 6):** perceptible, operable, comprensible y robusto; presunción de conformidad con normas armonizadas publicadas en el DOUE (hoy EN 301 549 V3.2.1, ver sección 5).
 - **Carga desproporcionada (art. 7):** excepcional, con evaluación inicial documentada y **revisada al menos una vez al año**. Falta de prioridad, tiempo o conocimiento no la justifican.
@@ -167,8 +174,8 @@ Cuantías del RDL 1/2013 (texto consolidado, última actualización publicada el
 
 - **Publicada por ETSI el 2-09-2026** (directorio oficial de ETSI: versión 04.01.01_60, de 2-09-2026; antes hubo borradores 04.01.00 de 12-11-2025 y 24-06-2026).
 - Es la **primera versión pensada para la Directiva 2019/882**: añade un anexo que relaciona sus cláusulas con los requisitos del Acta Europea de Accesibilidad y pasa a **WCAG 2.2 nivel AA** (según la National Disability Authority de Irlanda, organismo público).
-- **¿Es ya armonizada?** **No a fecha de 30-10-2026.** Publicar en ETSI no basta: la presunción de conformidad nace cuando su referencia se **publica en el DOUE**. La NDA indica que esa cita **se espera para el 16-12-2026**. Hasta entonces, la V3.2.1 sigue siendo la referencia citada (para la Directiva 2016/2102).
-- Para la **Directiva 2019/882** no se ha podido confirmar en el DOUE que exista hoy **ninguna** norma armonizada citada **[pendiente de verificar en EUR-Lex]**. Mientras tanto, la referencia técnica habitual es EN 301 549 / WCAG.
+- **¿Es ya armonizada?** **No consta a 2-11-2026.** Publicar en ETSI no basta: la presunción de conformidad nace cuando su referencia se **publica en el DOUE**. Fecha prevista, contrapuesta: 16-12-2026 según la NDA; 30-11-2026 en el calendario de ETSI, según un tercero; sin fecha anunciada por AccessibleEU, según otro. Hasta entonces, la V3.2.1 sigue siendo la referencia citada (para la Directiva 2016/2102).
+- Para la **Directiva 2019/882** no consta hoy **ninguna** norma armonizada citada a 2-11-2026; EUR-Lex no se pudo abrir desde aquí. La Ley 11/2023 no exige ninguna versión: fija requisitos y da presunción a la norma citada en el DOUE (art. 17). Mientras tanto, la referencia técnica habitual es EN 301 549 / WCAG, sin presunción.
 - Adopción española como UNE-EN de la V4.1.1: **[pendiente de verificar]**.
 
 ### 5.3 Recomendación del proyecto: WCAG 2.2 AA
@@ -244,7 +251,7 @@ Servicios como el **test gratuito de Eye-Able** (<https://eye-able.com/es/test-g
 
 ## 9. Fuentes
 
-Todas consultadas el **30-10-2026**.
+Consultadas el **30-10-2026**, salvo las de [aplicabilidad](../skills/accesibilidad-web/references/aplicabilidad.md#10-fuentes), del 2-11-2026.
 
 | Fuente | URL | Qué se ha verificado |
 |---|---|---|
@@ -275,7 +282,7 @@ Todas consultadas el **30-10-2026**.
 
 ### Pendiente de verificar
 
-- Autoridad de vigilancia designada por cada comunidad autónoma y régimen sancionador sectorial o autonómico que aplicará.
-- Que exista hoy en el DOUE alguna norma armonizada para la Directiva 2019/882, y la fecha real de cita de la EN 301 549 V4.1.1 (prevista para el 16-12-2026).
+- Autoridad de vigilancia designada por cada comunidad autónoma, boletín a boletín, y régimen sancionador sectorial o autonómico que aplicará. Resolución original del Defensor del Pueblo.
+- Comprobar en EUR-Lex que no hay norma armonizada citada para la Directiva 2019/882, y la fecha real de cita de la EN 301 549 V4.1.1.
 - Adopción española (UNE-EN) de la V4.1.1; estado vigente de UNE 153101 EX y qué norma sustituye a UNE 139803 (las fichas de UNE devolvieron error 403).
 - Orden ministerial vigente prevista en el art. 15.3 del RD 1112/2018 sobre la declaración.

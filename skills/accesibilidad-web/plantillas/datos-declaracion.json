@@ -8,5 +8,9 @@
   "correo": "accesibilidad@mi-tienda.example",
   "telefono": "900 000 000",
   "plazo": "15 días hábiles",
-  "alternativas": "puede pedir cualquier contenido en formato accesible por las vías de contacto"
+  "alternativas": "puede pedir cualquier contenido en formato accesible por las vías de contacto",
+  "descripcionServicio": "Tienda en línea de ejemplo",
+  "funcionamiento": "Se busca un producto, se añade a la cesta y se paga en la propia web",
+  "procesoRevision": "Auditoría y revisión manual en cada cambio importante",
+  "canalOral": "900 000 000"
 }

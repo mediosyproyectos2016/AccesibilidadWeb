@@ -1,6 +1,6 @@
 ---
 name: accesibilidad-web
-description: Lleva una web de la auditoría de accesibilidad al código arreglado, conforme a la normativa española y europea (Ley 11/2023 – Acta Europea de Accesibilidad, RD 1112/2018, EN 301 549, WCAG 2.2 AA). Úsala cuando pidan revisar, arreglar o mejorar la accesibilidad de una web o un componente, implementar los cambios, corregir fallos de axe/Lighthouse/WAVE, comprobar teclado, foco, contraste, lectores de pantalla, formularios, modales, carruseles, menús o vídeo, añadir un panel de preferencias de accesibilidad, proteger la accesibilidad en la CI, o preparar la declaración de accesibilidad y el canal de comunicación. Sirve para HTML, React/Next, Vue/Nuxt, Astro, WordPress, Shopify y plantillas de servidor.
+description: Lleva una web de la auditoría de accesibilidad al código arreglado, conforme a la normativa española y europea (Ley 11/2023 – Acta Europea de Accesibilidad, RD 1112/2018, EN 301 549, WCAG 2.2 AA), y responde si esa normativa le aplica. Úsala cuando pregunten si una web está obligada, si es microempresa o comercio electrónico, qué autoridad le toca o cómo redactar «parcialmente conforme», y cuando pidan revisar, arreglar o mejorar la accesibilidad de una web o un componente, implementar los cambios, corregir fallos de axe/Lighthouse/WAVE, comprobar teclado, foco, contraste, lectores de pantalla, formularios, modales, carruseles, menús o vídeo, añadir un panel de preferencias de accesibilidad, proteger la accesibilidad en la CI, o preparar la declaración de accesibilidad y el canal de comunicación. Sirve para HTML, React/Next, Vue/Nuxt, Astro, WordPress, Shopify y plantillas de servidor.
 license: MIT
 ---
 
@@ -14,13 +14,22 @@ Objetivo: arreglar la web de verdad, en su código, y poder decir qué se compro
 - **La auditoría automática solo detecta una parte de los fallos**: en la [prueba del GDS británico](https://accessibility.blog.gov.uk/2017/02/24/what-we-found-when-we-tested-tools-on-the-worlds-least-accessible-webpage/) (2017), la mejor de 10 herramientas halló el 41 % de las barreras y 42 de 143 no las vio ninguna; [Deque](https://www.deque.com/automated-accessibility-testing-coverage/), fabricante de axe-core, estima el 57 % por volumen de incidencias. El [W3C](https://www.w3.org/WAI/test-evaluate/tools/selecting/) lo resume así: las herramientas «*can not determine accessibility, they can only assist*». Un informe limpio no acredita nada.
 - **Un panel o *overlay* no hace conforme una web ni sustituye arreglar el código**. Lo dicen el [EDF y la IAAP](https://www.edf-feph.org/accessibility-overlays-dont-guarantee-compliance-with-european-legislation/), y la [FTC de EE. UU.](https://www.ftc.gov/news-events/news/press-releases/2025/04/ftc-approves-final-order-requiring-accessibe-pay-1-million) sancionó con 1 millón de dólares a un proveedor por prometerlo. Ver [anti-patrones](references/anti-patrones.md#overlays).
 - **Nunca redactes una declaración que afirme una conformidad no verificada.** Esto no es asesoramiento jurídico.
+- **Cuando el caso legal no está zanjado, dilo.** «Dudoso», los dos argumentos y una recomendación prudente. La mejor respuesta razonada no es una certeza. No inventes autoridades, plazos ni fuentes.
 
 ## Flujo
 
 Sigue los pasos en orden. Lee cada referencia **solo cuando llegues a ese paso**. Los scripts están en `scripts/` (Node ≥ 20); la primera vez: `cd scripts && npm install --omit=dev && npx playwright install chromium`. Si no puedes ejecutar un navegador, revisa el código con la [checklist](references/checklist-wcag22-aa.md) y dilo en tu informe.
 
+### 0. ¿Qué norma aplica?
+Sirve para cualquier web. Pregunta a la persona solo lo que no puedas deducir del sitio: qué ofrece, a quién, si se contrata en la web, quién es el titular y su tamaño. Lo que no se sepa, se omite: el resultado dará cada escenario.
+```bash
+node aplicabilidad.mjs --preguntas
+node aplicabilidad.mjs --titular privado --destinatarios consumidores --contrato en-la-web --contraparte titular --comunidad MD --salida a11y
+```
+No necesita red ni `npm install`. Da veredicto («aplica», «no aplica», «dudoso»), certeza, base con artículo y enlace, argumentos, obligaciones, autoridad y qué texto usar. Di siempre la fecha de revisión que trae y distingue norma, criterio oficial, opinión de terceros y razonamiento propio. Para responder preguntas legales de accesibilidad, lee [aplicabilidad.md](references/aplicabilidad.md). Haz el resto del flujo sea cual sea el veredicto si la persona quiere una web accesible: lo que cambia es lo que se puede afirmar.
+
 ### 1. Stack y alcance
-Identifica el stack y su plantilla raíz → [deteccion-stack.md](references/deteccion-stack.md) y la guía de [frameworks/](references/frameworks/): `html`, `react-next`, `vue-nuxt`, `astro`, `wordpress`, `shopify`. Elige páginas representativas: portada, listado, ficha, formulario, carrito o pago, contacto, legal. Para saber qué norma aplica: [docs/normativa-es.md](../../docs/normativa-es.md) (si solo tienes la skill, está en el [repositorio](https://github.com/mediosyproyectos2016/AccesibilidadWeb/blob/main/docs/normativa-es.md)).
+Identifica el stack y su plantilla raíz → [deteccion-stack.md](references/deteccion-stack.md) y la guía de [frameworks/](references/frameworks/): `html`, `react-next`, `vue-nuxt`, `astro`, `wordpress`, `shopify`. Elige páginas representativas: portada, listado, ficha, formulario, carrito o pago, contacto, legal. Guía completa de normativa: [docs/normativa-es.md](../../docs/normativa-es.md) (si solo tienes la skill, está en el [repositorio](https://github.com/mediosyproyectos2016/AccesibilidadWeb/blob/main/docs/normativa-es.md)).
 
 ### 2. Auditar
 ```bash
@@ -62,9 +71,9 @@ Guía: [revision-manual.md](references/revision-manual.md). **Si eres una IA, us
 
 ### 7. Declaración y canal de comunicación
 ```bash
-node declaracion.mjs --informe a11y/despues/informe.json --revision a11y/revision-manual.json --datos datos.json
+node declaracion.mjs --informe a11y/despues/informe.json --revision a11y/revision-manual.json --datos datos.json --aplicabilidad a11y/aplicabilidad.json
 ```
-`datos.json`: ver [plantillas/datos-declaracion.json](plantillas/datos-declaracion.json). Sin revisión completa genera un borrador sin situación de cumplimiento, marcado para no publicar. La plena conformidad solo se escribe con `--confirmar-plena-conformidad "Nombre, cargo"` y se rechaza si hay fallos o pendientes. Enlázala desde todas las páginas. Formulario de comunicación accesible: [plantillas/contacto-accesibilidad.html](plantillas/contacto-accesibilidad.html); necesita destino real y alguien que responda.
+`datos.json`: ver [plantillas/datos-declaracion.json](plantillas/datos-declaracion.json). `--aplicabilidad` ajusta el texto al veredicto: no dice «de conformidad con» una ley que no obliga o es dudosa, y avisa de lo que supone publicar «parcialmente conforme» siendo sujeto obligado. Sin revisión completa genera un borrador sin situación de cumplimiento, marcado para no publicar. La plena conformidad solo se escribe con `--confirmar-plena-conformidad "Nombre, cargo"` y se rechaza si hay fallos o pendientes. Enlázala desde todas las páginas. Formulario de comunicación accesible: [plantillas/contacto-accesibilidad.html](plantillas/contacto-accesibilidad.html); necesita destino real y alguien que responda.
 
 ### 8. Que no vuelva: CI
 ```bash

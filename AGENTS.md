@@ -6,23 +6,25 @@ Este repositorio contiene **AccesibilidadWeb**, una skill para llevar una web de
 
 La fuente única de instrucciones es **[skills/accesibilidad-web/SKILL.md](skills/accesibilidad-web/SKILL.md)**. Léelo y sigue su flujo:
 
+0. Qué norma aplica y qué se puede afirmar → `scripts/aplicabilidad.mjs`, `references/aplicabilidad.md` (sin instalar nada, también para preguntas legales sueltas)
 1. Stack → `references/deteccion-stack.md`, `references/frameworks/`
 2. Auditar → `scripts/auditar.mjs` (antes: `npm install --omit=dev` y `npx playwright install chromium` en esa carpeta)
 3. Priorizar → `scripts/priorizar.mjs` (plan con recetas y fichero probable)
 4. Arreglar en el código → `scripts/arreglar.mjs` (diff revisable), `references/flujo-arreglo.md`, `references/recetas/`
 5. Reauditar en bucle → `scripts/comparar.mjs` (antes/después y criterio de parada)
 6. Revisión manual → `scripts/revision.mjs`, `references/revision-manual.md`
-7. Declaración y canal → `scripts/declaracion.mjs`, `plantillas/`
+7. Declaración y canal → `scripts/declaracion.mjs --aplicabilidad`, `plantillas/`
 8. CI → `auditar.mjs --linea-base`
 9. Si lo piden, panel de preferencias → `panel/`: comodidad adicional, nunca en lugar de arreglar
 10. Informe final citando criterios WCAG y cláusulas EN 301 549
 
-Carga cada referencia solo cuando llegues a ese paso. No prometas una web «100 % accesible»: la auditoría automática detecta solo una parte de los fallos. Un panel u overlay no hace conforme una web. No ocultes problemas a la herramienta. No inventes textos alternativos ni resultados de pruebas. No generes una declaración que afirme conformidad no verificada. La skill no sustituye una auditoría manual ni asesoramiento jurídico.
+Carga cada referencia solo cuando llegues a ese paso. No prometas una web «100 % accesible»: la auditoría automática detecta solo una parte de los fallos. Un panel u overlay no hace conforme una web. No ocultes problemas a la herramienta. No inventes textos alternativos ni resultados de pruebas. No generes una declaración que afirme conformidad no verificada. Si un caso legal no está zanjado, di «dudoso» con los dos argumentos y la fecha de revisión. La skill no sustituye una auditoría manual ni asesoramiento jurídico.
 
 ## Si trabajas en este repositorio (contribuir)
 
 - Idioma principal: español (README también en inglés).
 - Scripts en `skills/accesibilidad-web/scripts/` (Node ≥ 20, ESM, sin dependencias de ejecución fuera de Playwright y axe-core). Tests: `npm test` en esa carpeta.
+- Normativa: datos con fuente en `scripts/lib/normativa/` (`ue.mjs`, `es.mjs`, registro en `index.mjs`). Para actualizar o añadir un país: `references/aplicabilidad.md`, sección 9. El motor no conoce tipos de negocio, solo hechos.
 - El panel (`panel/`) no puede tener dependencias, peticiones de red ni rastreo, y debe pasar la auditoría.
 - Una regla nueva de axe o comprobación propia → añade su arreglo en `scripts/lib/wcag.mjs` (`ARREGLOS`) y, si hace falta, una receta en `references/recetas/`.
 - Un arreglo automático nuevo solo si es correcto sea cual sea el contenido, con test, en `scripts/lib/arreglos.mjs`.

@@ -1,6 +1,6 @@
 # Instrucciones para GitHub Copilot
 
-Cuando trabajes en accesibilidad web (auditar, arreglar fallos, revisar componentes, añadir el panel de preferencias, proteger la CI, preparar la declaración de accesibilidad), sigue la skill **[skills/accesibilidad-web/SKILL.md](../skills/accesibilidad-web/SKILL.md)**, fuente única de este repositorio. Normativa de referencia: WCAG 2.2 AA, EN 301 549 (cap. 9), Ley 11/2023 y RD 1112/2018 ([docs/normativa-es.md](../docs/normativa-es.md)).
+Cuando trabajes en accesibilidad web (auditar, arreglar fallos, revisar componentes, añadir el panel de preferencias, proteger la CI, preparar la declaración de accesibilidad), sigue la skill **[skills/accesibilidad-web/SKILL.md](../skills/accesibilidad-web/SKILL.md)**, fuente única de este repositorio. Normativa de referencia: WCAG 2.2 AA, EN 301 549 (cap. 9), Ley 11/2023 y RD 1112/2018 ([docs/normativa-es.md](../docs/normativa-es.md)). Si preguntan si una norma obliga a una web: `skills/accesibilidad-web/scripts/aplicabilidad.mjs` y [aplicabilidad](../skills/accesibilidad-web/references/aplicabilidad.md); si no está zanjado, di «dudoso» con los dos argumentos.
 
 Al generar código de interfaz:
 - HTML nativo antes que ARIA (`<button>`, `<a href>`, `<dialog>`, `<label for>`); ver [patrones ARIA](../skills/accesibilidad-web/references/patrones-aria.md).

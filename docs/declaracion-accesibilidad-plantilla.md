@@ -5,11 +5,24 @@
 > - Si has hecho la auditoría y la revisión manual, genera el borrador con tus resultados reales: `node declaracion.mjs` (ver `skills/accesibilidad-web/SKILL.md`, paso 7). Lo siguiente vale para completarlo o para hacerlo a mano.
 > - Basada en el **modelo de declaración de accesibilidad** del anexo de la **Decisión de Ejecución (UE) 2018/1523** de la Comisión, de 11 de octubre de 2018 (DOUE L 256, de 12-10-2018, p. 103), obligatorio para el sector público según el **Real Decreto 1112/2018** (art. 15).
 > - Adaptada para servir también como **información de accesibilidad del servicio** del **art. 13 de la Ley 11/2023** (sector privado). Esa información debe estar en las **condiciones generales o en un documento equivalente**, en formatos accesibles, **por escrito y de forma oral**, y **mantenerse actualizada**.
+> - **Antes de citar una ley, comprueba que te obliga:** `node aplicabilidad.mjs`. Con su resultado, `declaracion.mjs --aplicabilidad` elige el texto. Si lo haces a mano, usa la tabla de abajo.
 > - Sustituye cada `{{MARCADOR}}`. Borra las notas entre `<!-- -->` y los bloques que no apliquen (marcados **[SECTOR PÚBLICO]** o **[SECTOR PRIVADO]**).
 > - Es una plantilla de un proyecto de código abierto; **no es asesoramiento jurídico**. Fuentes y fechas en [normativa-es.md](normativa-es.md).
 > - La declaración debe ser **accesible** y, cuando proceda, legible por máquina (Decisión 2018/1523, art. 2).
 
 ---
+
+## Qué texto usar según el veredicto
+
+Fundamento y fuentes: [aplicabilidad](../skills/accesibilidad-web/references/aplicabilidad.md#8-publicar-parcialmente-conforme).
+
+| Veredicto | Primer párrafo | Si hay fallos |
+|---|---|---|
+| Sector público | «…de conformidad con el Real Decreto 1112/2018…» | «parcialmente conforme con…», como en el modelo. |
+| Obligado por la Ley 11/2023 | «{{NOMBRE_ENTIDAD}} presta un servicio incluido en el Título I de la Ley 11/2023… y publica esta información de accesibilidad conforme a su artículo 13.» | «parcialmente conforme con…», cada fallo con su medida correctora y su fecha. Reconoce un incumplimiento: art. 13.7, medidas y aviso inmediato a la autoridad. |
+| Dudoso | «{{NOMBRE_ENTIDAD}} toma como referencia los requisitos… y publica esta información de forma voluntaria, sin prejuzgar si esa ley es exigible a este servicio.» | «cumple parcialmente {{NORMA_DE_REFERENCIA}}, que usamos como referencia». Nunca «de conformidad con». |
+| No aplica | «{{NOMBRE_ENTIDAD}} se ha comprometido a hacer accesible su sitio web y publica esta declaración de forma voluntaria.» | «cumple parcialmente {{NORMA_DE_REFERENCIA}}, que usamos como referencia voluntaria». Sin autoridad. |
+| Microempresa con el tamaño comprobado | Igual, y si quieres: «presta sus servicios como microempresa, que el artículo 3.3 de la Ley 11/2023 exime…». Ninguna norma obliga a decirlo. | Igual que «No aplica». |
 
 ## Dónde publicarla
 
@@ -113,7 +126,7 @@ Si, una vez realizada una solicitud de información accesible o una queja, esta 
 
 **[SECTOR PRIVADO]**
 Si no está satisfecho con nuestra respuesta, puede dirigirse a la **autoridad de vigilancia del mercado en materia de accesibilidad** de {{COMUNIDAD_AUTÓNOMA}}: {{NOMBRE_Y_CONTACTO_AUTORIDAD}} (Ley 11/2023, arts. 24, 27 y 29). También puede acudir a los servicios de consumo de su comunidad o al sistema arbitral correspondiente.
-<!-- Si la comunidad no ha designado autoridad, actúa la Unidad técnica de apoyo y coordinación (Dirección General de Derechos de las Personas con Discapacidad, RD 143/2026). Comprueba el dato antes de publicar. -->
+<!-- Si la comunidad no ha designado autoridad, actúa la Unidad técnica de apoyo y coordinación (Dirección General de Derechos de las Personas con Discapacidad, RD 143/2026, utac@dsca.gob.es). Estado por comunidad: references/aplicabilidad.md. Comprueba el dato antes de publicar. -->
 
 ## Contenido opcional
 

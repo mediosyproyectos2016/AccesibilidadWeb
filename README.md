@@ -1,6 +1,6 @@
 # AccesibilidadWeb
 
-**Una skill abierta para que cualquier IA o agente de código lleve una web de la auditoría de accesibilidad al código arreglado**, según la normativa española y europea: Ley 11/2023 (Acta Europea de Accesibilidad), Real Decreto 1112/2018, EN 301 549 y WCAG 2.2 nivel AA.
+**Una skill abierta para que cualquier IA o agente de código lleve una web de la auditoría de accesibilidad al código arreglado**, según la normativa española y europea: Ley 11/2023 (Acta Europea de Accesibilidad), Real Decreto 1112/2018, EN 301 549 y WCAG 2.2 nivel AA. También responde si esa normativa le aplica a tu web.
 
 No se queda en el informe: prioriza, localiza el fichero, aplica lo que es seguro con un diff revisable, reaudita en bucle, registra la revisión manual, genera la declaración con los resultados reales y vigila las regresiones en la CI. Funciona en cualquier stack, con Claude Code, Codex y otros agentes que leen `AGENTS.md`, Cursor, GitHub Copilot y Gemini CLI.
 
@@ -17,11 +17,12 @@ No se queda en el informe: prioriza, localiza el fichero, aplica lo que es segur
 ## El flujo
 
 ```text
-auditar → priorizar → arreglar en el código → reauditar ⟲ → revisión manual con personas → declaración → CI
+¿qué norma aplica? → auditar → priorizar → arreglar en el código → reauditar ⟲ → revisión manual con personas → declaración → CI
 ```
 
 | Paso | Herramienta | Qué hace |
 |---|---|---|
+| Aplicabilidad | `aplicabilidad.mjs` | Para cualquier web: «aplica», «no aplica» o «dudoso», con certeza, artículo y enlace, argumentos, obligaciones, autoridad y texto de la declaración. Sin red ni instalación. |
 | Auditar | `auditar.mjs` | axe-core a 1280 y 390 px, más lo que axe no cubre: teclado, trampas y orden del foco, diálogos (foco, retención, `Esc`, devolución), desplegables, movimiento sin pausa, `prefers-reduced-motion`, reflow a 320 px, zoom al 200 %, espaciado de texto y contraste medido de texto sobre imagen o vídeo. Varias páginas por sitemap y estados interactivos. |
 | Priorizar | `priorizar.mjs` | Plan por impacto y alcance: componentes compartidos, fichero fuente probable, receta y quién puede arreglarlo. |
 | Arreglar | `arreglar.mjs`, recetas | Arreglos seguros con diff revisable. Recetas por componente y [guías por framework](skills/accesibilidad-web/references/frameworks/). Lista de lo que exige criterio humano. |
@@ -72,6 +73,7 @@ La skill se activa sola cuando pides algo de accesibilidad. Comandos:
 ```text
 /accesibilidad-web:auditar-accesibilidad https://tu-web.es
 /accesibilidad-web:arreglar-accesibilidad http://localhost:3000
+/accesibilidad-web:aplicabilidad-accesibilidad tienda en línea de una S.L. de 25 personas
 /accesibilidad-web:panel-accesibilidad en-linea
 ```
 
@@ -98,6 +100,19 @@ Copia `skills/accesibilidad-web/` y añade el contenido de `.github/copilot-inst
 ### Gemini CLI
 
 Copia `skills/accesibilidad-web/` y `GEMINI.md` (o añade su contenido a tu `GEMINI.md`).
+
+## ¿Te aplica la normativa?
+
+Pregunta por hechos, no por tipos de negocio: qué ofrece la web, a quién, si se contrata en ella, quién es el titular y su tamaño. Vale para una tienda, un marketplace, reservas, SaaS, banca, transporte, medios, un blog, una ONG, una administración, un servicio B2B, una web corporativa o un autónomo.
+
+```bash
+cd skills/accesibilidad-web/scripts
+node aplicabilidad.mjs --preguntas
+node aplicabilidad.mjs --titular privado --destinatarios consumidores --contrato en-la-web \
+  --contraparte titular --personas 25 --volumen 3000000 --balance 2500000 --grupo no --comunidad MD
+```
+
+Lo que no sepas, omítelo: sale «dudoso» con cada escenario. Si ni la norma ni un criterio oficial zanjan el caso, da los dos argumentos y una recomendación prudente, y separa norma, criterio oficial, opinión de terceros y razonamiento propio. **No es asesoramiento jurídico.** Datos revisados el 2-11-2026, con fecha en cada resultado y aviso si envejecen. España es el primer país completo; la Directiva hace de base para añadir otros. Árbol, autoridades por comunidad, «parcialmente conforme» y fuentes: [references/aplicabilidad.md](skills/accesibilidad-web/references/aplicabilidad.md).
 
 ## Auditar: opciones
 
@@ -160,14 +175,15 @@ Para probarlo: `cd skills/accesibilidad-web/panel && python -m http.server 8000`
 
 ```text
 skills/accesibilidad-web/          ← la skill (fuente única para todas las IA)
-├── SKILL.md                       flujo en 10 pasos
+├── SKILL.md                       aplicabilidad y flujo en 10 pasos
 ├── references/                    se cargan solo cuando hacen falta
+│   ├── aplicabilidad.md           si la norma obliga, autoridades y fuentes
 │   ├── flujo-arreglo.md           el bucle y cuándo parar
 │   ├── frameworks/                HTML, React/Next, Vue/Nuxt, Astro, WordPress, Shopify
 │   ├── recetas/                   una receta por componente
 │   ├── checklist-wcag22-aa.md     56 criterios con mapeo a EN 301 549
 │   └── revision-manual.md · deteccion-stack.md · patrones-aria.md · anti-patrones.md
-├── scripts/                       auditar · priorizar · arreglar · comparar · revision · declaracion
+├── scripts/                       aplicabilidad · auditar · priorizar · arreglar · comparar · revision · declaracion
 ├── panel/                         componente web, ejemplo de React y página de prueba
 └── plantillas/                    formulario de comunicación y datos de la declaración
 docs/                              normativa y plantilla de declaración
@@ -178,6 +194,7 @@ action.yml                         GitHub Action reutilizable
 
 ## Normativa
 
+- [¿Te aplica?](skills/accesibilidad-web/references/aplicabilidad.md): árbol de decisión, microempresa, comercio electrónico, obligaciones por artículo, autoridades por comunidad y «parcialmente conforme».
 - [Guía de normativa española y europea](docs/normativa-es.md): a quién afecta la Ley 11/2023 y el RD 1112/2018, plazos, sanciones, EN 301 549 V3.2.1 y V4.1.1, y por qué apuntar ya a WCAG 2.2 AA.
 - [Plantilla de declaración de accesibilidad](docs/declaracion-accesibilidad-plantilla.md), en la que se basa `declaracion.mjs`.
 
