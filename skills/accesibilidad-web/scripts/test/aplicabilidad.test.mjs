@@ -231,6 +231,18 @@ test('aplicabilidad: el motor no conoce tipos de negocio, solo hechos', () => {
   }
 });
 
+test('aplicabilidad: en el repositorio no hay datos de ninguna empresa concreta como ejemplo', () => {
+  const SKILL = path.join(DIR, '..', '..');
+  const textos = [
+    path.join(SKILL, 'references', 'aplicabilidad.md'),
+    path.join(SKILL, 'scripts', 'lib', 'aplicabilidad.mjs'),
+    path.join(SKILL, 'scripts', 'lib', 'normativa', 'es.mjs'),
+    path.join(SKILL, 'scripts', 'lib', 'normativa', 'ue.mjs'),
+  ].map((f) => readFileSync(f, 'utf8'));
+  for (const t of textos) assert.doesNotMatch(t, /Medios y Proyectos|shop\.myp|Alcoy|Alicante/);
+  assert.match(textos[0], /Información revisada el 2-11-2026/);
+});
+
 test('aplicabilidad: CLI con opciones, JSON y salida a ficheros', () => {
   const d = mkdtempSync(path.join(tmpdir(), 'apl-'));
   const correr = (...a) => spawnSync(process.execPath, [SCRIPT, ...a], { encoding: 'utf8' });

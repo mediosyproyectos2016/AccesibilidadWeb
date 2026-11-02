@@ -227,9 +227,12 @@ function evaluarServicio(r, P, faltan) {
       aFavor: [
         A.literal,
         { texto: 'Un despacho alemán solo excluye las webs donde no quepan ni pasos precontractuales ni contratar.', tipo: 'tercero', fuente: 'piltz' },
-        { texto: 'La cámara de comercio austriaca incluye un formulario de contacto cuando forma parte de una web con tienda.', tipo: 'tercero', fuente: 'wko' },
+        { texto: 'La cámara de comercio austriaca recoge una postura «muy estricta» según la cual basta un formulario de contacto, porque por él podría llegar una petición de compra.', tipo: 'tercero', fuente: 'wko' },
       ],
-      enContra: [A.contratoEnLinea, A.presentacion, A.sinCompraDirecta],
+      enContra: [
+        A.contratoEnLinea, A.presentacion, A.sinCompraDirecta,
+        { texto: 'La misma cámara recoge la postura contraria: un simple formulario no basta, porque la petición se tramita después a mano y no lleva a un contrato inmediato.', tipo: 'tercero', fuente: 'wko' },
+      ],
       recomendacion: 'Prudencia: trátalo como si aplicara en el proceso de solicitud, que es lo que el usuario usa para contratar. Si el formulario es solo de contacto general, el riesgo baja mucho.',
     };
   }
@@ -286,7 +289,7 @@ function evaluarServicio(r, P, faltan) {
     ],
     recomendacion: r.interaccion === 'si'
       ? 'Tiene buscador o herramienta, pero sin contrato no hay comercio electrónico. Si añades venta, reserva o suscripción de pago, repite el análisis.'
-      : 'Si añades venta, reserva o suscripción de pago, repite el análisis. Un formulario de contacto general no lo cambia en principio.',
+      : 'Si añades venta, reserva o suscripción de pago, repite el análisis. Un formulario de contacto general es zona gris: hay una postura muy estricta que lo incluye y otra que no.',
   };
 }
 
