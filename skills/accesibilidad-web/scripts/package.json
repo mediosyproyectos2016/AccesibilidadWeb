@@ -1,6 +1,6 @@
 {
   "name": "accesibilidad-web-scripts",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "De la auditoría de accesibilidad (WCAG 2.2 AA / EN 301 549) a la web arreglada: auditar, priorizar, arreglar, comparar y declarar.",
   "type": "module",
@@ -9,6 +9,7 @@
     "node": ">=20"
   },
   "bin": {
+    "aplicabilidad-accesibilidad": "./aplicabilidad.mjs",
     "auditar-accesibilidad": "./auditar.mjs",
     "priorizar-accesibilidad": "./priorizar.mjs",
     "arreglar-accesibilidad": "./arreglar.mjs",

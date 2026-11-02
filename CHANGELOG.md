@@ -4,6 +4,21 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/); v
 
 ## [Sin publicar]
 
+## [0.3.0] - 2026-11-02
+
+La skill responde si la normativa de accesibilidad le aplica a una web, con fuentes y sin presentar como cierto lo que no lo está.
+
+### Añadido
+- `aplicabilidad.mjs`: para cualquier web, por hechos y sin tipos de negocio. Veredicto («aplica», «no aplica», «dudoso»), certeza, base con artículo y enlace, argumentos a favor y en contra, obligaciones, plazos, sanciones, autoridad por comunidad, Ley 10/2025, RD 1112/2018 y texto para la declaración. Sin red ni dependencias. Sin datos, da cada escenario.
+- `references/aplicabilidad.md`: árbol de decisión, microempresa con asociadas y vinculadas, comercio electrónico con criterios de otros Estados, «parcialmente conforme» y cómo actualizar. Cada dato dice si es norma, criterio oficial, tercero o razonamiento propio.
+- `lib/normativa/`: datos con fuente y fecha. La Directiva es la base común y España el primer país completo; añadir otro país no toca el motor. El resultado avisa si los datos pasan de 180 días.
+- `declaracion.mjs --aplicabilidad`: el texto cambia con el veredicto. No dice «de conformidad con» una ley que no obliga o es dudosa, añade la información del art. 13.2 si procede y avisa de lo que supone publicar «parcialmente conforme» (art. 13.7).
+- Comando `/aplicabilidad-accesibilidad` en el plugin de Claude Code.
+
+### Cambiado
+- `SKILL.md` y adaptadores: paso 0 de aplicabilidad antes del flujo.
+- Guía de normativa: autoridades por comunidad, RD 1112/2018 DA 1.ª (empresas privadas con fondos públicos o que gestionan servicios públicos), microempresa y fechas contrapuestas de la cita de EN 301 549 V4.1.1.
+
 ## [0.2.0] - 2026-11-02
 
 De auditar a arreglar: la skill lleva de la auditoría a la web arreglada, en cualquier stack y con cualquier IA.
