@@ -325,6 +325,17 @@ select { width: 100%; min-height: 44px; padding: .4em; border: 2px solid #1a1a1a
       raiz.querySelector('[data-accion="cerrar"]').addEventListener('click', () => this.cerrar());
       raiz.querySelector('[data-accion="restablecer"]').addEventListener('click', () => this.restablecer());
       this.dialogo.addEventListener('close', () => this.boton.focus());
+      /* El <dialog> modal nativo no encierra el Tab: tras el último control el foco salta a
+         <body> o al navegador. Aquí se le da la vuelta dentro del diálogo. */
+      this.dialogo.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+        const f = [...this.dialogo.querySelectorAll('button, select, input, a[href], textarea')]
+          .filter((el) => !el.disabled && el.getClientRects().length);
+        if (!f.length) return;
+        const actual = raiz.activeElement;
+        if (e.shiftKey && (actual === f[0] || !f.includes(actual))) { e.preventDefault(); f[f.length - 1].focus(); }
+        else if (!e.shiftKey && (actual === f[f.length - 1] || !f.includes(actual))) { e.preventDefault(); f[0].focus(); }
+      });
       this.dialogo.addEventListener('click', (e) => { if (e.target === this.dialogo) this.cerrar(); });
       this.formulario.addEventListener('submit', (e) => e.preventDefault());
       this.formulario.addEventListener('change', () => this.leerFormulario());

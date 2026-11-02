@@ -109,7 +109,33 @@ test('teclado: abre con Intro, retiene el foco, cierra con Esc y devuelve el foc
   await ctx.close();
 });
 
-test('aplica cada preferencia a la página y la quita', { timeout: 240000 }, async () => {
+test('teclado: en una vuelta completa de Tab y de Mayús+Tab el foco no sale del diálogo', { timeout: 240000 }, async () => {
+  for (const ruta of ['/flotante', '/en-linea']) {
+    const { ctx, page } = await abrir(ruta);
+    await page.locator('panel-accesibilidad .abrir').focus();
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(100);
+    const dentro = () => page.evaluate(() => {
+      const sr = document.querySelector('panel-accesibilidad').shadowRoot;
+      const el = sr.activeElement;
+      return el && sr.querySelector('dialog').contains(el) ? (el.getAttribute('name') ?? el.dataset.accion ?? el.tagName) : null;
+    });
+    for (const tecla of ['Tab', 'Shift+Tab']) {
+      const visitados = new Set();
+      let fuera = 0;
+      for (let i = 0; i < 40; i++) {
+        await page.keyboard.press(tecla);
+        const d = await dentro();
+        if (d === null) fuera++; else visitados.add(d);
+      }
+      assert.equal(fuera, 0, `${ruta} ${tecla}: ${fuera} de 40 paradas fuera del diálogo`);
+      assert.ok(visitados.size >= 7, `${ruta} ${tecla}: recorre todos los controles (${[...visitados].join(', ')})`);
+    }
+    await ctx.close();
+  }
+});
+
+test('aplica cada preferencia a la página y la quita',{ timeout: 240000 }, async () => {
   const { ctx, page } = await abrir('/en-linea');
   await abrirPanel(page);
   const css = (sel, prop) => page.evaluate(([s, p]) => getComputedStyle(document.querySelector(s))[p], [sel, prop]);
