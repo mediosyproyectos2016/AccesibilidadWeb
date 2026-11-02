@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi Tienda: ofertas de temporada</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; color: #1a1a1a; background: #fff; }
+    :focus-visible { outline: 3px solid #1a4fd6; outline-offset: 2px; }
+    .saltar { position: absolute; left: -999px; }
+    .saltar:focus { left: 8px; top: 8px; padding: 8px; background: #fff; }
+    .ancha { max-width: 900px; background: #eee; }
+    .portada { padding: 3rem; background: #123 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Crect width='10' height='10' fill='%23111'/%3E%3C/svg%3E"); }
+    .portada h2 { color: #fff; margin: 0; }
+    .bandera { width: 200px; max-width: 100%; min-height: 80px; background: #0055b3; color: #fff; }
+    .gira { display: inline-block; }
+    @media (prefers-reduced-motion: no-preference) {
+      .gira.en-marcha { animation: latir 1s infinite alternate; }
+    }
+    @keyframes latir { to { transform: scale(1.05); } }
+    .caja { max-width: 240px; min-height: 42px; }
+    .objetivo { display: inline-block; min-width: 24px; min-height: 24px; }
+    button { min-width: 44px; min-height: 44px; }
+    dialog { max-width: calc(100vw - 2rem); }
+  </style>
+</head>
+<body>
+  <a class="saltar" href="#principal">Saltar al contenido</a>
+  <header>
+    <nav aria-label="Principal">
+      <a href="/inicio">Inicio</a>
+      <a class="objetivo" href="/a">Sección A</a>
+      <a class="objetivo" href="/b">Sección B</a>
+    </nav>
+  </header>
+  <main id="principal">
+    <h1>Ofertas de temporada</h1>
+    <button id="abrir" type="button" aria-haspopup="dialog">Ver aviso</button>
+    <button id="despl" type="button" aria-expanded="false" aria-controls="mas">Más opciones</button>
+    <ul id="mas" hidden><li>Una opción</li></ul>
+    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="" width="40" height="40">
+    <p>Texto con contraste suficiente.</p>
+    <label for="correo">Correo electrónico</label>
+    <input id="correo" type="email" autocomplete="email">
+    <div class="portada"><h2>Grandes ofertas de temporada</h2></div>
+    <section class="bandera" aria-label="Animación con pausa">
+      <p class="gira en-marcha" id="gira">Animación con pausa</p>
+      <button id="pausa" type="button">Pausar animación</button>
+    </section>
+    <section aria-label="Diapositivas" class="carrusel" id="carrusel">
+      <p id="diapo">Diapositiva 1</p>
+      <button id="pausa2" type="button">Pausar diapositivas</button>
+    </section>
+    <div class="caja">Texto en una caja que crece cuando aumenta el espaciado del texto, así que no se recorta.</div>
+    <div class="ancha">Bloque de ancho flexible</div>
+    <dialog id="modal" aria-labelledby="modal-titulo">
+      <h2 id="modal-titulo">Aviso</h2>
+      <p>Diálogo bien hecho.</p>
+      <button id="cerrar" type="button">Cerrar</button>
+    </dialog>
+  </main>
+  <footer><p>Pie</p></footer>
+  <script>
+    const abrir = document.getElementById('abrir');
+    const modal = document.getElementById('modal');
+    abrir.addEventListener('click', () => modal.showModal());
+    document.getElementById('cerrar').addEventListener('click', () => modal.close());
+    modal.addEventListener('close', () => abrir.focus());
+    const despl = document.getElementById('despl');
+    despl.addEventListener('click', () => {
+      const abierto = despl.getAttribute('aria-expanded') === 'true';
+      despl.setAttribute('aria-expanded', String(!abierto));
+      document.getElementById('mas').hidden = abierto;
+    });
+    document.getElementById('pausa').addEventListener('click', () => document.getElementById('gira').classList.remove('en-marcha'));
+    let n = 1;
+    const avanzar = () => {
+      n++;
+      document.getElementById('diapo').textContent = 'Diapositiva ' + n;
+    };
+    let t = matchMedia('(prefers-reduced-motion: reduce)').matches ? null : setInterval(avanzar, 900);
+    document.getElementById('pausa2').addEventListener('click', () => { clearInterval(t); });
+  </script>
+</body>
+</html>

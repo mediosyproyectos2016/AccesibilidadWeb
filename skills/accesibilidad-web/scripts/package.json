@@ -1,15 +1,20 @@
 {
   "name": "accesibilidad-web-scripts",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Auditoría automática de accesibilidad (WCAG 2.2 AA / EN 301 549) con Playwright y axe-core.",
+  "description": "De la auditoría de accesibilidad (WCAG 2.2 AA / EN 301 549) a la web arreglada: auditar, priorizar, arreglar, comparar y declarar.",
   "type": "module",
   "license": "MIT",
   "engines": {
     "node": ">=20"
   },
   "bin": {
-    "auditar-accesibilidad": "./auditar.mjs"
+    "auditar-accesibilidad": "./auditar.mjs",
+    "priorizar-accesibilidad": "./priorizar.mjs",
+    "arreglar-accesibilidad": "./arreglar.mjs",
+    "comparar-accesibilidad": "./comparar.mjs",
+    "revision-accesibilidad": "./revision.mjs",
+    "declaracion-accesibilidad": "./declaracion.mjs"
   },
   "scripts": {
     "instalar-navegador": "playwright install chromium",
@@ -20,5 +25,10 @@
     "@axe-core/playwright": "^4.10.2",
     "axe-core": "^4.10.3",
     "playwright": "^1.52.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }

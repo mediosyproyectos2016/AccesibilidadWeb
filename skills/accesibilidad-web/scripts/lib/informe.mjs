@@ -3,6 +3,8 @@ import {
   ARREGLOS, CRITERIOS, CRITERIOS_PROPIOS, IMPACTO_ES, IMPACTOS,
   clausulaEN, compararCriterios, criteriosDeEtiquetas, rangoImpacto,
 } from './wcag.mjs';
+import { huellaDe } from './comparar.mjs';
+import { COMPROBACIONES } from './manual.mjs';
 
 const MAX_SELECTORES_MD = 6;
 
@@ -12,7 +14,22 @@ const TITULOS_PROPIOS = {
   'foco-oculto': 'El elemento enfocado queda oculto o tapado',
   'trampa-foco': 'Trampa de foco',
   'sin-enlace-saltar': 'Falta el enlace «Saltar al contenido» al principio',
+  'tabindex-positivo': 'tabindex positivo: altera el orden del foco',
+  'orden-foco-sospechoso': 'El orden del foco da un salto sospechoso',
+  'movimiento-sin-pausa': 'Contenido en movimiento automático sin control de pausa',
+  'movimiento-reducido-ignorado': 'Ignora la preferencia de reducir el movimiento',
+  'modal-sin-foco': 'El foco no entra en el diálogo al abrirse',
+  'modal-foco-escapa': 'El foco escapa del diálogo modal',
+  'modal-esc': 'Esc no cierra el diálogo',
+  'modal-foco-no-vuelve': 'El foco no vuelve al cerrar el diálogo',
+  'desplegable-sin-estado': 'El desplegable no actualiza aria-expanded',
+  'espaciado-recorta': 'El texto se recorta con el espaciado de 1.4.12',
+  'zoom-200-desborde': 'Scroll horizontal al 200 % de zoom',
+  'zoom-200-cabecera': 'Los elementos fijos tapan el contenido al 200 %',
+  'texto-sobre-media': 'Texto sobre imagen o vídeo con contraste insuficiente',
 };
+
+export { TITULOS_PROPIOS };
 
 /** Convierte un resultado de axe (violations) en hallazgos planos. */
 export function hallazgosDeAxe(resultados, pagina, contexto) {
@@ -66,11 +83,26 @@ export function hallazgosPropios(lista, pagina, contexto) {
   }));
 }
 
+/** Sospechas de las comprobaciones propias que debe confirmar una persona. */
+export function revisionPropia(lista, pagina) {
+  return lista.map((r) => ({
+    regla: r.regla,
+    origen: 'propia',
+    descripcion: TITULOS_PROPIOS[r.regla] ?? r.regla,
+    criterios: CRITERIOS_PROPIOS[r.regla] ?? [],
+    pagina,
+    elementos: 1,
+    selector: r.selector,
+    detalle: r.detalle,
+  }));
+}
+
 /** Fusiona hallazgos iguales (misma regla, página y selector) vistos en varios contextos. */
 export function agrupar(hallazgos) {
   const mapa = new Map();
   for (const h of hallazgos) {
     const clave = `${h.regla}|${h.pagina}|${h.selector}`;
+    h.huella = huellaDe(h);
     const previo = mapa.get(clave);
     if (previo) {
       if (!previo.contextos.includes(h.contexto)) previo.contextos.push(h.contexto);
@@ -151,10 +183,17 @@ export function generarMarkdown(datos, { baseRecetas = '' } = {}) {
   L.push(`- **Contextos:** ${configuracion.anchos.map((a) => `${a} px`).join(', ')} · esquema ${configuracion.esquemas.join('/')}${configuracion.teclado ? ' · recorrido de teclado' : ''}${configuracion.reflow ? ' · reflow a 320 px' : ''}`);
   L.push(`- **Páginas auditadas:** ${paginas.filter((p) => !p.error).length} de ${paginas.length}`);
   L.push('');
-  L.push('> **Aviso.** Esta auditoría automática detecta solo una parte de los problemas (según distintas estimaciones, entre un 30 % y un 50 %). ' +
+  L.push('> **Aviso.** Esta auditoría automática detecta solo una parte de los problemas: en la prueba del GDS británico (2017), la mejor de 10 herramientas halló el 41 % de las barreras, y Deque (fabricante de axe-core) estima el 57 % por volumen de incidencias. ' +
     'No sustituye la revisión manual guiada (teclado, lector de pantalla, zoom, contenido) ni el asesoramiento jurídico. ' +
     'Un informe sin errores **no** acredita el cumplimiento.');
   L.push('');
+
+  const noAuditadas = paginas.filter((p) => p.error);
+  if (noAuditadas.length) {
+    L.push(`> **Atención: ${noAuditadas.length} página(s) no se pudieron auditar y sus fallos no están contados.**`);
+    for (const p of noAuditadas) L.push(`> - ${p.url}: ${p.error}`);
+    L.push('');
+  }
 
   L.push('## Resumen');
   L.push('');
@@ -281,13 +320,37 @@ export function generarMarkdown(datos, { baseRecetas = '' } = {}) {
       L.push(`| ${codigo(a.regla)} ${esc(a.descripcion)} | ${a.criterios.join(', ') || '—'} | ${a.paginas.size} | ${a.elementos} |`);
     }
     L.push('');
+    const propias = revisar.filter((r) => r.origen === 'propia');
+    if (propias.length) {
+      L.push('### Sospechas de las comprobaciones propias', '');
+      for (const r of propias.slice(0, 40)) L.push(`- ${codigo(r.regla)} · ${r.pagina} · ${codigo(r.selector)}: ${esc(r.detalle)}`);
+      if (propias.length > 40) L.push(`- … y ${propias.length - 40} más (ver informe.json)`);
+      L.push('');
+    }
+  }
+
+  L.push('## No comprobado');
+  L.push('');
+  L.push('Esta herramienta no puede juzgar lo siguiente. Hasta que lo compruebe una persona, queda **sin comprobar**, sea cual sea el resultado de arriba:');
+  L.push('');
+  for (const c of COMPROBACIONES.filter((x) => x.persona)) L.push(`- ${c.titulo}`);
+  L.push('');
+
+  if (datos.lineaBase) {
+    const lb = datos.lineaBase;
+    L.push('## Frente a la línea base', '');
+    L.push(`Línea base del ${lb.fecha ?? '—'}: ${lb.regresiones.length} regresión(es) y ${lb.mejoras.length} mejora(s).`, '');
+    for (const p of lb.regresiones.slice(0, 40)) L.push(`- **Nuevo:** ${codigo(p.regla)} (${IMPACTO_ES[p.impacto] ?? p.impacto}) · ${p.pagina} · ${codigo(p.selector)}`);
+    for (const r of lb.sinComprobar) L.push(`- **Sin comprobar:** la página ${codigo(r)} está en la línea base y no se ha auditado.`);
+    L.push('');
   }
 
   L.push('## Siguiente paso');
   L.push('');
-  L.push('1. Arreglar primero lo **crítico** y **grave**, empezando por los componentes compartidos (cabecera, menú, pie, tarjetas): un arreglo corrige muchas páginas.');
-  L.push('2. Hacer la revisión manual guiada (`references/revision-manual.md`): teclado, lector de pantalla, zoom 200 %, reflow 320 px, movimiento, formularios y multimedia.');
-  L.push('3. Publicar o actualizar la declaración de accesibilidad y el canal de quejas (`docs/declaracion-accesibilidad-plantilla.md`).');
+  L.push('1. Genera el plan de arreglo: `node priorizar.mjs informe.json --proyecto <carpeta del código>`. Ordena por impacto y señala el fichero fuente probable.');
+  L.push('2. Arregla en el código y reaudita: `node comparar.mjs antes/informe.json despues/informe.json` dice qué se arregló, qué es nuevo y si hay que seguir.');
+  L.push('3. Haz la revisión manual (`node revision.mjs crear`): teclado, lector de pantalla, zoom, movimiento, formularios y multimedia.');
+  L.push('4. Genera la declaración con los resultados reales (`node declaracion.mjs`) y publica el canal de comunicación.');
   L.push('');
   return L.join('\n');
 }

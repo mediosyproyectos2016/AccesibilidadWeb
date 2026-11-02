@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <style>
+    body { font-family: sans-serif; margin: 0; }
+    a, button { outline: none; }
+    .ancha { width: 900px; background: #eee; }
+    .gris { color: #aaa; }
+    .portada { padding: 3rem; background: #123 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Crect width='10' height='10' fill='%23111'/%3E%3C/svg%3E"); }
+    .portada h2 { color: #333; margin: 0; }
+    .bandera { width: 200px; height: 80px; background: #06c; color: #fff; animation: latir 1s infinite alternate; }
+    @keyframes latir { to { transform: scale(1.05); } }
+    .diapositivas { width: 300px; height: 80px; background: #fff; color: #000; }
+    .caja { width: 240px; height: 42px; overflow: hidden; color: #000; background: #fff; font-size: 16px; line-height: 1.2; }
+    .diminuto { display: inline-block; width: 14px; height: 14px; color: #000; background: #fff; font-size: 12px; overflow: hidden; }
+    #modal { position: fixed; top: 10px; left: 10px; padding: 1rem; background: #fff; color: #000; border: 1px solid #000; }
+    #modal[hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <a href="/inicio">Inicio</a>
+  <button tabindex="3" id="abrir" aria-haspopup="dialog"><svg width="16" height="16"><circle cx="8" cy="8" r="6"/></svg></button>
+  <button id="despl" aria-expanded="false">Más opciones</button>
+  <a class="diminuto" href="/a">a</a><a class="diminuto" href="/b">b</a>
+  <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="40" height="40">
+  <p class="gris">Texto con poco contraste</p>
+  <input type="text">
+  <div class="portada"><h2>Grandes ofertas de temporada</h2></div>
+  <div class="bandera">Animación sin fin</div>
+  <div class="diapositivas carrusel" id="carrusel"><p id="diapo">Diapositiva 1</p></div>
+  <div class="caja">Texto en una caja de altura fija que se recorta cuando aumenta el espaciado del texto porque no cabe en absoluto.</div>
+  <div class="ancha">Bloque de ancho fijo</div>
+  <div id="modal" role="dialog" aria-modal="true" aria-label="Aviso" hidden>
+    <p>Diálogo mal hecho.</p>
+    <button id="cerrar" type="button">Cerrar</button>
+  </div>
+  <script>
+    // Abre sin mover el foco, sin Esc y sin devolver el foco; deja salir a Tab.
+    document.getElementById('abrir').addEventListener('click', () => { document.getElementById('modal').hidden = false; });
+    document.getElementById('cerrar').addEventListener('click', () => { document.getElementById('modal').hidden = true; });
+    let n = 1;
+    setInterval(() => {
+      n++;
+      const d = document.getElementById('carrusel');
+      d.className = 'diapositivas carrusel paso-' + (n % 2);
+      document.getElementById('diapo').textContent = 'Diapositiva ' + n;
+    }, 900);
+  </script>
+</body>
+</html>

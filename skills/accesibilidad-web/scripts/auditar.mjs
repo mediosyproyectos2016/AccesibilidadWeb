@@ -4,12 +4,15 @@
 //
 //   node auditar.mjs https://ejemplo.es https://ejemplo.es/contacto
 //   node auditar.mjs --rastrear 10 https://ejemplo.es
+//   node auditar.mjs --sitemap https://ejemplo.es/sitemap.xml --max-paginas 20
+//   node auditar.mjs --linea-base a11y-base.json https://ejemplo.es
 //   node auditar.mjs --ayuda
 //
-// Códigos de salida: 0 = sin problemas por encima del umbral,
-// 1 = hay problemas por encima del umbral, 2 = error de ejecución.
+// Códigos de salida: 0 = sin problemas por encima del umbral (o sin regresiones,
+// con --linea-base); 1 = hay problemas por encima del umbral (o regresiones);
+// 2 = error de ejecución.
 
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { access, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
@@ -20,8 +23,14 @@ import { AxeBuilder } from '@axe-core/playwright';
 import { normalizarUmbral, IMPACTO_ES, IMPACTOS } from './lib/wcag.mjs';
 import { revisarTeclado, revisarReflow } from './lib/teclado.mjs';
 import {
+  esIndiceSitemap, ejecutarPasos, muestraPorSecciones, revisarDesplegables, revisarDialogoAbierto,
+  revisarEspaciado, revisarModales, revisarMovimiento, revisarMovimientoReducido, revisarOrdenFoco,
+  revisarTextoSobreMedia, revisarZoom200, urlsDeSitemap, validarEstados,
+} from './lib/comprobaciones.mjs';
+import { crearLineaBase, regresiones } from './lib/comparar.mjs';
+import {
   agrupar, generarMarkdown, hallazgosDeAxe, hallazgosPropios,
-  resumir, revisionDeAxe, superaUmbral,
+  resumir, revisionDeAxe, revisionPropia, superaUmbral,
 } from './lib/informe.mjs';
 
 const require = createRequire(import.meta.url);
@@ -32,11 +41,22 @@ const AYUDA = `
 Uso: node auditar.mjs [opciones] <url> [<url>...]
 
 Audita páginas con axe-core (WCAG 2.2 A/AA) a varios anchos y esquemas de color,
-recorre la página con el teclado y comprueba el reflow a 320 px.
+y añade lo que axe no cubre: recorrido de teclado y orden del foco, diálogos (foco,
+Esc, devolución), desplegables, movimiento sin pausa, prefers-reduced-motion,
+reflow a 320 px, zoom al 200 %, espaciado de texto y texto sobre imagen o vídeo.
+
+Solo pulsa controles que declaran abrir un diálogo o un desplegable: nunca envía
+formularios. Detecta una parte de los fallos; no acredita conformidad.
 
 Opciones:
   --urls <fichero>        Fichero con una URL por línea (# para comentarios).
   --rastrear <N>          Descubre hasta N páginas del mismo dominio a partir de la primera URL.
+  --sitemap <url>         Toma las páginas de un sitemap.xml (o índice de sitemaps).
+  --max-paginas <N>       Máximo de páginas del sitemap, repartidas entre secciones (por defecto 20).
+  --estados <fichero>     JSON con estados interactivos que auditar (menú abierto, error de
+                          formulario…): [{"nombre":"…","url":"…","pasos":[{"clic":"#menu"}]}].
+                          Pasos: clic, pasar, foco, escribir:[sel,texto], tecla, esperar.
+  --sesion <fichero>      storageState de Playwright para auditar páginas con inicio de sesión.
   --anchos <lista>        Anchos de ventana en px (por defecto 1280,390).
   --esquemas <modo>       auto | claro | oscuro | claro,oscuro (por defecto auto: añade
                           oscuro solo si la web cambia con prefers-color-scheme).
@@ -48,8 +68,21 @@ Opciones:
   --excluir <selector>    Excluye un selector CSS del análisis (repetible).
   --clic <selector>       Pulsa este elemento tras cargar cada página, p. ej. el botón
                           «Aceptar» del banner de cookies (repetible; si no existe, se ignora).
+  --tecla <tecla>         Pulsa esta tecla tras cargar, p. ej. Escape para cerrar un aviso (repetible).
+  --almacenamiento <clave=valor>  Guarda esto en localStorage antes de cargar, p. ej. para
+                          descartar un aviso ya visto (repetible).
+  --concurrencia <N>      Páginas auditadas a la vez (por defecto 1; 4 va bien con muchas páginas).
   --sin-teclado           No hace el recorrido con Tab.
   --sin-reflow            No comprueba el reflow a 320 px.
+  --sin-modales           No abre los diálogos declarados (aria-haspopup="dialog"…).
+  --desplegables <N>      Máximo de desplegables que abrir por página (por defecto 5; 0 = ninguno).
+  --sin-movimiento        No observa el movimiento (ahorra unos 6 s por página).
+  --sin-zoom              No comprueba el zoom al 200 % ni el espaciado de texto.
+  --sin-texto-media       No mide el contraste del texto sobre imagen o vídeo.
+  --rapido                Solo axe, teclado y reflow: desactiva las cinco opciones anteriores.
+  --linea-base <fichero>  Compara con una línea base: falla (código 1) solo con regresiones del
+                          umbral o peor; si no se puede auditar una página conocida, código 2.
+  --guardar-linea-base <fichero>  Guarda los fallos actuales como línea base y sale con código 0.
   --tabs <N>              Máximo de pulsaciones de Tab por página (por defecto 40).
   --espera <ms>           Espera extra tras cargar cada página (por defecto 1000).
   --timeout <ms>          Tiempo máximo de carga por página (por defecto 45000).
@@ -74,8 +107,23 @@ function leerOpciones(argv) {
       'buenas-practicas': { type: 'boolean', default: false },
       excluir: { type: 'string', multiple: true },
       clic: { type: 'string', multiple: true },
+      tecla: { type: 'string', multiple: true },
+      almacenamiento: { type: 'string', multiple: true },
+      concurrencia: { type: 'string', default: '1' },
       'sin-teclado': { type: 'boolean', default: false },
       'sin-reflow': { type: 'boolean', default: false },
+      'sin-modales': { type: 'boolean', default: false },
+      'sin-movimiento': { type: 'boolean', default: false },
+      'sin-zoom': { type: 'boolean', default: false },
+      'sin-texto-media': { type: 'boolean', default: false },
+      rapido: { type: 'boolean', default: false },
+      desplegables: { type: 'string', default: '5' },
+      sitemap: { type: 'string' },
+      'max-paginas': { type: 'string', default: '20' },
+      estados: { type: 'string' },
+      sesion: { type: 'string' },
+      'linea-base': { type: 'string' },
+      'guardar-linea-base': { type: 'string' },
       tabs: { type: 'string', default: '40' },
       espera: { type: 'string', default: '1000' },
       timeout: { type: 'string', default: '45000' },
@@ -102,8 +150,29 @@ async function leerUrls(values, positionals) {
   return [...new Set(urls)];
 }
 
-async function cargar(page, url, { timeout, espera, clic = [] }) {
-  const resp = await page.goto(url, { waitUntil: 'domcontentloaded', timeout });
+/** Ejecuta `fn` sobre la lista con un máximo de `n` tareas a la vez. */
+async function enParalelo(lista, n, fn) {
+  let i = 0;
+  const trabajador = async () => {
+    while (i < lista.length) await fn(lista[i++]);
+  };
+  await Promise.all(Array.from({ length: Math.max(1, n) }, trabajador));
+}
+
+const ES_FALLO_DE_RED = /Timeout|net::ERR_/;
+
+async function cargar(page, url, { timeout, espera, clic = [], teclas = [] }) {
+  // Un reintento ante tiempos agotados y errores de red, que suelen ser pasajeros.
+  // Una respuesta HTTP (403, 500…) no se reintenta: un bloqueo no se rodea.
+  const ir = () => page.goto(url, { waitUntil: 'domcontentloaded', timeout });
+  let resp;
+  try {
+    resp = await ir();
+  } catch (e) {
+    if (!ES_FALLO_DE_RED.test(e.message)) throw e;
+    await page.waitForTimeout(1000);
+    resp = await ir();
+  }
   await page.waitForLoadState('load', { timeout: Math.min(timeout, 15000) }).catch(() => {});
   await page.waitForLoadState('networkidle', { timeout: 3000 }).catch(() => {});
   if (espera) await page.waitForTimeout(espera);
@@ -113,6 +182,10 @@ async function cargar(page, url, { timeout, espera, clic = [] }) {
       await el.click({ timeout: 3000 }).catch(() => {});
       await page.waitForTimeout(300);
     }
+  }
+  for (const tecla of teclas) {
+    await page.keyboard.press(tecla);
+    await page.waitForTimeout(150);
   }
   const estado = resp?.status() ?? 0;
   if (estado >= 400) throw new Error(`HTTP ${estado}${estado === 403 ? ' (posible bloqueo antibot: no se rodea)' : ''}`);
@@ -153,6 +226,25 @@ async function rastrear(context, inicio, max, opciones) {
   return [...new Set(encontradas)];
 }
 
+/** URLs de un sitemap; si es un índice, sigue un nivel. Sin rodear bloqueos. */
+async function leerSitemap(context, url, max) {
+  const leer = async (u) => {
+    const r = await context.request.get(u, { timeout: 30000 });
+    if (!r.ok()) throw new Error(`El sitemap ${u} responde HTTP ${r.status()}`);
+    return r.text();
+  };
+  const xml = await leer(url);
+  let urls = urlsDeSitemap(xml);
+  if (esIndiceSitemap(xml)) {
+    const hijas = [];
+    for (const s of urls.slice(0, 10)) {
+      try { hijas.push(...urlsDeSitemap(await leer(s))); } catch (e) { console.warn(`  ! ${e.message}`); }
+    }
+    urls = hijas;
+  }
+  return muestraPorSecciones([...new Set(urls)], max);
+}
+
 /** ¿Cambia la web con prefers-color-scheme? Compara colores de fondo y texto. */
 async function detectarModoOscuro(browser, url, opciones) {
   const firma = async (colorScheme) => {
@@ -187,6 +279,16 @@ function fuenteAxe(idioma) {
   return { fuente, version: axe.version };
 }
 
+/** Una comprobación auxiliar que falla no debe tumbar la auditoría de la página. */
+async function seguro(fn, pag, nombre) {
+  try {
+    return await fn();
+  } catch (e) {
+    (pag.avisos ??= []).push(`No se pudo completar la comprobación de ${nombre}: ${e.message.split('\n')[0]}`);
+    return null;
+  }
+}
+
 async function main() {
   let opciones;
   try {
@@ -200,20 +302,66 @@ async function main() {
 
   const umbral = normalizarUmbral(values.umbral);
   let urls = await leerUrls(values, positionals);
-  if (!urls.length) { console.error(`Error: indica al menos una URL.\n${AYUDA}`); return 2; }
+  if (!urls.length && !values.sitemap) { console.error(`Error: indica al menos una URL.\n${AYUDA}`); return 2; }
+
+  const rapido = values.rapido;
+  const hacer = {
+    modales: !rapido && !values['sin-modales'],
+    movimiento: !rapido && !values['sin-movimiento'],
+    zoom: !rapido && !values['sin-zoom'],
+    textoMedia: !rapido && !values['sin-texto-media'],
+    desplegables: rapido ? 0 : parseInt(values.desplegables, 10) || 0,
+  };
+
+  const estados = values.estados ? validarEstados(JSON.parse(await readFile(values.estados, 'utf8'))) : [];
+  let lineaBase = null;
+  if (values['linea-base']) {
+    try {
+      lineaBase = JSON.parse(await readFile(values['linea-base'], 'utf8'));
+    } catch (e) {
+      console.error(`Error: no se puede leer la línea base ${values['linea-base']}: ${e.message}\nCréala con --guardar-linea-base.`);
+      return 2;
+    }
+  }
+  if (values.sesion) await access(values.sesion);
+  const sesion = values.sesion ? { storageState: values.sesion } : {};
 
   const anchos = values.anchos.split(',').map((s) => parseInt(s, 10)).filter((n) => n >= 200);
-  const carga = { timeout: parseInt(values.timeout, 10), espera: parseInt(values.espera, 10), clic: values.clic ?? [] };
+  const carga = { timeout: parseInt(values.timeout, 10), espera: parseInt(values.espera, 10), clic: values.clic ?? [], teclas: values.tecla ?? [] };
+  const concurrencia = parseInt(values.concurrencia, 10) || 1;
+  const almacenamiento = (values.almacenamiento ?? []).map((s) => {
+    const i = s.indexOf('=');
+    if (i < 1) throw new Error(`--almacenamiento necesita clave=valor: «${s}»`);
+    return [s.slice(0, i), s.slice(i + 1)];
+  });
+  const prepararContexto = async (c) => {
+    if (almacenamiento.length) {
+      await c.addInitScript((pares) => {
+        try { for (const [k, v] of pares) localStorage.setItem(k, v); } catch { /* sin almacenamiento en este origen */ }
+      }, almacenamiento);
+    }
+    return c;
+  };
   const etiquetas = values.etiquetas.split(',').map((s) => s.trim()).filter(Boolean);
   if (values['buenas-practicas']) etiquetas.push('best-practice');
   const { fuente, version: axeVersion } = fuenteAxe(values.idioma);
 
   const browser = await chromium.launch();
   try {
+    if (values.sitemap) {
+      const ctx = await browser.newContext({ ...sesion });
+      const max = parseInt(values['max-paginas'], 10);
+      const delSitemap = await leerSitemap(ctx, values.sitemap, max);
+      await ctx.close();
+      console.log(`Sitemap: ${delSitemap.length} página(s) elegidas de ${values.sitemap}`);
+      urls = [...new Set([...urls, ...delSitemap])];
+      if (!urls.length) { console.error('Error: el sitemap no contiene URLs.'); return 2; }
+    }
+
     if (values.rastrear) {
       const max = parseInt(values.rastrear, 10);
       console.log(`Rastreando hasta ${max} páginas desde ${urls[0]}…`);
-      const ctx = await browser.newContext();
+      const ctx = await prepararContexto(await browser.newContext({ ...sesion }));
       const descubiertas = await rastrear(ctx, urls[0], max, carga);
       await ctx.close();
       urls = [...new Set([...urls, ...descubiertas])].slice(0, Math.max(max, urls.length));
@@ -238,24 +386,29 @@ async function main() {
     for (const esquema of esquemas) {
       for (const ancho of anchos) {
         const movil = ancho < 768;
-        const ctx = await browser.newContext({
+        const ctx = await prepararContexto(await browser.newContext({
           viewport: { width: ancho, height: movil ? 844 : 800 },
           isMobile: movil,
           hasTouch: movil,
           colorScheme: esquema === 'oscuro' ? 'dark' : 'light',
           locale: 'es-ES',
-        });
+          ...sesion,
+        }));
         const contexto = `${ancho} px · ${esquema}`;
         const primero = esquema === esquemas[0] && ancho === anchos[0];
-        for (const pag of paginas) {
-          if (pag.error) continue;
+        await enParalelo(paginas, concurrencia, async (pag) => {
+          if (pag.error) return;
           const page = await ctx.newPage();
           try {
             await cargar(page, pag.url, carga);
             if (!pag.titulo) pag.titulo = await page.title();
-            let builder = new AxeBuilder({ page, axeSource: fuente }).withTags(etiquetas);
-            for (const sel of values.excluir ?? []) builder = builder.exclude(sel);
-            const res = await builder.analyze();
+            // target-size (2.5.8) está desactivada por defecto en axe: hay que pedirla.
+            const analizar = async () => {
+              let b = new AxeBuilder({ page, axeSource: fuente }).withTags(etiquetas).options({ rules: { 'target-size': { enabled: true } } });
+              for (const sel of values.excluir ?? []) b = b.exclude(sel);
+              return b.analyze();
+            };
+            const res = await analizar();
             hallazgos.push(...hallazgosDeAxe(res, pag.url, contexto));
             if (primero) revisar.push(...revisionDeAxe(res, pag.url));
 
@@ -265,18 +418,83 @@ async function main() {
               teclado[pag.url] = t.pasos;
               if (t.avisos.length) pag.avisos = t.avisos;
               hallazgos.push(...hallazgosPropios(t.hallazgos, pag.url, contexto));
+              const orden = await revisarOrdenFoco(page, t.pasos);
+              hallazgos.push(...hallazgosPropios(orden.hallazgos, pag.url, contexto));
+              revisar.push(...revisionPropia(orden.revisar, pag.url));
             }
             if (primero && !values['sin-reflow']) {
               hallazgos.push(...hallazgosPropios(await revisarReflow(page), pag.url, '320 px · ' + esquema));
             }
+
+            // Comprobaciones que no cambian el estado de la página.
+            if (primero && hacer.textoMedia) {
+              const r = await seguro(() => revisarTextoSobreMedia(page), pag, 'texto sobre imagen');
+              if (r) { hallazgos.push(...hallazgosPropios(r.hallazgos, pag.url, contexto)); revisar.push(...revisionPropia(r.revisar, pag.url)); }
+            }
+            if (primero && hacer.zoom && !movil) {
+              const z = await seguro(() => revisarZoom200(page), pag, 'zoom');
+              if (z) { hallazgos.push(...hallazgosPropios(z.hallazgos, pag.url, '200 % · ' + esquema)); revisar.push(...revisionPropia(z.revisar, pag.url)); }
+              const e = await seguro(() => revisarEspaciado(page), pag, 'espaciado');
+              if (e) hallazgos.push(...hallazgosPropios(e, pag.url, contexto));
+            }
+            if (primero && hacer.movimiento) {
+              const m = await seguro(() => revisarMovimiento(page), pag, 'movimiento');
+              if (m) { hallazgos.push(...hallazgosPropios(m.hallazgos, pag.url, contexto)); revisar.push(...revisionPropia(m.revisar, pag.url)); }
+              const mr = await revisarMovimientoReducido(ctx, pag.url, cargar, { ...carga, espera: 300 });
+              hallazgos.push(...hallazgosPropios(mr, pag.url, contexto));
+            }
+
+            // Estados interactivos: se analiza con axe también lo que solo aparece al abrir.
+            if (primero && (hacer.modales || hacer.desplegables)) {
+              await cargar(page, pag.url, { ...carga, espera: 0 });
+              const enEstado = (nombre) => async () => {
+                const r = await analizar();
+                hallazgos.push(...hallazgosDeAxe(r, pag.url, `${contexto} · ${nombre}`));
+              };
+              if (hacer.modales) {
+                const m = await seguro(() => revisarModales(page, {
+                  recargar: () => cargar(page, pag.url, { ...carga, espera: 0 }),
+                  alAbrir: (d) => enEstado(`diálogo «${d.texto}»`)(),
+                }), pag, 'diálogos');
+                if (m) hallazgos.push(...hallazgosPropios(m.hallazgos, pag.url, contexto));
+              }
+              if (hacer.desplegables) {
+                await cargar(page, pag.url, { ...carga, espera: 0 });
+                const d = await seguro(() => revisarDesplegables(page, {
+                  max: hacer.desplegables,
+                  alAbrir: (x) => enEstado(`desplegable «${x.texto}»`)(),
+                }), pag, 'desplegables');
+                if (d) hallazgos.push(...hallazgosPropios(d.hallazgos, pag.url, contexto));
+              }
+            }
+
+            // Estados definidos por el usuario.
+            for (const est of estados) {
+              if (est.url && !pag.url.includes(est.url)) continue;
+              if ((est.ancho ?? anchos[0]) !== ancho || esquema !== esquemas[0]) continue;
+              const nombre = `${contexto} · estado «${est.nombre}»`;
+              try {
+                await cargar(page, pag.url, { ...carga, espera: 0 });
+                await ejecutarPasos(page, est.pasos);
+                const r = await analizar();
+                hallazgos.push(...hallazgosDeAxe(r, pag.url, nombre));
+                const d = await revisarDialogoAbierto(page).catch(() => null);
+                if (d) hallazgos.push(...hallazgosPropios(d.hallazgos, pag.url, nombre));
+                console.log(`  ✓ ${pag.url} [${nombre}]: ${r.violations.length} reglas incumplidas`);
+              } catch (e) {
+                (pag.avisos ??= []).push(`No se pudo reproducir el estado «${est.nombre}»: ${e.message.split('\n')[0]}`);
+                console.warn(`  ! ${pag.url}: estado «${est.nombre}» no reproducido`);
+              }
+            }
             console.log(`  ✓ ${pag.url} [${contexto}]: ${res.violations.length} reglas incumplidas`);
           } catch (e) {
             if (primero) pag.error = e.message.split('\n')[0];
+            else (pag.avisos ??= []).push(`No se pudo auditar en ${contexto}: ${e.message.split('\n')[0]}`);
             console.warn(`  ✗ ${pag.url} [${contexto}]: ${e.message.split('\n')[0]}`);
           } finally {
             await page.close();
           }
-        }
+        });
         await ctx.close();
       }
     }
@@ -291,6 +509,8 @@ async function main() {
       configuracion: {
         anchos, esquemas, etiquetas, umbral,
         teclado: !values['sin-teclado'], reflow: !values['sin-reflow'],
+        comprobaciones: hacer,
+        estados: estados.map((e) => e.nombre),
         excluir: values.excluir ?? [],
         clic: values.clic ?? [],
       },
@@ -301,6 +521,11 @@ async function main() {
       teclado,
     };
 
+    if (lineaBase) {
+      const r = regresiones(lineaBase, datos, umbral ?? 'minor');
+      datos.lineaBase = { fecha: lineaBase.fecha, total: lineaBase.total, ...r };
+    }
+
     await mkdir(values.salida, { recursive: true });
     await writeFile(path.join(values.salida, 'informe.json'), JSON.stringify(datos, null, 2));
     await writeFile(path.join(values.salida, 'informe.md'), generarMarkdown(datos, { baseRecetas: values.recetas ?? '' }));
@@ -309,7 +534,23 @@ async function main() {
       IMPACTOS.map((i) => `${IMPACTO_ES[i]}: ${resumen.porImpacto[i] ?? 0}`).join(' · '));
     console.log(`Informe: ${path.resolve(values.salida, 'informe.md')}`);
 
+    const fallidas = paginas.filter((p) => p.error);
+    for (const p of fallidas) console.warn(`  ! Página no auditada: ${p.url} (${p.error})`);
     if (paginas.every((p) => p.error)) return 2;
+    if (values['guardar-linea-base']) {
+      if (fallidas.length) { console.error('Error: no se guarda la línea base con páginas sin auditar.'); return 2; }
+      await writeFile(values['guardar-linea-base'], JSON.stringify(crearLineaBase(datos), null, 2) + '\n');
+      console.log(`Línea base guardada en ${values['guardar-linea-base']} con ${resumen.problemas} fallos conocidos. No es una lista de fallos aceptables: debe ir bajando.`);
+      return 0;
+    }
+    if (lineaBase) {
+      const { regresiones: rs, mejoras, sinComprobar } = datos.lineaBase;
+      console.log(`Línea base: ${rs.length} regresión(es), ${mejoras.length} mejora(s), ${sinComprobar.length} página(s) sin comprobar.`);
+      if (mejoras.length) console.log('  Hay mejoras: actualiza la línea base para que no puedan volver (--guardar-linea-base).');
+      for (const p of rs.slice(0, 20)) console.log(`  ✗ ${p.regla} (${IMPACTO_ES[p.impacto]}) · ${p.pagina} · ${p.selector}`);
+      if (sinComprobar.length || fallidas.length) return 2;
+      return rs.length ? 1 : 0;
+    }
     if (superaUmbral(problemas, umbral)) {
       console.log(`Hay problemas de impacto ${IMPACTO_ES[umbral]} o superior: código de salida 1.`);
       return 1;

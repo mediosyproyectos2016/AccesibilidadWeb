@@ -46,3 +46,24 @@ test('cada receta enlazada existe', () => {
     assert.ok(existsSync(path.join(SKILL, receta)), `${regla}: falta ${receta}`);
   }
 });
+
+test('toda regla de axe que se ejecuta tiene arreglo y receta', async () => {
+  const { createRequire } = await import('node:module');
+  const axe = createRequire(import.meta.url)('axe-core');
+  const etiquetas = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
+  const faltan = axe.getRules(etiquetas).map((r) => r.ruleId).filter((id) => !ARREGLOS[id]);
+  assert.deepEqual(faltan, []);
+});
+
+test('toda comprobación propia tiene título y arreglo, y el tipo de arreglo es coherente', async () => {
+  const { TITULOS_PROPIOS } = await import('../lib/informe.mjs');
+  const { CRITERIOS_PROPIOS, ARREGLO_AUTOMATICO, CRITERIO_HUMANO, tipoArreglo } = await import('../lib/wcag.mjs');
+  const { IDS_ARREGLOS, ID_CSS_GLOBAL } = await import('../lib/arreglos.mjs');
+  for (const regla of Object.keys(CRITERIOS_PROPIOS)) {
+    assert.ok(TITULOS_PROPIOS[regla], `sin título: ${regla}`);
+    assert.ok(ARREGLOS[regla], `sin arreglo: ${regla}`);
+  }
+  for (const id of Object.values(ARREGLO_AUTOMATICO)) assert.ok([...IDS_ARREGLOS, ID_CSS_GLOBAL].includes(id), id);
+  for (const regla of Object.keys(ARREGLO_AUTOMATICO)) assert.equal(CRITERIO_HUMANO[regla], undefined, regla);
+  assert.equal(tipoArreglo('regla-inventada'), 'asistido');
+});

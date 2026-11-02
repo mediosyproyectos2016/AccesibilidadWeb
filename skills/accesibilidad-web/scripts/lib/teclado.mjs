@@ -8,8 +8,11 @@ function infoFocoEnPagina() {
   while (el && el.shadowRoot && el.shadowRoot.activeElement) el = el.shadowRoot.activeElement;
   if (!el || el === document.body || el === document.documentElement) return null;
 
-  const selector = (n) => {
-    if (n.id && /^[A-Za-z][\w-]*$/.test(n.id) && document.querySelectorAll(`#${n.id}`).length === 1) return `#${n.id}`;
+  // Dentro de shadow DOM el selector incluye la ruta hasta el anfitrión: dos
+  // componentes con el mismo botón interno no son «el mismo elemento».
+  const selectorEnRaiz = (n) => {
+    const raiz = n.getRootNode();
+    if (n.id && /^[A-Za-z][\w-]*$/.test(n.id) && raiz.querySelectorAll(`#${n.id}`).length === 1) return `#${n.id}`;
     const partes = [];
     while (n && n.nodeType === 1 && n !== document.body && partes.length < 5) {
       let p = n.tagName.toLowerCase();
@@ -23,6 +26,11 @@ function infoFocoEnPagina() {
       n = padre;
     }
     return partes.join(' > ');
+  };
+  const selector = (n) => {
+    const tramos = [selectorEnRaiz(n)];
+    for (let raiz = n.getRootNode(); raiz.host; raiz = raiz.host.getRootNode()) tramos.unshift(selectorEnRaiz(raiz.host));
+    return tramos.join(' >>> ');
   };
 
   const r = el.getBoundingClientRect();
@@ -101,7 +109,9 @@ export async function revisarTeclado(page, { maxTabs = 40 } = {}) {
 
   let anterior = null;
   let repeticiones = 0;
+  let enIframe = 0;
   const vistos = new Set();
+  const modalAbierto = await hayModal().catch(() => false);
 
   for (let i = 0; i < maxTabs; i++) {
     await page.keyboard.press('Tab');
@@ -109,6 +119,12 @@ export async function revisarTeclado(page, { maxTabs = 40 } = {}) {
     const info = await page.evaluate(infoFocoEnPagina).catch(() => null);
     if (!info) break; // el foco salió del documento: fin del recorrido
     const clave = info.selector;
+    // Un iframe conserva el foco mientras se recorre su interior: Tab repetido en
+    // el mismo iframe no es una trampa. Su contenido se revisa aparte o a mano.
+    if (clave === anterior && info.etiqueta === 'iframe') {
+      if (++enIframe > 60) break;
+      continue;
+    }
     if (clave === anterior) {
       repeticiones++;
       if (repeticiones >= 2) {
@@ -118,7 +134,16 @@ export async function revisarTeclado(page, { maxTabs = 40 } = {}) {
       continue;
     }
     repeticiones = 0;
-    if (vistos.has(clave)) break; // dio la vuelta al documento
+    if (vistos.has(clave)) {
+      // En Chromium, tras el último elemento el foco pasa por la interfaz del
+      // navegador (activeElement = body) y ahí acaba el recorrido. Volver a un
+      // elemento ya visitado sin haber salido es un ciclo: la página retiene el foco.
+      // Dentro de un diálogo modal ese ciclo es justo lo que debe pasar.
+      if (!modalAbierto) {
+        hallazgos.push({ regla: 'trampa-foco', impacto: 'critical', selector: clave, texto: info.texto, detalle: `Tab vuelve a este elemento tras ${pasos.length} paradas sin salir del ciclo: no se llega al resto de la página ni se sale de ella.` });
+      }
+      break;
+    }
     vistos.add(clave);
     anterior = clave;
 

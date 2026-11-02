@@ -139,7 +139,7 @@ export const ARREGLOS = {
   'label-title-only': { texto: 'No uses solo `title` como etiqueta; añade una `<label>` visible.', receta: `${REC}/formularios.md` },
   'form-field-multiple-labels': { texto: 'Deja una sola etiqueta por campo.', receta: `${REC}/formularios.md` },
   'autocomplete-valid': { texto: 'Usa valores válidos de `autocomplete` (`email`, `given-name`, `postal-code`…).', receta: `${REC}/formularios.md` },
-  'label-content-name-mismatch': { texto: 'El nombre accesible debe contener el texto visible (para control por voz).', receta: `${REC}/botones.md` },
+  'label-content-name-mismatch': { texto: 'El nombre accesible debe contener el texto visible (para control por voz). Lo más limpio: quita el `aria-label` y añade el resto como texto oculto visualmente dentro del enlace o botón.', receta: `${REC}/botones.md` },
   'color-contrast': { texto: 'Sube el contraste a 4,5:1 (texto normal) o 3:1 (texto grande ≥ 24 px o ≥ 18,66 px en negrita).', receta: `${REC}/contraste.md` },
   'color-contrast-enhanced': { texto: 'Contraste AAA (7:1): recomendable, no obligatorio para AA.', receta: `${REC}/contraste.md` },
   'link-in-text-block': { texto: 'Los enlaces dentro de un párrafo deben distinguirse sin depender solo del color (subrayado).', receta: `${REC}/enlaces.md` },
@@ -152,7 +152,7 @@ export const ARREGLOS = {
   'skip-link': { texto: 'El enlace para saltar bloques apunta a un destino que no existe o no es enfocable.', receta: `${REC}/estructura.md` },
   'region': { texto: 'Mete todo el contenido en regiones (`<header>`, `<nav>`, `<main>`, `<footer>`).', receta: `${REC}/estructura.md` },
   'landmark-one-main': { texto: 'La página debe tener exactamente un `<main>`.', receta: `${REC}/estructura.md` },
-  'landmark-unique': { texto: 'Diferencia regiones repetidas con `aria-label` («Menú principal», «Pie»).', receta: `${REC}/estructura.md` },
+  'landmark-unique': { texto: 'Diferencia regiones repetidas con un `aria-label` según su contexto («Menú principal» y «Pie»; dos `role="search"`: «Buscar en la cabecera» y «Buscar en la página»).', receta: `${REC}/estructura.md` },
   'page-has-heading-one': { texto: 'Añade un `<h1>` que describa la página.', receta: `${REC}/estructura.md` },
   'heading-order': { texto: 'No saltes niveles de encabezado (h2 → h4); usa CSS para el tamaño.', receta: `${REC}/estructura.md` },
   'empty-heading': { texto: 'Los encabezados no pueden estar vacíos.', receta: `${REC}/estructura.md` },
@@ -207,13 +207,101 @@ export const ARREGLOS = {
   'p-as-heading': { texto: 'No uses párrafos en negrita como encabezados; usa `<h2>`…', receta: `${REC}/estructura.md` },
   'summary-name': { texto: 'El `<summary>` necesita texto.', receta: `${REC}/botones.md` },
   'server-side-image-map': { texto: 'Sustituye los mapas de imagen del lado servidor por enlaces.', receta: `${REC}/imagenes.md` },
+  'aria-braille-equivalent': { texto: 'Si usas `aria-braillelabel` o `aria-brailleroledescription`, añade también su equivalente sin braille.', receta: 'references/patrones-aria.md' },
+  'aria-conditional-attr': { texto: 'Quita los atributos ARIA que no se permiten en este estado del rol (p. ej. `aria-checked` en un checkbox nativo).', receta: 'references/patrones-aria.md' },
+  'aria-deprecated-role': { texto: 'Sustituye el rol obsoleto por uno vigente.', receta: 'references/patrones-aria.md' },
+  'aria-meter-name': { texto: 'Los elementos `meter` necesitan nombre accesible.', receta: 'references/patrones-aria.md' },
+  'aria-roledescription': { texto: 'Usa `aria-roledescription` solo en elementos con un rol que lo admita.', receta: 'references/patrones-aria.md' },
+  'aria-tab-name': { texto: 'Cada `tab` necesita nombre accesible.', receta: 'references/patrones-aria.md' },
+  'aria-text': { texto: 'No uses `role="text"` en elementos con descendientes enfocables.', receta: 'references/patrones-aria.md' },
+  'aria-treeitem-name': { texto: 'Cada `treeitem` necesita nombre accesible.', receta: 'references/patrones-aria.md' },
+  'avoid-inline-spacing': { texto: 'No fijes el espaciado de texto con `!important` en línea: impide que el usuario lo ajuste.', receta: `${REC}/estructura.md` },
+  'frame-tested': { texto: 'El iframe no se pudo analizar: audita su contenido por separado.', receta: `${REC}/video-y-animaciones.md` },
+  'frame-title-unique': { texto: 'Cada iframe necesita un `title` distinto.', receta: `${REC}/video-y-animaciones.md` },
+  'hidden-content': { texto: 'axe no pudo analizar contenido oculto: revísalo con ese contenido visible (`--estados`).', receta: `${REC}/estructura.md` },
+  'landmark-banner-is-top-level': { texto: 'La región `banner` no debe ir dentro de otra región.', receta: `${REC}/estructura.md` },
+  'landmark-complementary-is-top-level': { texto: 'La región `complementary` (`<aside>`) debe estar en el nivel superior.', receta: `${REC}/estructura.md` },
+  'landmark-contentinfo-is-top-level': { texto: 'La región `contentinfo` no debe ir dentro de otra región.', receta: `${REC}/estructura.md` },
+  'landmark-main-is-top-level': { texto: '`<main>` no debe ir dentro de otra región.', receta: `${REC}/estructura.md` },
+  'landmark-no-duplicate-banner': { texto: 'Solo debe haber un `banner`.', receta: `${REC}/estructura.md` },
+  'landmark-no-duplicate-contentinfo': { texto: 'Solo debe haber un `contentinfo`.', receta: `${REC}/estructura.md` },
+  'landmark-no-duplicate-main': { texto: 'Solo debe haber un `<main>`.', receta: `${REC}/estructura.md` },
+  'meta-viewport-large': { texto: 'Permite un zoom amplio: quita `maximum-scale` y `user-scalable=no` del viewport.', receta: `${REC}/estructura.md` },
+  'table-fake-caption': { texto: 'Usa `<caption>` en lugar de una celda que simula el título de la tabla.', receta: `${REC}/tablas.md` },
   // Comprobaciones propias de auditar.mjs
   'reflow-320': { texto: 'A 320 px de ancho aparece scroll horizontal: usa unidades relativas, `flex-wrap`, `max-width:100%` y evita anchos fijos.', receta: `${REC}/estructura.md` },
   'foco-no-visible': { texto: 'El elemento recibe foco sin indicador visible: añade estilos `:focus-visible` (contorno ≥ 2 px con contraste 3:1).', receta: `${REC}/teclado-y-foco.md` },
   'foco-oculto': { texto: 'El elemento enfocado queda oculto o fuera de la pantalla (cabecera fija, tamaño cero): usa `scroll-padding-top` o retira del orden de tabulación lo que no se ve.', receta: `${REC}/teclado-y-foco.md` },
   'trampa-foco': { texto: 'El foco queda atrapado en el mismo elemento: revisa los manejadores de teclado.', receta: `${REC}/teclado-y-foco.md` },
   'sin-enlace-saltar': { texto: 'El primer elemento enfocable no es un enlace «Saltar al contenido».', receta: `${REC}/estructura.md` },
+  'tabindex-positivo': { texto: 'Cambia el `tabindex` positivo por `0` y ordena el DOM.', receta: `${REC}/teclado-y-foco.md` },
+  'orden-foco-sospechoso': { texto: 'Comprueba con el teclado que el orden sigue el de lectura; si no, reordena el DOM.', receta: `${REC}/teclado-y-foco.md` },
+  'movimiento-sin-pausa': { texto: 'Añade un botón visible de pausa cerca del contenido que se mueve o haz que no arranque solo.', receta: `${REC}/video-y-animaciones.md` },
+  'movimiento-reducido-ignorado': { texto: 'Detén animaciones y vídeos automáticos con `@media (prefers-reduced-motion: reduce)`.', receta: `${REC}/video-y-animaciones.md` },
+  'modal-sin-foco': { texto: 'Mueve el foco dentro del diálogo al abrirlo (`<dialog>` con `showModal()` lo hace solo).', receta: `${REC}/modales.md` },
+  'modal-foco-escapa': { texto: 'Retén el foco dentro del diálogo: `showModal()` o `inert` en el resto de la página.', receta: `${REC}/modales.md` },
+  'modal-esc': { texto: 'Haz que Esc cierre el diálogo.', receta: `${REC}/modales.md` },
+  'modal-foco-no-vuelve': { texto: 'Al cerrar, devuelve el foco al control que abrió el diálogo.', receta: `${REC}/modales.md` },
+  'desplegable-sin-estado': { texto: 'Actualiza `aria-expanded` al abrir y cerrar el desplegable.', receta: `${REC}/menus.md` },
+  'espaciado-recorta': { texto: 'Quita alturas fijas y `overflow:hidden` del contenedor de texto; usa `min-height`.', receta: `${REC}/estructura.md` },
+  'zoom-200-desborde': { texto: 'Al 200 % aparece scroll horizontal: usa anchos relativos y `flex-wrap`.', receta: `${REC}/estructura.md` },
+  'zoom-200-cabecera': { texto: 'Reduce los elementos fijos a poca altura de ventana (`@media (max-height: …)`, sin `position: sticky`).', receta: `${REC}/estructura.md` },
+  'texto-sobre-media': { texto: 'Pon un fondo o velo opaco bajo el texto, o cambia su color, para llegar al contraste mínimo en todo el fondo.', receta: `${REC}/contraste.md` },
 };
+
+/**
+ * Quién puede resolver cada regla.
+ * - automatico: `arreglar.mjs` tiene un arreglo seguro, revisable en un diff.
+ * - humano: hace falta contenido o una decisión que el código no contiene.
+ * - asistido (por defecto): lo puede hacer un agente o desarrollador con la receta.
+ */
+export const ARREGLO_AUTOMATICO = {
+  'html-has-lang': 'lang-html',
+  'html-lang-valid': 'lang-formato',
+  'meta-viewport': 'viewport-zoom',
+  'meta-viewport-large': 'viewport-zoom',
+  tabindex: 'tabindex-positivo',
+  'tabindex-positivo': 'tabindex-positivo',
+  marquee: 'marquee-blink',
+  blink: 'marquee-blink',
+  'foco-no-visible': 'outline-none',
+  'movimiento-reducido-ignorado': 'css-movimiento',
+};
+
+export const CRITERIO_HUMANO = {
+  'image-alt': 'El texto alternativo depende de qué comunica la imagen en esa página. Un agente puede proponerlo viendo la imagen, pero alguien debe validarlo; nunca lo generes por el nombre del fichero.',
+  'input-image-alt': 'El texto debe decir la acción del botón.',
+  'role-img-alt': 'El nombre depende de lo que representa el gráfico.',
+  'svg-img-alt': 'Decide si el SVG informa (necesita nombre) o decora (`aria-hidden="true"`).',
+  'object-alt': 'La alternativa depende del contenido incrustado.',
+  'area-alt': 'El texto depende de a dónde lleva cada zona.',
+  'link-name': 'El nombre debe decir a dónde lleva el enlace.',
+  'button-name': 'El nombre debe decir qué hace el botón: compruébalo en la interfaz.',
+  label: 'La etiqueta debe decir qué dato se pide y ser visible, lo que puede cambiar el diseño del formulario.',
+  'select-name': 'La etiqueta debe decir qué se elige.',
+  'document-title': 'El título debe describir cada página y distinguirla de las demás.',
+  'page-has-heading-one': 'El título principal es una decisión de contenido.',
+  'empty-heading': 'Decide si el encabezado sobra o le falta texto.',
+  'heading-order': 'La jerarquía de encabezados refleja la estructura del contenido.',
+  'color-contrast': 'Cambiar colores toca la marca: propón el token mínimo que llega a 4,5:1 y que alguien lo apruebe.',
+  'texto-sobre-media': 'Velo, cambio de color o de imagen: es una decisión de diseño. Compruébalo con todas las imágenes y fotogramas que pueda haber.',
+  'link-in-text-block': 'Subrayar enlaces cambia el aspecto del texto corrido.',
+  'frame-title': 'El título debe decir qué contiene el iframe.',
+  'video-caption': 'Los subtítulos los debe escribir o revisar una persona; la transcripción automática sola no basta.',
+  'audio-caption': 'La transcripción la debe escribir o revisar una persona.',
+  'no-autoplay-audio': 'Quitar el sonido automático puede tocar una decisión de producto.',
+  'movimiento-sin-pausa': 'Si el movimiento es esencial no hace falta pausa; si no, decide entre pausa, parar a los 5 s o quitarlo.',
+  'orden-foco-sospechoso': 'Solo una persona puede decir si el orden tiene sentido.',
+  'identical-links-same-purpose': 'Decide si los dos destinos deben ser el mismo o tener nombres distintos.',
+  'label-content-name-mismatch': 'El nombre accesible debe contener el texto visible; decide cuál de los dos cambia.',
+};
+
+/** Tipo de arreglo de una regla: automatico, humano o asistido. */
+export function tipoArreglo(regla) {
+  if (ARREGLO_AUTOMATICO[regla]) return 'automatico';
+  if (CRITERIO_HUMANO[regla]) return 'humano';
+  return 'asistido';
+}
 
 /** Criterios de comprobaciones propias (no vienen de axe). */
 export const CRITERIOS_PROPIOS = {
@@ -222,4 +310,17 @@ export const CRITERIOS_PROPIOS = {
   'foco-oculto': ['2.4.11'],
   'trampa-foco': ['2.1.2'],
   'sin-enlace-saltar': ['2.4.1'],
+  'tabindex-positivo': ['2.4.3'],
+  'orden-foco-sospechoso': ['2.4.3'],
+  'movimiento-sin-pausa': ['2.2.2'],
+  'movimiento-reducido-ignorado': [], // 2.3.3 es AAA: buena práctica, no requisito AA
+  'modal-sin-foco': ['2.4.3'],
+  'modal-foco-escapa': ['2.4.3'],
+  'modal-esc': [], // patrón de la WAI-ARIA APG, no requisito AA en sí
+  'modal-foco-no-vuelve': ['2.4.3'],
+  'desplegable-sin-estado': ['4.1.2'],
+  'espaciado-recorta': ['1.4.12'],
+  'zoom-200-desborde': ['1.4.4'],
+  'zoom-200-cabecera': ['1.4.10'],
+  'texto-sobre-media': ['1.4.3'],
 };

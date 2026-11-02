@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><title>Trampa de foco</title><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+<body>
+  <main>
+    <h1>Trampa de foco entre dos botones</h1>
+    <button id="a" type="button">Uno</button>
+    <button id="b" type="button">Dos</button>
+    <button id="c" type="button">Nunca se llega aquí</button>
+  </main>
+  <script>
+    const a = document.getElementById('a');
+    const b = document.getElementById('b');
+    b.addEventListener('keydown', (e) => { if (e.key === 'Tab') { e.preventDefault(); a.focus(); } });
+  </script>
+</body>
+</html>
